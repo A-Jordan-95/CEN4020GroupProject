@@ -1,5 +1,5 @@
 # CEN4020GroupProject
--Group memebers:
+-Group members:
   -Alexander Jordan
   -Anthony Micciche
   -Alexander Kostandarithes
