@@ -2,7 +2,9 @@
 -Group memebers:
   -Alexander Jordan
   -Anthony Micciche
-  
+  -Alexander Kostandarithes
+  -Ryan Goldberg
+
   -Project ideas:
     -some sort of game, maybe an rpg
     -post relevant gameplay/storyline ideas here:
