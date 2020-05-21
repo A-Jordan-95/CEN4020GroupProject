@@ -12,6 +12,8 @@
         -<gameplay ideas>
     -Assuming 2d gameplay we need to find a language/framework that will work well:
       -python has a pretty cool game design library called arcade, I think this could be a good option
+      -edit: https://arcade.academy/ <- check out arcade documentation here, the tutorials make it seem
+                                        pretty straightforward to use.
       -post other possible ideas/frameworks to use here:
         -<framework ideas>
    -Also need to come up with a title for the game to turn in monday 25th of may:
