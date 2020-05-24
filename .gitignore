@@ -1,0 +1,10 @@
+.idea/.gitignore
+.idea/CEN4020GroupProject.iml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.venv/Include/
+venv/Lib/
+venv/Scripts/
+venv/pyvenv.cfg
