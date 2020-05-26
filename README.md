@@ -1,17 +1,19 @@
-# CEN4020GroupProject
--Group members:
-  -Alexander Jordan
-  -Anthony Micciche
-  -Alexander Kostandarithes
-  -Ryan Goldberg
+# "Korona Kingdom"
+- Group members:
+  - Alexander Jordan
+  - Anthony Micciche
+  - Alexander Kostandarithes
+  - Ryan Goldberg
 
-  -Project ideas:
-    -some sort of game, maybe an rpg
-    -post relevant gameplay/storyline ideas here:
-        -<gameplay ideas>
-    -Assuming 2d gameplay we need to find a language/framework that will work well:
-      -python has a pretty cool game design library called arcade, I think this could be a good option
-      -post other possible ideas/frameworks to use here:
-        -<framework ideas>
-   -Also need to come up with a title for the game to turn in monday 25th of may:
-      -<title ideas>
+  - Project ideas:
+    - Turn Based RPG
+    - Based on a dystopian/apocalyptic parody of current pandemic
+    - goal of game is to acquire a roll of toilet paper
+    - have to work your way through three "dungeons"
+      - Dollar store
+      - local school
+      - 'MalMart'
+    - each dungeons has random enemy encounters and bosses
+    - the sprites and map art will be artistic contributions of the team.
+    - the game will be built using the python language and arcade library:
+      - https://arcade.academy/
