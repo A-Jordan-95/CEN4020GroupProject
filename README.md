@@ -13,7 +13,7 @@
       - Dollar store
       - local school
       - 'MalMart'
-    - each dungeons has random enemy encounters and bosses
+    - each dungeon has random enemy encounters and bosses
     - the sprites and map art will be artistic contributions of the team.
     - the game will be built using the python language and arcade library:
       - https://arcade.academy/
