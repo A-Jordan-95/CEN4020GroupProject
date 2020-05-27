@@ -42,7 +42,7 @@ class RPG(arcade.Window):
         self.player_sprite.center_y = 64
 
          # Create a series of horizontal tree walls
-        for y in range(0, 800, 200):
+        for y in range(0, 800, 264):
             for x in range(100, 700, 64):
                 wall = arcade.Sprite("Images/NPCS/tree.png", 1.0)
                 wall.center_x = x
