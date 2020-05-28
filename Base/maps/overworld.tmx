@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" name="My_tiles" tilewidth="128" tileheight="128" tilecount="6" columns="0">
+  <grid orientation="orthogonal" width="1" height="1"/>
+  <tile id="0">
+   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/grass.png"/>
+  </tile>
+  <tile id="1">
+   <image width="71" height="102" source="../Images/NPCS/tree.png"/>
+  </tile>
+  <tile id="2">
+   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/dollarstore.png"/>
+  </tile>
+  <tile id="3">
+   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/Malmart.png"/>
+  </tile>
+  <tile id="4">
+   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/School.png"/>
+  </tile>
+  <tile id="5">
+   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/House.png"/>
+  </tile>
+ </tileset>
+ <layer id="1" name="walls" width="45" height="35">
+  <data encoding="base64" compression="zlib">
+   eJzt08sKgDAMRNHU1/9/sis3kmBmCrbRCXRTbsvBYjOzVnAdVmcuc6W5m0e/d+YbeuZl8GLMMyzEXGG+Ys6+Uc+ZTB810V7mX+g5k+mjRmaZZeYMaC8zZ0B7mTkD2svMGdBeZs6A9jJzBrSXmTOgvcycAe3/YPb2t4f7vTMr0O/JO7292Ufmd6YVXSfhGgKd
+  </data>
+ </layer>
+</map>
