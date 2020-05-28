@@ -2,11 +2,19 @@ import arcade
 import random
 import os
 
-SPRITE_SCALING = 0.5
-MOVEMENT_SPEED = 5
-SCREEN_WIDTH = 800
+
+CHARACTER_SCALING = 1.0
+TILE_SCALING = 1.25
+COIN_SCALING = 0.25
+SPRITE_PIXEL_SIZE = 128
+GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
+MOVEMENT_SPEED = 15
+SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
-VIEWPORT_MARGIN = 40
+LEFT_VIEWPORT_MARGIN = 250
+RIGHT_VIEWPORT_MARGIN = 250
+BOTTOM_VIEWPORT_MARGIN = 100
+TOP_VIEWPORT_MARGIN = 100
 
 class RPG(arcade.Window):
 
@@ -14,7 +22,7 @@ class RPG(arcade.Window):
         #Initialize the game
         super().__init__(width, height, title, resizable=False)
         #variables that will hold sprite lists:
-        self.all_sprites_list = None
+        self.player_list = None
 
         #player info:
         self.player_sprite = None
@@ -26,28 +34,33 @@ class RPG(arcade.Window):
         self.view_bottom = 0
         self.view_left = 0
         #Set background color and center window
-        arcade.set_background_color(arcade.color.ARSENIC)
+        arcade.set_background_color(arcade.csscolor.BURLYWOOD)
 
     def setup(self):
         # Create your sprites and sprite lists here
         #sprite list:
-        self.all_sprites_list = arcade.SpriteList()
+        self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
 
         #player setup:
-        self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", 1.0)
-        self.player_sprite.center_x = 50
-        self.player_sprite.center_y = 64
+        self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
+        self.player_sprite.center_x = 384
+        self.player_sprite.center_y = 5500
+        self.player_list.append(self.player_sprite)
 
-         # Create a series of horizontal tree walls
-        for y in range(0, 800, 264):
-            for x in range(100, 700, 64):
-                wall = arcade.Sprite("Images/NPCS/tree.png", 1.0)
-                wall.center_x = x
-                wall.center_y = y
-                self.wall_list.append(wall)
+        #setup map:
+        map_name = "maps/overworld.tmx"
+        platforms_layer_name = 'walls'
+        my_map = arcade.tilemap.read_tmx(map_name)
 
+        self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
+                                              layer_name = platforms_layer_name,
+                                              scaling = TILE_SCALING)
+
+        #setup background:
+        if my_map.background_color:
+            arcade.set_background_color(my_map.background_color)
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
         self.view_bottom = 0
         self.view_left = 0
@@ -57,7 +70,7 @@ class RPG(arcade.Window):
         # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
         self.wall_list.draw()
-        self.player_sprite.draw()
+        self.player_list.draw()
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -69,43 +82,32 @@ class RPG(arcade.Window):
         # Keep track of if we changed the boundary. We don't want to call the
         # set_viewport command if we didn't change the view port.
         changed = False
-
-        # Scroll left
-        left_boundary = self.view_left + VIEWPORT_MARGIN
+        #left:
+        left_boundary = self.view_left + LEFT_VIEWPORT_MARGIN
         if self.player_sprite.left < left_boundary:
             self.view_left -= left_boundary - self.player_sprite.left
             changed = True
-
-        # Scroll right
-        right_boundary = self.view_left + SCREEN_WIDTH - VIEWPORT_MARGIN
+        #right:
+        right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
         if self.player_sprite.right > right_boundary:
             self.view_left += self.player_sprite.right - right_boundary
             changed = True
-
-        # Scroll up
-        top_boundary = self.view_bottom + SCREEN_HEIGHT - VIEWPORT_MARGIN
+        #up:
+        top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
         if self.player_sprite.top > top_boundary:
             self.view_bottom += self.player_sprite.top - top_boundary
             changed = True
-
-        # Scroll down
-        bottom_boundary = self.view_bottom + VIEWPORT_MARGIN
+        #down:
+        bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
         if self.player_sprite.bottom < bottom_boundary:
             self.view_bottom -= bottom_boundary - self.player_sprite.bottom
             changed = True
 
-        self.view_left = int(self.view_left)
-        self.view_bottom = int(self.view_bottom)
-
-        # If we changed the boundary values, update the view port to match
         if changed:
-            arcade.set_viewport(self.view_left,
-                                SCREEN_WIDTH + self.view_left,
-                                self.view_bottom,
-                                SCREEN_HEIGHT + self.view_bottom)
-
-        # Call update to move the sprite
-        #self.player_list.update()
+            self.view_bottom = int(self.view_bottom)
+            self.view_left = int(self.view_left)
+            arcade.set_viewport(self.view_left, SCREEN_WIDTH + self.view_left,
+                                self.view_bottom, SCREEN_HEIGHT + self.view_bottom)
 
     def on_key_press(self, key, modifiers):
         #Called whenever a key is pressed
