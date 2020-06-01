@@ -2,6 +2,8 @@ import arcade
 import random
 import os
 
+#Created Classes
+import Overlay
 
 CHARACTER_SCALING = 1.0
 TILE_SCALING = 1.25
@@ -9,8 +11,8 @@ COIN_SCALING = 0.25
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
 MOVEMENT_SPEED = 15
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 LEFT_VIEWPORT_MARGIN = 250
 RIGHT_VIEWPORT_MARGIN = 250
 BOTTOM_VIEWPORT_MARGIN = 100
@@ -51,6 +53,10 @@ class RPG(arcade.Window):
         self.player_sprite.center_y = 5500
         self.player_list.append(self.player_sprite)
 
+        # Set up overlay class
+        self.overlay = Overlay.Overlay()
+        self.overlay.load_media()
+
         #setup map:
         map_name = "maps/overworld.tmx"
         platforms_layer_name = 'walls'
@@ -78,6 +84,9 @@ class RPG(arcade.Window):
         self.background_list.draw()
         self.wall_list.draw()
         self.player_list.draw()
+
+        # Testing Drawing of overlay
+        self.overlay.draw_dialogue_box("Testing Dialogue Box", self.view_bottom, self.view_left)
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -126,6 +135,11 @@ class RPG(arcade.Window):
             self.player_sprite.change_x = -MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = MOVEMENT_SPEED
+        #Hiding and showing the dialogue box currently
+        elif key == arcade.key.KEY_1:
+            self.overlay.showDialogueBox = False
+        elif key == arcade.key.KEY_2:
+            self.overlay.showDialogueBox = True
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
