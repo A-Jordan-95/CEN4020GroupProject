@@ -29,6 +29,7 @@ class RPG(arcade.Window):
 
         self.coin_list = None
         self.wall_list = None
+        self.background_list = None
         self.physics_engine = None
 
         self.view_bottom = 0
@@ -42,6 +43,7 @@ class RPG(arcade.Window):
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
+        self.background_list = arcade.SpriteList()
 
         #player setup:
         self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
@@ -54,9 +56,13 @@ class RPG(arcade.Window):
         platforms_layer_name = 'walls'
         my_map = arcade.tilemap.read_tmx(map_name)
 
+        #set up walls
         self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
                                               layer_name = platforms_layer_name,
                                               scaling = TILE_SCALING)
+
+        #set up background objects:
+        self.background_list = arcade.tilemap.process_layer(my_map, "Background", TILE_SCALING)
 
         #setup background:
         if my_map.background_color:
@@ -69,6 +75,7 @@ class RPG(arcade.Window):
         # This command should happen before we start drawing. It will clear
         # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
+        self.background_list.draw()
         self.wall_list.draw()
         self.player_list.draw()
 

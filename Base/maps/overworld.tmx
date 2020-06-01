@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" name="My_tiles" tilewidth="128" tileheight="128" tilecount="6" columns="0">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="8" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
-   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/grass.png"/>
+   <image width="128" height="128" source="dollarstore.png"/>
   </tile>
   <tile id="1">
-   <image width="71" height="102" source="../Images/NPCS/tree.png"/>
+   <image width="128" height="128" source="grass.png"/>
   </tile>
   <tile id="2">
-   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/dollarstore.png"/>
+   <image width="128" height="128" source="House.png"/>
   </tile>
   <tile id="3">
-   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/Malmart.png"/>
+   <image width="128" height="128" source="Malmart.png"/>
   </tile>
   <tile id="4">
-   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/School.png"/>
+   <image width="128" height="128" source="School.png"/>
   </tile>
   <tile id="5">
-   <image width="128" height="128" source="../../../../Pictures/Saved Pictures/House.png"/>
+   <image width="71" height="102" source="tree.png"/>
+  </tile>
+  <tile id="6">
+   <image width="128" height="128" source="wallTile.png"/>
+  </tile>
+  <tile id="7">
+   <image width="71" height="102" source="tree.png"/>
   </tile>
  </tileset>
+ <layer id="2" name="Background" width="45" height="35">
+  <data encoding="base64" compression="zlib">
+   eJztldEOgCAIRc1q8/+/uLXx4NxMwCvC1sN50zzATXNKKQfkJHZ7fHEQEudCeHHmUDp4rXHk3fMbrbeqi3s+19fSXZIHz86aWY3q9UjrH8X7J9as6nxF+b97zsj5oPswc49y166YIcLZizfaAfUuarOBctb65ma/1rm3Z0V/W+cVefJyj0Z3HmUKlQ/rXnvp90zvEN7ac2fOn/WWZm73jKXO0rfE0hnhYemM/J5VPqxmhvSO4lufu7v2l4uwqFlb903sctbQOkfjAWdSEtU=
+  </data>
+ </layer>
  <layer id="1" name="walls" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt08sKgDAMRNHU1/9/sis3kmBmCrbRCXRTbsvBYjOzVnAdVmcuc6W5m0e/d+YbeuZl8GLMMyzEXGG+Ys6+Uc+ZTB810V7mX+g5k+mjRmaZZeYMaC8zZ0B7mTkD2svMGdBeZs6A9jJzBrSXmTOgvcycAe3/YPb2t4f7vTMr0O/JO7292Ufmd6YVXSfhGgKd
+   eJzt2LEJADAQxLDvfv+Ns0MKhYAF17u+nZn9cD+p2ajZqNmo2ajZqNmo2ajZqNmo2ajZqNmo2ajZqNmo2Xj91d/uAKDoBEU=
   </data>
  </layer>
 </map>
