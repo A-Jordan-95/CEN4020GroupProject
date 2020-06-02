@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="7" columns="0">
+ <tileset firstgid="1" name="my_tiles" tilewidth="384" tileheight="256" tilecount="9" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="dollarstore.png"/>
@@ -23,6 +23,12 @@
   <tile id="8">
    <image width="128" height="128" source="tree.png"/>
   </tile>
+  <tile id="10">
+   <image width="384" height="256" source="house1.png"/>
+  </tile>
+  <tile id="12">
+   <image width="384" height="256" source="$store.png"/>
+  </tile>
  </tileset>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
@@ -31,7 +37,7 @@
  </layer>
  <layer id="1" name="walls" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt2LEJADAQxLDvfv+Ns0MKhYAF17u+nZn9cD+p2ajZqNmo2ajZqNmo2ajZqNmo2ajZqNmo2ajZqNmo2Xj91d/uAKDoBEU=
+   eJzt0DEKACAMBMF0KcT/f9dKsEu3crALBymHdFV14JK65vUbMrSfO/nPSWlm0sykmUkzk2YmzUyamTQzaWbSzKSZSTOTZibNTMnmtB3FZgRd
   </data>
  </layer>
 </map>
