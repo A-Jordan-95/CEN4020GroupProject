@@ -59,8 +59,8 @@ class Overlay():
             arcade.draw_text(text, view_left + 300, view_bottom + 120, arcade.color.BLACK, 20, anchor_x="left", anchor_y="top")
 
     def draw_player_info(self, hit_points, energy_points, view_bottom, view_left):
-        #Player Info Background
         if self.showUI:
+            # Player Info Background
             arcade.draw_rectangle_filled(view_left + 125, view_bottom + 675, 250, 100, arcade.color.BLACK)
             # Player Info Border
             arcade.draw_rectangle_outline(view_left + 125, view_bottom + 675, 250, 100, arcade.color.WHITE_SMOKE)
@@ -72,3 +72,17 @@ class Overlay():
             arcade.draw_text(str(hit_points) + " / 100 HP", view_left + 95, view_bottom + 700, arcade.color.RED, 20, anchor_x="left", anchor_y="top")
             # EP Info
             arcade.draw_text(str(energy_points) + " / 100 EP", view_left + 95, view_bottom + 670, arcade.color.GOLD, 20, anchor_x="left", anchor_y="top")
+
+    def draw_menu_bar(self, view_bottom, view_left):
+        if self.showUI:
+            #Menu Bar Background
+            arcade.draw_rectangle_filled(view_left + 1179, view_bottom + 707, 200, 27, arcade.color.BLACK)
+            #Options
+            arcade.draw_rectangle_filled(view_left + 1245, view_bottom + 707, 64, 23, arcade.color.RAZZLE_DAZZLE_ROSE)
+            arcade.draw_text("Options", view_left + 1220, view_bottom + 697, arcade.color.BLACK)
+            #Map
+            arcade.draw_rectangle_filled(view_left + 1179, view_bottom + 707, 64, 23, arcade.color.TEA_GREEN)
+            arcade.draw_text("Map", view_left + 1165, view_bottom + 697, arcade.color.BLACK)
+            #Inventory
+            arcade.draw_rectangle_filled(view_left + 1113, view_bottom + 707, 64, 23, arcade.color.BEAU_BLUE)
+            arcade.draw_text("Inventory", view_left + 1084, view_bottom + 697, arcade.color.BLACK)
