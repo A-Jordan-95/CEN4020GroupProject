@@ -3,7 +3,8 @@ import random
 import os
 
 #Created Classes
-#import Overlay
+import Overlay
+
 
 CHARACTER_SCALING = 1.0
 TILE_SCALING = 1.25
@@ -40,6 +41,11 @@ class RPG(arcade.Window):
 
         self.view_bottom = 0
         self.view_left = 0
+
+        #Overlay Usage
+        self.overlay_dialogue_string = "Testing"
+        self.speaker = "Karen"
+
         #Set background color and center window
         arcade.set_background_color(arcade.csscolor.BURLYWOOD)
 
@@ -63,8 +69,8 @@ class RPG(arcade.Window):
         self.player_list.append(self.player_sprite)
 
         # Set up overlay class
-        #self.overlay = Overlay.Overlay()
-        #self.overlay.load_media()
+        self.overlay = Overlay.Overlay()
+        self.overlay.load_media()
 
         #setup map:
         map_name = f"maps/{self.map}.tmx"
@@ -98,8 +104,15 @@ class RPG(arcade.Window):
         self.building_list.draw()
         self.player_list.draw()
 
-        # Testing Drawing of overlay
-        #self.overlay.draw_dialogue_box("Testing Dialogue Box", self.view_bottom, self.view_left)
+
+        # Overlay
+        # self.overlay.draw_dialogue_box_template(self.overlay_dialogue_string, self.view_bottom, self.view_left)
+        self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
+        #User Hitpoints and Energy (Top left)
+        self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
+        #User Menu Bar
+        self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
+
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -169,10 +182,16 @@ class RPG(arcade.Window):
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = MOVEMENT_SPEED
         #Hiding and showing the dialogue box currently
-        #elif key == arcade.key.KEY_1:
-        #    self.overlay.showDialogueBox = False
-        #elif key == arcade.key.KEY_2:
-        #    self.overlay.showDialogueBox = True
+        elif key == arcade.key.KEY_1:
+            self.overlay.showDialogueBox = False
+        elif key == arcade.key.KEY_2:
+            self.overlay.showDialogueBox = True
+            self.overlay_dialogue_string = "New string to show"
+        elif key == arcade.key.KEY_3:
+            self.overlay.showUI = False
+        elif key == arcade.key.KEY_4:
+            self.overlay.showUI = True
+            self.overlay_dialogue_string = "Brought back the UI"
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
