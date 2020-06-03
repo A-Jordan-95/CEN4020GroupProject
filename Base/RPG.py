@@ -33,6 +33,7 @@ class RPG(arcade.Window):
         self.coin_list = None
         self.wall_list = None
         self.building_list = None
+        self.door_list = None
         self.background_list = None
         self.physics_engine = None
 
@@ -47,50 +48,55 @@ class RPG(arcade.Window):
         self.speaker = "Karen"
 
         #Set background color and center window
-        arcade.set_background_color(arcade.csscolor.BURLYWOOD)
 
-    def setup(self):
+
+    def setup(self, x = None, y = None):
         # Create your sprites and sprite lists here
-        #sprite list:
-        self.player_list = arcade.SpriteList()
-        self.wall_list = arcade.SpriteList()
-        self.building_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
-        self.background_list = arcade.SpriteList()
 
         #player setup:
         self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
-        if self.map == "overworld":
-            self.player_sprite.center_x = 512
-            self.player_sprite.center_y = 5000
-        else:
-            self.player_sprite.center_x = 256
-            self.player_sprite.center_y = 128
-        self.player_list.append(self.player_sprite)
-
-        # Set up overlay class
-        self.overlay = Overlay.Overlay()
-        self.overlay.load_media()
-
         #setup map:
         map_name = f"maps/{self.map}.tmx"
         platforms_layer_name = 'walls'
         my_map = arcade.tilemap.read_tmx(map_name)
 
+        if self.map == "overworld":
+            self.building_list = arcade.SpriteList()
+            if x and y:
+                self.player_sprite.center_x = x
+                self.player_sprite.center_y = y
+            else:
+                self.player_sprite.center_x = 512
+                self.player_sprite.center_y = 5000
+            self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
+            arcade.set_background_color(arcade.csscolor.BURLYWOOD)
+        else:
+            self.door_list = arcade.SpriteList()
+            self.player_sprite.center_x = 256
+            self.player_sprite.center_y = 2960
+            self.door_list = arcade.tilemap.process_layer(my_map, "doors", TILE_SCALING)
+            arcade.set_background_color(arcade.csscolor.WHITE_SMOKE)
+
+        #sprite list:
+        self.player_list = arcade.SpriteList()
+        self.wall_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+        self.background_list = arcade.SpriteList()
+        self.player_list.append(self.player_sprite)
+        # Set up overlay class
+        self.overlay = Overlay.Overlay()
+        self.overlay.load_media()
+
         #set up walls
         self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
                                               layer_name = platforms_layer_name,
                                               scaling = TILE_SCALING)
-        if self.map == "overworld":
-            #set up building sprites:
-            self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
-
         #set up background objects:
         self.background_list = arcade.tilemap.process_layer(my_map, "Background", TILE_SCALING)
-
         #setup background:
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
+
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
         self.view_bottom = 0
         self.view_left = 0
@@ -101,10 +107,11 @@ class RPG(arcade.Window):
         arcade.start_render()
         self.background_list.draw()
         self.wall_list.draw()
-        self.building_list.draw()
+        if self.map == "overworld":
+            self.building_list.draw()
+        else:
+            self.door_list.draw()
         self.player_list.draw()
-
-
         # Overlay
         # self.overlay.draw_dialogue_box_template(self.overlay_dialogue_string, self.view_bottom, self.view_left)
         self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
@@ -122,13 +129,12 @@ class RPG(arcade.Window):
         if self.map == "overworld":
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.building_list)
-            if building_hit_list:#overworld map grid size = 5760x4480
+            if building_hit_list:
                 player_x = self.player_sprite.center_x
                 player_y = self.player_sprite.center_y
-                print(f"player_x: {player_x}\n")
-                print(f"player_y: {player_y}\n")
-                if player_x < 2880:
-                    if player_y < 2240:
+                #overworld map grid size = 5760x4480
+                if player_y < 2880:
+                    if player_x < 2240:
                         print("Changed map to malmart\n")
                         self.map = "MalMart"
                     else:
@@ -138,6 +144,20 @@ class RPG(arcade.Window):
                     self.map = "DollarStore"
                     print("Changed map to dollar store\n")
                 self.setup()
+        else:
+            door_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.door_list)
+            if door_hit_list:
+                if self.map == "DollarStore":
+                    x = 6600
+                    y = 5050
+                elif self.map == "MalMart":
+                    x = 512
+                    y = 128
+                elif self.map == "TheSchool":
+                    x = 6600
+                    y = 128
+                self.map = "overworld"
+                self.setup(x,y)
 
         # --- Manage Scrolling ---
 
