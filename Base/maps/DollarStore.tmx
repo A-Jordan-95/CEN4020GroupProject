@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="3" nextobjectid="1">
- <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="1" columns="0">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="wallTile.png"/>
+  </tile>
+  <tile id="1">
+   <image width="128" height="128" source="Door.png"/>
   </tile>
  </tileset>
  <layer id="2" name="Background" width="40" height="20">
@@ -13,7 +16,12 @@
  </layer>
  <layer id="1" name="walls" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt0LENADAIA0Gz/9JZAOo84pHcWC5OVJKCh3obfdNff/TTLpBenz59+vTpu+Sj9N2OdFt85DxH0QEp
+   eJxjZIAAxkGMBysYiu7DFa4DIY5LHcMgER9136j7Rt036r5R9426byS5b7CIY1M3mMBQcd9gxgA7VQEo
+  </data>
+ </layer>
+ <layer id="3" name="doors" width="40" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTERAAAMA6G/+hddFdmAqgsAAGDvASV4AAM=
   </data>
  </layer>
 </map>
