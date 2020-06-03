@@ -49,8 +49,8 @@ class RPG(arcade.Window):
 
         #player setup:
         self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
-        self.player_sprite.center_x = 384
-        self.player_sprite.center_y = 5500
+        self.player_sprite.center_x = 512
+        self.player_sprite.center_y = 5000
         self.player_list.append(self.player_sprite)
 
         # Set up overlay class
