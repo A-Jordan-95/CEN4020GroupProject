@@ -4,6 +4,7 @@ import os
 
 #Created Classes
 import Overlay
+import Encounter
 
 
 CHARACTER_SCALING = 1.0
@@ -31,6 +32,7 @@ class RPG(arcade.Window):
         self.player_sprite = None
 
         self.coin_list = None
+        self.rand_tile_list = None
         self.wall_list = None
         self.building_list = None
         self.door_list = None
@@ -47,6 +49,11 @@ class RPG(arcade.Window):
         self.overlay_dialogue_string = "Testing"
         self.speaker = "Karen"
 
+        #random encounters:
+        self.encounter = None
+        self.active_encounter = False
+        self.first_draw_of_encounter = True
+
         #Set background color and center window
 
 
@@ -59,6 +66,9 @@ class RPG(arcade.Window):
         map_name = f"maps/{self.map}.tmx"
         platforms_layer_name = 'walls'
         my_map = arcade.tilemap.read_tmx(map_name)
+
+        #setup encounters:
+        self.encounter = Encounter.Encounter()
 
         if self.map == "overworld":
             self.building_list = arcade.SpriteList()
@@ -119,12 +129,20 @@ class RPG(arcade.Window):
         self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
+        if self.active_encounter:
+            if self.first_draw_of_encounter:
+                self.encounter.setup(self.view_bottom, self.view_left)
+                self.first_draw_of_encounter = False
+            self.encounter.draw_encounter()
 
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
-
         self.physics_engine.update()
+        if self.active_encounter:
+            self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+        else:
+            self.overlay_dialogue_string = "New string to show"
 
         if self.map == "overworld":
             #check if building has been touched:
@@ -193,16 +211,23 @@ class RPG(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         #Called whenever a key is pressed
-        if key == arcade.key.UP:
-            self.player_sprite.change_y = MOVEMENT_SPEED
-        elif key == arcade.key.DOWN:
-            self.player_sprite.change_y = -MOVEMENT_SPEED
-        elif key == arcade.key.LEFT:
-            self.player_sprite.change_x = -MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
-            self.player_sprite.change_x = MOVEMENT_SPEED
+        if self.active_encounter:
+            if key == arcade.key.ENTER:
+                self.active_encounter = False
+                self.first_draw_of_encounter = True
+            else:
+                self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
+        else:
+            if key == arcade.key.UP:
+                self.player_sprite.change_y = MOVEMENT_SPEED
+            elif key == arcade.key.DOWN:
+                self.player_sprite.change_y = -MOVEMENT_SPEED
+            elif key == arcade.key.LEFT:
+                self.player_sprite.change_x = -MOVEMENT_SPEED
+            elif key == arcade.key.RIGHT:
+                self.player_sprite.change_x = MOVEMENT_SPEED
         #Hiding and showing the dialogue box currently
-        elif key == arcade.key.KEY_1:
+        if key == arcade.key.KEY_1:
             self.overlay.showDialogueBox = False
         elif key == arcade.key.KEY_2:
             self.overlay.showDialogueBox = True
@@ -217,8 +242,12 @@ class RPG(arcade.Window):
         #Called when the user releases a key
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.player_sprite.change_y = 0
+            if not self.active_encounter:
+                self.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player_sprite.change_x = 0
+            if not self.active_encounter:
+                self.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")
