@@ -1,5 +1,5 @@
 import arcade
-import random
+from numpy import random
 import os
 
 #Created Classes
@@ -49,13 +49,11 @@ class RPG(arcade.Window):
         self.overlay_dialogue_string = "Testing"
         self.speaker = "Karen"
 
-        #random encounters:
+        #encounters:
         self.encounter = None
         self.active_encounter = False
         self.first_draw_of_encounter = True
-
-        #Set background color and center window
-
+        self.rand_range = None
 
     def setup(self, x = None, y = None):
         # Create your sprites and sprite lists here
@@ -72,6 +70,7 @@ class RPG(arcade.Window):
 
         if self.map == "overworld":
             self.building_list = arcade.SpriteList()
+            self.rand_range = 20
             if x and y:
                 self.player_sprite.center_x = x
                 self.player_sprite.center_y = y
@@ -81,6 +80,7 @@ class RPG(arcade.Window):
             self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
             arcade.set_background_color(arcade.csscolor.BURLYWOOD)
         else:
+            self.rand_range = 10
             self.door_list = arcade.SpriteList()
             self.player_sprite.center_x = 256
             self.player_sprite.center_y = 2960
@@ -138,13 +138,14 @@ class RPG(arcade.Window):
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
-        self.physics_engine.update()
         if self.active_encounter:
             self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
         else:
             self.overlay_dialogue_string = "New string to show"
+            self.physics_engine.update()
 
         if self.map == "overworld":
+            self.rand_range = 20
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.building_list)
             if building_hit_list:
@@ -163,6 +164,7 @@ class RPG(arcade.Window):
                     print("Changed map to dollar store\n")
                 self.setup()
         else:
+            self.rand_range = 10
             door_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.door_list)
             if door_hit_list:
                 if self.map == "DollarStore":
@@ -240,14 +242,17 @@ class RPG(arcade.Window):
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
+        x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.player_sprite.change_y = 0
             if not self.active_encounter:
-                self.active_encounter  = True
+                if x == 1:
+                    self.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player_sprite.change_x = 0
             if not self.active_encounter:
-                self.active_encounter  = True
+                if x == 1:
+                    self.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")

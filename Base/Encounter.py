@@ -1,4 +1,3 @@
-import random
 import arcade
 
 class Encounter():
@@ -6,6 +5,7 @@ class Encounter():
         self.enemy_window_sprite = None
         self.command_window_sprite = None
         self.arrow_sprite = None
+        self.enemy_sprite = None
         self.windows_sprite_list = None
         self.arrow_sprite_positions = None
         self.arrow_pos = None #can be 0-3
@@ -33,6 +33,10 @@ class Encounter():
             self.arrow_pos = 0
         #setup window_sprite_list:
         self.windows_sprite_list = arcade.SpriteList()
+        #setup enemy sprite:
+        self.enemy_sprite = arcade.Sprite("Images/EnemySprites/CORONAPILLAR.png", 1.0)
+        self.enemy_sprite.center_x = view_left + 640
+        self.enemy_sprite.center_y = view_bottom + 330
         #setup encounter ui windows:
         self.enemy_window_sprite = arcade.Sprite("Images/EncounterSprites/enemy_window.png", 1.0)
         self.enemy_window_sprite.center_x = view_left + 640
@@ -43,6 +47,7 @@ class Encounter():
         #add windows to sprite list:
         self.windows_sprite_list.append(self.enemy_window_sprite)
         self.windows_sprite_list.append(self.command_window_sprite)
+        self.windows_sprite_list.append(self.enemy_sprite)
         #setup encounter ui menu:
         self.arrow_sprite = arcade.Sprite("Images/EncounterSprites/arrow.png", 0.5)
         self.arrow_sprite.center_x = self.arrow_sprite_positions[self.arrow_pos][0]
