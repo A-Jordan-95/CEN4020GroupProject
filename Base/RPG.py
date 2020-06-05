@@ -93,6 +93,7 @@ class RPG(arcade.Window):
         self.coin_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
+
         # Set up overlay class
         self.overlay = Overlay.Overlay()
         self.overlay.load_media()
@@ -122,8 +123,7 @@ class RPG(arcade.Window):
         else:
             self.door_list.draw()
         self.player_list.draw()
-        # Overlay
-        # self.overlay.draw_dialogue_box_template(self.overlay_dialogue_string, self.view_bottom, self.view_left)
+        ## Overlay
         self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
         #User Hitpoints and Energy (Top left)
         self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
