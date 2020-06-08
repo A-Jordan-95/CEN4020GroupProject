@@ -5,6 +5,7 @@ import os
 #Created Classes
 import Overlay
 import Encounter
+import Animation
 
 
 CHARACTER_SCALING = 1.0
@@ -12,7 +13,7 @@ TILE_SCALING = 1.25
 COIN_SCALING = 0.25
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
-MOVEMENT_SPEED = 10
+MOVEMENT_SPEED = 5
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 LEFT_VIEWPORT_MARGIN = 250
@@ -55,6 +56,9 @@ class RPG(arcade.Window):
         self.first_draw_of_encounter = True
         self.rand_range = None
 
+        #animation:
+        self.player = None
+
     def setup(self, x = None, y = None):
         # Create your sprites and sprite lists here
 
@@ -93,6 +97,10 @@ class RPG(arcade.Window):
         self.coin_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
         self.player_list.append(self.player_sprite)
+
+        #Set up player
+        self.player = Animation.PlayerCharacter()
+        self.player_list.append(self.player)
 
         # Set up overlay class
         self.overlay = Overlay.Overlay()
@@ -137,6 +145,10 @@ class RPG(arcade.Window):
 
 
     def on_update(self, delta_time):
+        #player animation
+        self.player_list.update()
+        self.player_list.update_animation()
+
         #movement logic and game logic goes here:
         if self.active_encounter:
             self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
