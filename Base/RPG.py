@@ -215,8 +215,9 @@ class RPG(arcade.Window):
         #Called whenever a key is pressed
         if self.active_encounter:
             if key == arcade.key.ENTER:
-                self.active_encounter = False
-                self.first_draw_of_encounter = True
+                #self.active_encounter = False
+                #self.first_draw_of_encounter = True
+                self.encounter.handle_selection()
             else:
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
