@@ -47,23 +47,22 @@ def addItem(name, playerList):
     for x in playerList:
         if x.name == "Fists":
             duplicate = 1
-    else:
-        #search by key, aka the name
-        #the value is the type and damage
-        index = 0
-        for value in masterList:
-            if value == name:
-                index = masterList[value]
-        #special case: 2 pairs of fists are not allowed
-        if (duplicate == 1):
-            return 0
-        #is the item a powerup?
-        if (index[0] == 0):
-            playerList.append(powerUp(name, index[1]))
-        #is the item a weapon
-        elif (index[0] == 1):
-            playerList.append(weapon(name, index[1]))
-        return 1
+    #search by key, aka the name
+    #the value is the type and damage
+    index = 0
+    for value in masterList:
+        if value == name:
+            index = masterList[value]
+    #special case: 2 pairs of fists are not allowed
+    if (duplicate == 1):
+        return 0
+    #is the item a powerup?
+    if (index[0] == 0):
+        playerList.append(powerUp(name, index[1]))
+    #is the item a weapon
+    elif (index[0] == 1):
+        playerList.append(weapon(name, index[1]))
+    return 1
 
 def deleteItem(name, playerList):
         i = 0
