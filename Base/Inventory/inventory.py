@@ -9,7 +9,9 @@ masterList = {
     "Fists": [1, 40],
     "Soup": [0, 35],
     "Revolver": [1, 70],
-    "McRib": [0,70]
+    "McRib": [0,70],
+    "PoolHat": [0,30],
+    "Gloves": [0,20]
 }
 #item classes (limited here to two)
 #could be expanded upon later
@@ -18,7 +20,8 @@ class powerUp():
         self.name = name
         self.health = health
         self.type = 0
-
+    def giveHealth(self):
+        return self.health
     #this is analogus to ostream overload in C++, it tells how to print an object
     def __str__(self):
         return f" Obj: {self.name} \n HP: {self.health} \n Type: Powerup \n"
@@ -28,14 +31,22 @@ class weapon():
         self.name = name
         self.damage = damage
         self.type = 1
-
     def __str__(self):
         return f" Obj: {self.name} \n DP: {self.damage} \n Type: Weapon \n"
+    def giveDamage(self):
+        return self.damage
 
 def addItem(name, playerList):
     #will not add an item if max size is achieved
+    duplicate = 0
+    occurence = 0
     if len(playerList) == MAXIMUM_SIZE:
         return 0
+    #also check if item is already in inventory
+    cpyname = None
+    for x in playerList:
+        if x.name == "Fists":
+            duplicate = 1
     else:
         #search by key, aka the name
         #the value is the type and damage
@@ -43,6 +54,9 @@ def addItem(name, playerList):
         for value in masterList:
             if value == name:
                 index = masterList[value]
+        #special case: 2 pairs of fists are not allowed
+        if (duplicate == 1):
+            return 0
         #is the item a powerup?
         if (index[0] == 0):
             playerList.append(powerUp(name, index[1]))
@@ -51,14 +65,15 @@ def addItem(name, playerList):
             playerList.append(weapon(name, index[1]))
         return 1
 
-
 def deleteItem(name, playerList):
         i = 0
         for pos in playerList:
             if pos.name == name:
                 del playerList[i]
+                return 1
             else:
                 i+=1
+        return 0
 
 def printInventory(playerList):
     for x in playerList:
@@ -67,7 +82,6 @@ def printInventory(playerList):
 #clears entire inventory
 def Strip(playerList):
     playerList.clear()
-
 
 '''
 FILE FORMAT
@@ -79,8 +93,10 @@ For an entry:
 '''
 
 def writeToFile(playerList):
+    if (len(playerList) == 0):
+        return 0
     filestream = open("save.dat", "w")
-    filestream.write(str(len(playerList)))
+    filestream.write(str(len(playerList)) )
     filestream.write("\n")
     for entry in playerList:
         filestream.write(entry.name)
@@ -93,37 +109,49 @@ def writeToFile(playerList):
         else:
             filestream.write(str(entry.health))
         filestream.write("\n")
-    print("Saved current inventory")
     filestream.close()
+    return 1
 
 
 #Note, any exisiting inventory will be overwritten
-def readFromFile(playerList):
-    filestream = open("save.dat", "r")
-    MAXIMUM_SIZE = int(filestream.readline())
-    for entry in playerList:
-        entry.name = filestream.readline()
-        type = int(filestream.readline())
-        if type:
-            entry.type = type
-            entry.damage = int(filestream.readline())
-        else:
-            entry.type = type
-            entry.health = int(filestream.readline())
-    if !(playerList):
-        print("Error, no data written in playerList")
+#Note 2, I am assuming that, when a game is loaded back, an
+#empty playerList will be created, then filled from the savefile
+#in other words, use the addItem function rather than fill into
+#an array
 
+def readFromFile():
+    filestream = open("save.dat", "r")
+    size = int(filestream.readline())
+    playerList = []
+    i = 0
+    while i < size:
+        str = filestream.readline().strip('\n')
+        type = filestream.readline()
+        type = type.strip("\n")
+        type = int(type)
+        if type:
+            damage = filestream.readline()
+            damage.strip("\n")
+            damage = int(damage)
+            playerList.append(weapon(str, damage))
+        else:
+            health = filestream.readline()
+            health.strip("\n")
+            health = int(health)
+            playerList.append(powerUp(str, health))
+        i+=1
+    filestream.close()
+    return playerList
 
 #find an item by searching it up
 #If there are duplicates, only the
 #first case will be given
 def findItem(name, playerList):
     for x in playerList:
-        print(x)
-        if x.name == name:
+        if name == x.name:
             return playerList.count(name)
         else:
-            return 0
+            return -1
 
 #simple menu function to show capabilities of these functions
 def menu():
@@ -135,6 +163,7 @@ def menu():
     print("(4) Clear inventory")
     print("(5) Find an item")
     print("(6) Write to File")
+    print("(7) Read from File")
     print("(-1) Exit")
 
 
@@ -143,7 +172,7 @@ def main():
     menu()
     x = 0
     while (x != -1):
-        x = int(input(""))
+        x = int(input("A vous de choisir >>> "))
         if x == 1:
             str = input("Enter item to be added: ")
             if (addItem(str, playerList) == 0):
@@ -151,7 +180,10 @@ def main():
             menu()
         elif x == 2:
             str = input("Enter item to be deleted: ")
-            deleteItem(str, playerList)
+            if (deleteItem(str, playerList)):
+                print("Entry Removed")
+            else:
+                print("Error in deletion")
             menu()
         elif x == 3:
             printInventory(playerList)
@@ -162,12 +194,19 @@ def main():
         elif x == 5:
             str = input("Search inventory for what item: ")
             result = findItem(str, playerList)
-            if (result == 0):
+            if (result == -1):
                 print("No cases found")
             else:
                 print(f"Item '{str}' was found in position {result}")
             menu()
         elif x == 6:
-            writeToFile(playerList)
+            if (writeToFile(playerList)):
+                print("Wrote to file")
+            else:
+                print('File did not open or inventory was empty')
             menu()
+        elif x == 7:
+            playerList = readFromFile()
+            menu()
+        print()
 if __name__ == "__main__": main()
