@@ -166,7 +166,7 @@ class RPG(arcade.Window):
                     self.first_draw_of_encounter = True
                     self.end_encounter_on_update = False
             else:
-                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."\
+                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
         #Using the inventory
         elif self.active_inventory:
             self.overlay.showUI = False
