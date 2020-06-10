@@ -11,7 +11,7 @@ class Encounter():
         self.arrow_pos = None #can be 0-3
         self.menu_sprite_list = None
         self.menu = None #list of strings optionally passed to the setup function.
-                        #can be from 0 - 4 strings in capacity
+        self.menu_offset = 0 #keeps track of menu scrolling
         self.menu_positions = None #can be 0-3
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
@@ -26,7 +26,7 @@ class Encounter():
         if menu:
             self.menu = parse_menu(menu)
         else:
-            self.menu = ["Fight", "Run", "Hide", "Pee pants"]
+            self.menu = ["Fight", "Run", "Hide", "Pee pants", "cast a spell", "climb a tree", "dig a hole", "poop pants"]
         if pos:
             self.arrow_pos = pos
         else:
@@ -58,9 +58,13 @@ class Encounter():
     def change_arrow_pos(self, key, view_left, view_bottom):
         if key == arcade.key.UP:
             if self.arrow_pos == 0:
-                self.arrow_pos = 2
+                #scroll screen up:
+                if self.menu_offset > 0:
+                    self.menu_offset -= 4
             elif self.arrow_pos == 1:
-                self.arrow_pos = 3
+                #scroll screen up:
+                if self.menu_offset > 0:
+                    self.menu_offset -= 4
             elif self.arrow_pos == 2:
                 self.arrow_pos = 0
             elif self.arrow_pos == 3:
@@ -71,9 +75,13 @@ class Encounter():
             elif self.arrow_pos == 1:
                 self.arrow_pos = 3
             elif self.arrow_pos == 2:
-                self.arrow_pos = 0
+                #scroll screen down:
+                if len(self.menu) > (self.menu_offset + 4):
+                    self.menu_offset += 4
             elif self.arrow_pos == 3:
-                self.arrow_pos = 1
+                #scroll screen down:
+                if len(self.menu) > (self.menu_offset + 4):
+                    self.menu_offset += 4
         elif key == arcade.key.LEFT:
             if self.arrow_pos == 0:
                 self.arrow_pos = 1
@@ -110,5 +118,13 @@ class Encounter():
         self.windows_sprite_list.draw()
         self.menu_sprite_list.draw()
         for x in range(0,4):
-            arcade.draw_text(self.menu[x], self.menu_positions[x][0], self.menu_positions[x][1],
-                             arcade.csscolor.WHITE, 18)
+            if len(self.menu) >= (self.menu_offset + x):
+                arcade.draw_text(self.menu[x + self.menu_offset],
+                self.menu_positions[x][0],
+                self.menu_positions[x][1],
+                arcade.csscolor.WHITE, 18)
+
+    def handle_selection(self):
+        pos = self.arrow_pos + self.menu_offset
+        return f"""You chose to {self.menu[pos]},
+Goodluck!"""

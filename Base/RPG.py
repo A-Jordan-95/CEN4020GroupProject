@@ -52,6 +52,7 @@ class RPG(arcade.Window):
         #encounters:
         self.encounter = None
         self.active_encounter = False
+        self.handle_selection = False
         self.first_draw_of_encounter = True
         self.rand_range = None
 
@@ -139,7 +140,10 @@ class RPG(arcade.Window):
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
         if self.active_encounter:
-            self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+            if self.handle_selection:
+                self.overlay_dialogue_string = self.encounter.handle_selection()
+            else:
+                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
         else:
             self.overlay_dialogue_string = "New string to show"
             self.physics_engine.update()
@@ -215,8 +219,9 @@ class RPG(arcade.Window):
         #Called whenever a key is pressed
         if self.active_encounter:
             if key == arcade.key.ENTER:
-                self.active_encounter = False
-                self.first_draw_of_encounter = True
+                self.handle_selection = True
+                #self.active_encounter = False
+                #self.first_draw_of_encounter = True
             else:
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
