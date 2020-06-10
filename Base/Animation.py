@@ -8,19 +8,18 @@ UPDATES_PER_FRAME = 7
 def load_texture_pair(filename):
     return [
         arcade.load_texture(filename),
-        arcade.load_texture(filename, flipped_horizontally=True)
+        arcade.load_texture(filename, mirrored=True)
     ]
     #load a texture pair with a mirrored image
 
 class PlayerCharacter(arcade.Sprite):
     def __init__(self):
         super().__init__()
-
         self.character_face_direction = RIGHT_FACING
         #always start facing right
         self.cur_texture = 0
         self.scale = CHARACTER_SCALING
-        main_path = ":Images/PlayerSprites/RachelRight"
+        main_path = "Images/PlayerSprites/RachelRight"
 
         self.idle_texture_pair = load_texture_pair(f"{main_path}_idle.png")
 
