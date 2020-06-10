@@ -125,5 +125,6 @@ class Encounter():
                 arcade.csscolor.WHITE, 18)
 
     def handle_selection(self):
-
-        pass
+        pos = self.arrow_pos + self.menu_offset
+        return f"""You chose to {self.menu[pos]},
+Goodluck!"""
