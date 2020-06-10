@@ -1,6 +1,7 @@
 import arcade
 from numpy import random
 import os
+import time
 
 #Created Classes
 import Overlay
@@ -55,6 +56,7 @@ class RPG(arcade.Window):
         self.handle_selection = False
         self.first_draw_of_encounter = True
         self.rand_range = None
+        self.end_encounter_on_update = False
 
     def setup(self, x = None, y = None):
         # Create your sprites and sprite lists here
@@ -141,7 +143,12 @@ class RPG(arcade.Window):
         #movement logic and game logic goes here:
         if self.active_encounter:
             if self.handle_selection:
-                self.overlay_dialogue_string = self.encounter.handle_selection()
+                self.overlay_dialogue_string = f"you chose to {self.encounter.handle_selection()}, good luck"
+                #self.handle_selection = False
+                if self.end_encounter_on_update:
+                    self.active_encounter = False
+                    self.first_draw_of_encounter = True
+                    self.end_encounter_on_update = False
             else:
                 self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
         else:
@@ -220,9 +227,11 @@ class RPG(arcade.Window):
         if self.active_encounter:
             if key == arcade.key.ENTER:
                 self.handle_selection = True
-                #self.active_encounter = False
-                #self.first_draw_of_encounter = True
+                return_string = self.encounter.handle_selection()
+                if return_string == "Run" or return_string == "Hide":
+                    self.end_encounter_on_update = True
             else:
+                self.handle_selection = False
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
             if key == arcade.key.UP:

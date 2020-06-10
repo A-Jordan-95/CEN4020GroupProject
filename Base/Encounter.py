@@ -126,5 +126,4 @@ class Encounter():
 
     def handle_selection(self):
         pos = self.arrow_pos + self.menu_offset
-        return f"""You chose to {self.menu[pos]},
-Goodluck!"""
+        return f"{self.menu[pos]}"
