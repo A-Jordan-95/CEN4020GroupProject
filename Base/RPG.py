@@ -6,7 +6,9 @@ import time
 #Created Classes
 import Overlay
 import Encounter
+import Animation
 import Inventory
+
 
 
 CHARACTER_SCALING = 1.0
@@ -14,7 +16,7 @@ TILE_SCALING = 1.25
 COIN_SCALING = 0.25
 SPRITE_PIXEL_SIZE = 128
 GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
-MOVEMENT_SPEED = 10
+MOVEMENT_SPEED = 5
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 LEFT_VIEWPORT_MARGIN = 250
@@ -61,11 +63,24 @@ class RPG(arcade.Window):
         self.encounter = None
         self.rand_range = None
 
+        #animation:
+        self.player = None
+
     def setup(self, x = None, y = None):
-        # Create your sprites and sprite lists here
+
+        #sprite list:
+        self.player_list = arcade.SpriteList()
+        self.wall_list = arcade.SpriteList()
+        self.coin_list = arcade.SpriteList()
+        self.background_list = arcade.SpriteList()
+        #self.player_list.append(self.player_sprite)
+
+
 
         #player setup:
-        self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
+        #self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
+        self.player = Animation.PlayerCharacter()
+
         #setup map:
         map_name = f"maps/{self.map}.tmx"
         platforms_layer_name = 'walls'
@@ -80,27 +95,23 @@ class RPG(arcade.Window):
             self.building_list = arcade.SpriteList()
             self.rand_range = 20
             if x and y:
-                self.player_sprite.center_x = x
-                self.player_sprite.center_y = y
+                self.player.center_x = x
+                self.player.center_y = y
             else:
-                self.player_sprite.center_x = 512
-                self.player_sprite.center_y = 5000
+                self.player.center_x = 512
+                self.player.center_y = 5000
             self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
             arcade.set_background_color(arcade.csscolor.BURLYWOOD)
         else:
             self.rand_range = 10
             self.door_list = arcade.SpriteList()
-            self.player_sprite.center_x = 256
-            self.player_sprite.center_y = 2960
+            self.player.center_x = 256
+            self.player.center_y = 2960
             self.door_list = arcade.tilemap.process_layer(my_map, "doors", TILE_SCALING)
             arcade.set_background_color(arcade.csscolor.WHITE_SMOKE)
 
-        #sprite list:
-        self.player_list = arcade.SpriteList()
-        self.wall_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
-        self.background_list = arcade.SpriteList()
-        self.player_list.append(self.player_sprite)
+        self.player_list.append(self.player)
+
 
         # Set up overlay class
         self.overlay = Overlay.Overlay()
@@ -119,7 +130,7 @@ class RPG(arcade.Window):
         if my_map.background_color:
             arcade.set_background_color(my_map.background_color)
 
-        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
+        self.physics_engine = arcade.PhysicsEngineSimple(self.player, self.wall_list)
         self.view_bottom = 0
         self.view_left = 0
 
@@ -154,6 +165,10 @@ class RPG(arcade.Window):
             self.inventory.draw_inventory()
 
     def on_update(self, delta_time):
+        #player animation
+        self.player_list.update()
+        self.player_list.update_animation()
+
         #movement logic and game logic goes here:
         if self.encounter.active_encounter:
             if self.encounter.handle_selection:
@@ -175,10 +190,10 @@ class RPG(arcade.Window):
         if self.map == "overworld":
             self.rand_range = 20
             #check if building has been touched:
-            building_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.building_list)
+            building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
-                player_x = self.player_sprite.center_x
-                player_y = self.player_sprite.center_y
+                player_x = self.player.center_x
+                player_y = self.player.center_y
                 #overworld map grid size = 5760x4480
                 if player_y < 2880:
                     if player_x < 2240:
@@ -193,7 +208,7 @@ class RPG(arcade.Window):
                 self.setup()
         else:
             self.rand_range = 10
-            door_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.door_list)
+            door_hit_list = arcade.check_for_collision_with_list(self.player, self.door_list)
             if door_hit_list:
                 if self.map == "DollarStore":
                     x = 6600
@@ -214,23 +229,23 @@ class RPG(arcade.Window):
         changed = False
         #left:
         left_boundary = self.view_left + LEFT_VIEWPORT_MARGIN
-        if self.player_sprite.left < left_boundary:
-            self.view_left -= left_boundary - self.player_sprite.left
+        if self.player.left < left_boundary:
+            self.view_left -= left_boundary - self.player.left
             changed = True
         #right:
         right_boundary = self.view_left + SCREEN_WIDTH - RIGHT_VIEWPORT_MARGIN
-        if self.player_sprite.right > right_boundary:
-            self.view_left += self.player_sprite.right - right_boundary
+        if self.player.right > right_boundary:
+            self.view_left += self.player.right - right_boundary
             changed = True
         #up:
         top_boundary = self.view_bottom + SCREEN_HEIGHT - TOP_VIEWPORT_MARGIN
-        if self.player_sprite.top > top_boundary:
-            self.view_bottom += self.player_sprite.top - top_boundary
+        if self.player.top > top_boundary:
+            self.view_bottom += self.player.top - top_boundary
             changed = True
         #down:
         bottom_boundary = self.view_bottom + BOTTOM_VIEWPORT_MARGIN
-        if self.player_sprite.bottom < bottom_boundary:
-            self.view_bottom -= bottom_boundary - self.player_sprite.bottom
+        if self.player.bottom < bottom_boundary:
+            self.view_bottom -= bottom_boundary - self.player.bottom
             changed = True
 
         if changed:
@@ -252,13 +267,13 @@ class RPG(arcade.Window):
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
             if key == arcade.key.UP:
-                self.player_sprite.change_y = MOVEMENT_SPEED
+                self.player.change_y = MOVEMENT_SPEED
             elif key == arcade.key.DOWN:
-                self.player_sprite.change_y = -MOVEMENT_SPEED
+                self.player.change_y = -MOVEMENT_SPEED
             elif key == arcade.key.LEFT:
-                self.player_sprite.change_x = -MOVEMENT_SPEED
+                self.player.change_x = -MOVEMENT_SPEED
             elif key == arcade.key.RIGHT:
-                self.player_sprite.change_x = MOVEMENT_SPEED
+                self.player.change_x = MOVEMENT_SPEED
         #Hiding and showing the dialogue box currently
         if key == arcade.key.KEY_1:
             self.overlay.showDialogueBox = False
@@ -285,13 +300,14 @@ class RPG(arcade.Window):
         #Called when the user releases a key
         x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
-            self.player_sprite.change_y = 0
+
+            self.player.change_y = 0
             # Dont want encounters when using the menu
             if not self.encounter.active_encounter and not self.active_inventory:
                 if x == 1:
                     self.encounter.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.player_sprite.change_x = 0
+            self.player.change_x = 0
             # Dont want encounters when using the menu
             if not self.encounter.active_encounter and not self.active_inventory:
                 if x == 1:
