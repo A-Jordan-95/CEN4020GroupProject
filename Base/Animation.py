@@ -22,7 +22,7 @@ class PlayerCharacter(arcade.Sprite):
         main_path = "Images/PlayerSprites/RachelRight"
 
         self.idle_texture_pair = load_texture_pair(f"{main_path}_idle.png")
-
+        self.texture = self.idle_texture_pair[self.character_face_direction]
         self.walk_textures = []
         for i in range(8):
             texture = load_texture_pair(f"{main_path}_walk{i}.png")
