@@ -165,9 +165,7 @@ class RPG(arcade.Window):
             self.inventory.draw_inventory()
 
     def on_update(self, delta_time):
-        #player animation
-        self.player_list.update()
-        self.player_list.update_animation()
+
 
         #movement logic and game logic goes here:
         if self.encounter.active_encounter:
@@ -186,6 +184,10 @@ class RPG(arcade.Window):
         else:
             self.overlay_dialogue_string = "New string to show"
             self.physics_engine.update()
+
+            # player animation
+            self.player_list.update()
+            self.player_list.update_animation()
 
         if self.map == "overworld":
             self.rand_range = 20
