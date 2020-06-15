@@ -1,3 +1,5 @@
+# This is a driver for testing the combat module
+
 import koronakombat as kk
 
 hero = kk.Hero(10,8,6, ['Attack'], 'Hero')
