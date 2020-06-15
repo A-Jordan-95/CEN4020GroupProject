@@ -1,11 +1,14 @@
 import arcade
 from numpy import random
 import os
+import time
 
 #Created Classes
 import Overlay
 import Encounter
 import Animation
+import Inventory
+
 
 
 CHARACTER_SCALING = 1.0
@@ -47,14 +50,22 @@ class RPG(arcade.Window):
         self.view_left = 0
 
         #Overlay Usage
+        self.overlay = None
         self.overlay_dialogue_string = "Testing"
         self.speaker = "Karen"
+
+        #Inventory Usage
+        self.inventory = None
+        self.active_inventory = False
+        self.first_draw_of_inventory = True
 
         #encounters:
         self.encounter = None
         self.active_encounter = False
+        self.handle_selection = False
         self.first_draw_of_encounter = True
         self.rand_range = None
+        self.end_encounter_on_update = False
 
         #animation:
         self.player = None
@@ -108,6 +119,9 @@ class RPG(arcade.Window):
         self.overlay = Overlay.Overlay()
         self.overlay.load_media()
 
+        #Set up Inventory Class
+        self.inventory = Inventory.Inventory()
+
         #set up walls
         self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
                                               layer_name = platforms_layer_name,
@@ -139,12 +153,18 @@ class RPG(arcade.Window):
         self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
+        #User Encounter
         if self.active_encounter:
             if self.first_draw_of_encounter:
                 self.encounter.setup(self.view_bottom, self.view_left)
                 self.first_draw_of_encounter = False
             self.encounter.draw_encounter()
-
+        #User Inventory
+        if self.active_inventory:
+            if self.first_draw_of_inventory:
+                self.inventory.setup(self.view_bottom, self.view_left)
+                self.first_draw_of_inventory = False
+            self.inventory.draw_inventory()
 
     def on_update(self, delta_time):
         #player animation
@@ -153,7 +173,18 @@ class RPG(arcade.Window):
 
         #movement logic and game logic goes here:
         if self.active_encounter:
-            self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+            if self.handle_selection:
+                self.overlay_dialogue_string = f"you chose to {self.encounter.handle_selection()}, good luck"
+                #self.handle_selection = False
+                if self.end_encounter_on_update:
+                    self.active_encounter = False
+                    self.first_draw_of_encounter = True
+                    self.end_encounter_on_update = False
+            else:
+                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+        #Using the inventory
+        elif self.active_inventory:
+            self.overlay.showUI = False
         else:
             self.overlay_dialogue_string = "New string to show"
             self.physics_engine.update()
@@ -229,9 +260,12 @@ class RPG(arcade.Window):
         #Called whenever a key is pressed
         if self.active_encounter:
             if key == arcade.key.ENTER:
-                self.active_encounter = False
-                self.first_draw_of_encounter = True
+                self.handle_selection = True
+                return_string = self.encounter.handle_selection()
+                if return_string == "Run" or return_string == "Hide":
+                    self.end_encounter_on_update = True
             else:
+                self.handle_selection = False
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
             if key == arcade.key.UP:
@@ -253,18 +287,31 @@ class RPG(arcade.Window):
         elif key == arcade.key.KEY_4:
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
+        # Using the inventory, prevent the player from accessing inventory in battle
+        if key == arcade.key.I and not self.active_encounter:
+            # If we are already inside our inventory
+            if self.active_inventory:
+                self.active_inventory = False
+                self.first_draw_of_inventory = True
+                self.overlay.showUI = True
+            # We are opening up the inventory
+            else:
+                self.active_inventory = True
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
         x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
+
             self.player.change_y = 0
-            if not self.active_encounter:
+            # Dont want encounters when using the menu
+            if not self.active_encounter and not self.active_inventory:
                 if x == 1:
                     self.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player.change_x = 0
-            if not self.active_encounter:
+            # Dont want encounters when using the menu
+            if not self.active_encounter and not self.active_inventory:
                 if x == 1:
                     self.active_encounter  = True
 
