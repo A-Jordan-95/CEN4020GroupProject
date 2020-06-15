@@ -59,11 +59,7 @@ class RPG(arcade.Window):
 
         #encounters:
         self.encounter = None
-        self.active_encounter = False
-        self.handle_selection = False
-        self.first_draw_of_encounter = True
         self.rand_range = None
-        self.end_encounter_on_update = False
 
     def setup(self, x = None, y = None):
         # Create your sprites and sprite lists here
@@ -77,6 +73,8 @@ class RPG(arcade.Window):
 
         #setup encounters:
         self.encounter = Encounter.Encounter()
+        self.encounter.setup(self.view_bottom, self.view_left)
+
 
         if self.map == "overworld":
             self.building_list = arcade.SpriteList()
@@ -143,10 +141,10 @@ class RPG(arcade.Window):
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
-        if self.active_encounter:
-            if self.first_draw_of_encounter:
+        if self.encounter.active_encounter:
+            if self.encounter.first_draw_of_encounter:
                 self.encounter.setup(self.view_bottom, self.view_left)
-                self.first_draw_of_encounter = False
+                self.encounter.first_draw_of_encounter = False
             self.encounter.draw_encounter()
         #User Inventory
         if self.active_inventory:
@@ -157,14 +155,14 @@ class RPG(arcade.Window):
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
-        if self.active_encounter:
-            if self.handle_selection:
+        if self.encounter.active_encounter:
+            if self.encounter.handle_selection:
                 self.overlay_dialogue_string = f"you chose to {self.encounter.handle_selection()}, good luck"
-                #self.handle_selection = False
-                if self.end_encounter_on_update:
-                    self.active_encounter = False
-                    self.first_draw_of_encounter = True
-                    self.end_encounter_on_update = False
+                #self.encounter.handle_the_selection = False
+                if self.encounter.end_encounter_on_update:
+                    self.encounter.active_encounter = False
+                    self.encounter.first_draw_of_encounter = True
+                    self.encounter.end_encounter_on_update = False
             else:
                 self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
         #Using the inventory
@@ -243,14 +241,14 @@ class RPG(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         #Called whenever a key is pressed
-        if self.active_encounter:
+        if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
-                self.handle_selection = True
+                self.encounter.handle_the_selection = True
                 return_string = self.encounter.handle_selection()
                 if return_string == "Run" or return_string == "Hide":
-                    self.end_encounter_on_update = True
+                    self.encounter.end_encounter_on_update = True
             else:
-                self.handle_selection = False
+                self.encounter.handle_the_selection = False
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
         else:
             if key == arcade.key.UP:
@@ -273,7 +271,7 @@ class RPG(arcade.Window):
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
         # Using the inventory, prevent the player from accessing inventory in battle
-        if key == arcade.key.I and not self.active_encounter:
+        if key == arcade.key.I and not self.encounter.active_encounter:
             # If we are already inside our inventory
             if self.active_inventory:
                 self.active_inventory = False
@@ -289,15 +287,15 @@ class RPG(arcade.Window):
         if key == arcade.key.UP or key == arcade.key.DOWN:
             self.player_sprite.change_y = 0
             # Dont want encounters when using the menu
-            if not self.active_encounter and not self.active_inventory:
+            if not self.encounter.active_encounter and not self.active_inventory:
                 if x == 1:
-                    self.active_encounter  = True
+                    self.encounter.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player_sprite.change_x = 0
             # Dont want encounters when using the menu
-            if not self.active_encounter and not self.active_inventory:
+            if not self.encounter.active_encounter and not self.active_inventory:
                 if x == 1:
-                    self.active_encounter  = True
+                    self.encounter.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")

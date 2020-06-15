@@ -8,11 +8,15 @@ class Encounter():
         self.enemy_sprite = None
         self.windows_sprite_list = None
         self.arrow_sprite_positions = None
-        self.arrow_pos = None #can be 0-3
+        self.arrow_pos = 0 #can be 0-3
         self.menu_sprite_list = None
         self.menu = None #list of strings optionally passed to the setup function.
         self.menu_offset = 0 #keeps track of menu scrolling
         self.menu_positions = None #can be 0-3
+        self.active_encounter = False
+        self.handle_the_selection = False
+        self.first_draw_of_encounter = True
+        self.end_encounter_on_update = False
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
