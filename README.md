@@ -4,6 +4,7 @@
   - Anthony Micciche
   - Alexander Kostandarithes
   - Ryan Goldberg
+  - Karl Cooley
 
   - Project ideas:
     - Turn Based RPG
