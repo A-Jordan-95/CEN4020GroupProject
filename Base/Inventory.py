@@ -21,7 +21,7 @@ class Inventory():
         # Player Info Background
         self.inventory_player_info_background = arcade.SpriteSolidColor(600, 680, arcade.color.BLACK)
         self.inventory_player_info_background.set_position(view_left + 320, view_bottom + 360)
-        self.inventory_gui_spritelist.append(self.inventory_player_info_background)\
+        self.inventory_gui_spritelist.append(self.inventory_player_info_background)
 
         ###################################
         # Player Level
@@ -30,14 +30,14 @@ class Inventory():
         self.inventory_gui_spritelist.append(self.inventory_player_level)
 
         # Player HP
-        self.inventory_player_level = arcade.SpriteSolidColor(180, 40, arcade.color.RED)
-        self.inventory_player_level.set_position(view_left + 320, view_bottom + 670)
-        self.inventory_gui_spritelist.append(self.inventory_player_level)
+        self.inventory_player_hp = arcade.SpriteSolidColor(180, 40, arcade.color.RED)
+        self.inventory_player_hp.set_position(view_left + 320, view_bottom + 670)
+        self.inventory_gui_spritelist.append(self.inventory_player_hp)
 
         # Player Energy
-        self.inventory_player_level = arcade.SpriteSolidColor(180, 40, arcade.color.SAFFRON)
-        self.inventory_player_level.set_position(view_left + 320 + 195, view_bottom + 670)
-        self.inventory_gui_spritelist.append(self.inventory_player_level)
+        self.inventory_player_energy = arcade.SpriteSolidColor(180, 40, arcade.color.SAFFRON)
+        self.inventory_player_energy.set_position(view_left + 320 + 195, view_bottom + 670)
+        self.inventory_gui_spritelist.append(self.inventory_player_energy)
 
         ###################################
         # Player Shoes
@@ -102,9 +102,9 @@ class Inventory():
         self.inventory_gui_spritelist.append(self.inventory_player_info_immunity)
 
         # Player Info Luck
-        self.inventory_player_info_agility = arcade.SpriteSolidColor(275, 60, arcade.color.SOAP)
-        self.inventory_player_info_agility.set_position(view_left + 320 + 148, view_bottom + 70)
-        self.inventory_gui_spritelist.append(self.inventory_player_info_agility)
+        self.inventory_player_info_luck = arcade.SpriteSolidColor(275, 60, arcade.color.SOAP)
+        self.inventory_player_info_luck.set_position(view_left + 320 + 148, view_bottom + 70)
+        self.inventory_gui_spritelist.append(self.inventory_player_info_luck)
 
         ###############################################################
         # Player Items Background
@@ -118,9 +118,9 @@ class Inventory():
         self.inventory_gui_spritelist.append(self.inventory_item_tab_selected)
 
         #Inventory Item Selected
-        self.inventory_item_tab_selected = arcade.SpriteSolidColor(361, 78, arcade.color.ZAFFRE)
-        self.inventory_item_tab_selected.set_position(view_left + 345 + 320 + 145, view_bottom + 364)
-        self.inventory_gui_spritelist.append(self.inventory_item_tab_selected)
+        self.inventory_item_selected = arcade.SpriteSolidColor(361, 78, arcade.color.ZAFFRE)
+        self.inventory_item_selected.set_position(view_left + 345 + 320 + 145, view_bottom + 364)
+        self.inventory_gui_spritelist.append(self.inventory_item_selected)
 
         # Inventory Item Type Grid
         self.inventory_item_type_grid = arcade.Sprite("Images/UI/Item_Type_Grid.png", 1.0)

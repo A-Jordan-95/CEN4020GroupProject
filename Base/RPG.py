@@ -169,9 +169,8 @@ class RPG(arcade.Window):
 
         #movement logic and game logic goes here:
         if self.encounter.active_encounter:
-            if self.encounter.handle_selection:
+            if self.encounter.handle_the_selection:
                 self.overlay_dialogue_string = f"you chose to {self.encounter.handle_selection()}, good luck"
-                #self.encounter.handle_the_selection = False
                 if self.encounter.end_encounter_on_update:
                     self.encounter.active_encounter = False
                     self.encounter.first_draw_of_encounter = True
