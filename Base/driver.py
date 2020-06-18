@@ -2,6 +2,7 @@
 
 import koronakombat as kk
 
+# Agent constructor is (hp, at, df, moveList, Name)
 hero = kk.Hero(10,8,6, ['Attack'], 'Hero')
 enemy = kk.Enemy(6,7,4, ['Attack', 'Smile'], 'Small Child')
 
