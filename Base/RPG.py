@@ -58,14 +58,16 @@ class RPG(arcade.Window):
         self.inventory = None
         self.active_inventory = False
         self.first_draw_of_inventory = True
+        #Each item is a dictionary/list
         self.player_items = [
-                            ["None", "Cowboy Hat", "Bucket"], ["Fists", "Nunchucks", "Sword"],
+                            ["None", "Cowboy Hat", "Bucket"],
+                            ["Fists", "Nunchucks", "Sword"],
                             ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15","16", "17"],
                             ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
                             ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
                             ["0", "1", "2", "3", "4", "5"],
                             ["None"],
-                            []
+                            []  #I guess consumables could be empty
                              ]
 
         #encounters:
