@@ -3,9 +3,29 @@ import arcade
 class Inventory():
 
     def __init__(self):
-        pass
+        self.pos_tab = None
+        self.inventory_item_tab_selected_posX = None
+        self.pos_item = None
+        self.inventory_item_selected_posX = None
 
-    def setup(self, view_bottom, view_left):
+    def setup(self, view_bottom, view_left, pos_tab=None, pos_item=None):
+        #Set-Up Tab Chosen Drawing Logic
+        self.inventory_item_tab_selected_posX = [view_left + 653, view_left + 698, view_left + 743, view_left + 788,
+        view_left + 833, view_left + 878, view_left + 923, view_left + 968]
+        #Drawing when first opened or drawing when player has moved tabs
+        if pos_tab:
+            self.pos_tab = pos_tab
+        else:
+            self.pos_tab = 0
+
+        #Set-up Item Chosen Drawing Logic
+        self.inventory_item_selected_posX = [view_bottom + 592, view_bottom + 516, view_bottom + 440, view_bottom + 364,
+        view_bottom + 288, view_bottom + 212, view_bottom + 136, view_bottom + 60]
+        if pos_item:
+            self.pos_item = pos_item
+        else:
+            self.pos_item = 0
+
         ###############################################################
         # Separating the loading of images and logic for this class
         ###############################################################
@@ -112,14 +132,14 @@ class Inventory():
         self.inventory_player_items_background.set_position(view_left + 345 + 320 + 145, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_player_items_background)
 
-        #Inventory Item Tab Selected
+        #Inventory Item Tab Selected (Initial always top-left)
         self.inventory_item_tab_selected = arcade.SpriteSolidColor(45, 45, arcade.color.ZAFFRE)
-        self.inventory_item_tab_selected.set_position(view_left + 345 + 308, view_bottom + 652)
+        self.inventory_item_tab_selected.set_position(self.inventory_item_tab_selected_posX[self.pos_tab], view_bottom + 652)
         self.inventory_gui_spritelist.append(self.inventory_item_tab_selected)
 
         #Inventory Item Selected
         self.inventory_item_selected = arcade.SpriteSolidColor(361, 78, arcade.color.ZAFFRE)
-        self.inventory_item_selected.set_position(view_left + 345 + 320 + 145, view_bottom + 364)
+        self.inventory_item_selected.set_position(view_left + 810, self.inventory_item_selected_posX[self.pos_item])
         self.inventory_gui_spritelist.append(self.inventory_item_selected)
 
         # Inventory Item Type Grid
@@ -138,5 +158,21 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
-    def draw_inventory(self):
+    def change_arrow_pos(self, key, view_left, view_bottom):
+        if key == arcade.key.RIGHT and self.pos_tab < 7:
+            self.pos_tab += 1
+            self.pos_item = 0
+        elif key == arcade.key.LEFT and self.pos_tab > 0:
+            self.pos_tab -= 1
+            self.pos_item = 0
+        elif key == arcade.key.DOWN and self.pos_item < 7:
+            self.pos_item += 1
+        elif key == arcade.key.UP and self.pos_item > 0:
+            self.pos_item -= 1
+        self.setup(view_bottom, view_left, self.pos_tab, self.pos_item)
+
+    def draw_inventory(self, view_left, view_bottom, player_items):
         self.inventory_gui_spritelist.draw()
+        #Draw Item in Box # 1
+        arcade.draw_text(player_items[0][0], view_left + 650, view_bottom + 592, arcade.color.WHITE, 20, anchor_x="left",
+                         anchor_y="top")
