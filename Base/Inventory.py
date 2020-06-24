@@ -7,6 +7,7 @@ class Inventory():
         self.inventory_item_tab_selected_posX = None
         self.pos_item = None
         self.inventory_item_selected_posX = None
+        self.offset = 0
 
     def setup(self, view_bottom, view_left, pos_tab=None, pos_item=None):
         #Set-Up Tab Chosen Drawing Logic
@@ -158,21 +159,87 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
-    def change_arrow_pos(self, key, view_left, view_bottom):
+    def change_arrow_pos(self, key, view_left, view_bottom, player_items):
+        #Moving tabs reset list selection (->)
         if key == arcade.key.RIGHT and self.pos_tab < 7:
             self.pos_tab += 1
             self.pos_item = 0
+            self.offset = 0
+        # Moving tabs reset list selection (<-)
         elif key == arcade.key.LEFT and self.pos_tab > 0:
             self.pos_tab -= 1
             self.pos_item = 0
-        elif key == arcade.key.DOWN and self.pos_item < 7:
-            self.pos_item += 1
+            self.offset = 0
+        # Moving down the list (v)
+        elif key == arcade.key.DOWN:
+            #Only allow selection on the 8 boxes
+            if self.pos_item < 7:
+                # Limit selection if item array has less than 8 items
+                if self.pos_item < len(player_items[self.pos_tab]) - 1:
+                    self.pos_item += 1
+            #Allow the user to scroll down if they have more than 8 of that item type
+            elif self.pos_item + self.offset < len(player_items[self.pos_tab]) - 1:
+                self.offset += 1
+            else:
+                #Don't let the user do anything
+                pass
+        # Moving up the list (^)
         elif key == arcade.key.UP and self.pos_item > 0:
-            self.pos_item -= 1
+            #If we have an offset, we subtract from that first
+            if self.offset > 0:
+                self.offset -= 1
+            #Don't have an offset we change cursored item
+            elif self.pos_item > 0:
+                self.pos_item -= 1
+            else:
+                # Don't let the user do anything
+                pass
+        # Redraw everything (probably needs to be optimized)
         self.setup(view_bottom, view_left, self.pos_tab, self.pos_item)
 
     def draw_inventory(self, view_left, view_bottom, player_items):
+        #Draw the UI before drawing the text
         self.inventory_gui_spritelist.draw()
-        #Draw Item in Box # 1
-        arcade.draw_text(player_items[0][0], view_left + 650, view_bottom + 592, arcade.color.WHITE, 20, anchor_x="left",
-                         anchor_y="top")
+
+        # Check that the player has an item to fill this spot
+        if len(player_items) > self.pos_tab:
+            # Draw Item in Box # 1
+            if len(player_items[self.pos_tab]) > 0 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][0 + self.offset], view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 2
+            if len(player_items[self.pos_tab]) > 1 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][1 + self.offset], view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 3
+            if len(player_items[self.pos_tab]) > 2 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][2 + self.offset], view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 4
+            if len(player_items[self.pos_tab]) > 3 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][3 + self.offset], view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 5
+            if len(player_items[self.pos_tab]) > 4 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][4 + self.offset], view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 6
+            if len(player_items[self.pos_tab]) > 5 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][5 + self.offset], view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 7
+            if len(player_items[self.pos_tab]) > 6 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][6 + self.offset], view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
+            # Draw Item in Box # 8
+            if len(player_items[self.pos_tab]) > 7 + self.offset:
+                arcade.draw_text(player_items[self.pos_tab][7 + self.offset], view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
+            else:
+                arcade.draw_text("....", view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
