@@ -17,12 +17,14 @@
 import random
 
 def attack(attacker, target):
-    print(attacker.name," attacks!")
-    return int((attacker.at-(target.df/2))/2*(1+random.random()))
+    dmg =  int((attacker.at-(target.df/2))/2*(1+random.random()))
+    msg = attacker.name + " attacks!" + '\n'+ attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    return msg, dmg
 
 def smile(attacker, target):
-    print(attacker.name," stares at ", target.name)
-    return 0
+    dmg = 0
+    msg = attacker.name + " stares at " + target.name + '\n'+ attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    return msg, dmg
 
 mmd = {"Smile": smile, "Attack": attack}
 

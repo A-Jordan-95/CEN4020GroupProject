@@ -36,8 +36,8 @@ class Kombat():
     def getDamage(self, move, attacker, target):
         from masterMoveDict import mmd
 
-        damage = mmd[move](attacker, target)
-        print(attacker.name, " did ", damage, " damage to ", target.name)
+        msg, damage = mmd[move](attacker, target)
+        print(str(msg))
         target.hp = target.hp - damage
 
         return damage
@@ -58,7 +58,7 @@ class Kombat():
                     print("You are dead as shit")
 
 
-
-
+#    def __del__(self):
+#        pass
 
 
