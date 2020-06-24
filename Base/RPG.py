@@ -296,6 +296,9 @@ class RPG(arcade.Window):
             # We are opening up the inventory
             else:
                 self.active_inventory = True
+        #Handle Logic when inside the inventory
+        if self.active_inventory:
+            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom)
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
