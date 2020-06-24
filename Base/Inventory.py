@@ -158,12 +158,6 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
-        ##TO DO##
-
-        #################################################################
-        # Logic Set-Up
-        ###############################################################
-
     def change_arrow_pos(self, key, view_left, view_bottom):
         if key == arcade.key.RIGHT and self.pos_tab < 7:
             self.pos_tab += 1
@@ -177,5 +171,8 @@ class Inventory():
             self.pos_item -= 1
         self.setup(view_bottom, view_left, self.pos_tab, self.pos_item)
 
-    def draw_inventory(self):
+    def draw_inventory(self, view_left, view_bottom, player_items):
         self.inventory_gui_spritelist.draw()
+        #Draw Item in Box # 1
+        arcade.draw_text(player_items[0][0], view_left + 650, view_bottom + 592, arcade.color.WHITE, 20, anchor_x="left",
+                         anchor_y="top")

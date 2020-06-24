@@ -58,6 +58,8 @@ class RPG(arcade.Window):
         self.inventory = None
         self.active_inventory = False
         self.first_draw_of_inventory = True
+        self.player_items = [["None", "Cowboy Hat", "Bucket"], ["Fists", "Nunchucks", "Sword"],
+                              ["None"], ["None"], ["None"], ["None"], ["None"], ["None"]]
 
         #encounters:
         self.encounter = None
@@ -162,7 +164,7 @@ class RPG(arcade.Window):
             if self.first_draw_of_inventory:
                 self.inventory.setup(self.view_bottom, self.view_left)
                 self.first_draw_of_inventory = False
-            self.inventory.draw_inventory()
+            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items)
 
     def on_update(self, delta_time):
 
