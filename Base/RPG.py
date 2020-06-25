@@ -73,6 +73,8 @@ class RPG(arcade.Window):
         #encounters:
         self.encounter = None
         self.rand_range = None
+        self.show_selection = False
+        self.return_string = None
 
         #animation:
         self.player = None
@@ -104,7 +106,7 @@ class RPG(arcade.Window):
 
         if self.map == "overworld":
             self.building_list = arcade.SpriteList()
-            self.rand_range = 20
+            self.rand_range = 600
             if x and y:
                 self.player.center_x = x
                 self.player.center_y = y
@@ -114,7 +116,7 @@ class RPG(arcade.Window):
             self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
             arcade.set_background_color(arcade.csscolor.BURLYWOOD)
         else:
-            self.rand_range = 10
+            self.rand_range = 300
             self.door_list = arcade.SpriteList()
             self.player.center_x = 256
             self.player.center_y = 2960
@@ -181,17 +183,29 @@ class RPG(arcade.Window):
         #movement logic and game logic goes here:
         if self.encounter.active_encounter:
             if self.encounter.handle_the_selection:
-                self.overlay_dialogue_string = f"you chose to {self.encounter.handle_selection()}, good luck"
-                if self.encounter.end_encounter_on_update:
-                    self.encounter.active_encounter = False
-                    self.encounter.first_draw_of_encounter = True
-                    self.encounter.end_encounter_on_update = False
-            else:
+                selection_return = self.return_string
+                self.overlay_dialogue_string = f"you chose to {selection_return}, good luck"
+                self.encounter.handle_the_selection = False
+                self.show_selection = True
+            if not self.show_selection: 
                 self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+            if self.encounter.end_encounter_on_update:
+                self.encounter.active_encounter = False
+                self.show_selection = False
+                self.encounter.first_draw_of_encounter = True
+                self.encounter.end_encounter_on_update = False
+            
         #Using the inventory
         elif self.active_inventory:
             self.overlay.showUI = False
         else:
+            #handle random encounters if player is moving:
+            if (self.player.change_x != 0) or (self.player.change_y != 0):
+                x = random.randint(0,self.rand_range)
+                if x == 1:
+                    self.encounter.active_encounter  = True
+
+
             self.overlay_dialogue_string = "New string to show"
             self.physics_engine.update()
 
@@ -200,7 +214,7 @@ class RPG(arcade.Window):
             self.player_list.update_animation()
 
         if self.map == "overworld":
-            self.rand_range = 20
+            self.rand_range = 600
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
@@ -219,7 +233,7 @@ class RPG(arcade.Window):
                     print("Changed map to dollar store\n")
                 self.setup()
         else:
-            self.rand_range = 10
+            self.rand_range = 300
             door_hit_list = arcade.check_for_collision_with_list(self.player, self.door_list)
             if door_hit_list:
                 if self.map == "DollarStore":
@@ -271,8 +285,8 @@ class RPG(arcade.Window):
         if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
                 self.encounter.handle_the_selection = True
-                return_string = self.encounter.handle_selection()
-                if return_string == "Run" or return_string == "Hide":
+                self.return_string = self.encounter.handle_selection()
+                if self.return_string == "Run" or self.return_string == "Hide":
                     self.encounter.end_encounter_on_update = True
             else:
                 self.encounter.handle_the_selection = False
@@ -313,20 +327,20 @@ class RPG(arcade.Window):
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key
-        x = random.randint(self.rand_range)
+        #x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
 
             self.player.change_y = 0
             # Dont want encounters when using the menu
-            if not self.encounter.active_encounter and not self.active_inventory:
-                if x == 1:
-                    self.encounter.active_encounter  = True
+            #if not self.encounter.active_encounter and not self.active_inventory:
+                #if x == 1:
+                    #self.encounter.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player.change_x = 0
             # Dont want encounters when using the menu
-            if not self.encounter.active_encounter and not self.active_inventory:
-                if x == 1:
-                    self.encounter.active_encounter  = True
+            #if not self.encounter.active_encounter and not self.active_inventory:
+                #if x == 1:
+                    #self.encounter.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")
