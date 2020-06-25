@@ -28,7 +28,7 @@ class Encounter():
               [view_left + 680,view_bottom + 630], [view_left + 380, view_bottom + 580],
               [view_left + 680, view_bottom + 580]] #coordinates of menu pos 0-3
         if menu:
-            self.menu = parse_menu(menu)
+            self.menu = self.parse_menu(menu)
         else:
             self.menu = ["Fight", "Run", "Hide", "Pee pants", "cast a spell", "climb a tree", "dig a hole", "poop pants"]
         if pos:
