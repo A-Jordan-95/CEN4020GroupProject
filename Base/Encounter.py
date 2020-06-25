@@ -106,7 +106,7 @@ class Encounter():
                 self.arrow_pos = 2
         self.setup(view_bottom, view_left, self.arrow_pos)
 
-    def parse_menu(menu):
+    def parse_menu(self, menu):
         the_menu = []
         if menu[0]:
             the_menu.append(menu[0])
