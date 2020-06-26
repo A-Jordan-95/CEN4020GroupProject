@@ -26,6 +26,11 @@ def smile(attacker, target):
     msg = attacker.name + " stares at " + target.name + '\n'+ attacker.name +" did "+ str(dmg)+ " damage to " + target.name
     return msg, dmg
 
-mmd = {"Smile": smile, "Attack": attack}
+def chortle(attacker, target):
+    dmg = 0
+    msg = attacker.name + " goes \"HOHOHO\"\n"+ attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    return msg, dmg
+
+mmd = {"Smile": smile, "Attack": attack, "Chortle": chortle}
 
 
