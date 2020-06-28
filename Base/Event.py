@@ -13,6 +13,7 @@ class Event:
                 # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                 self.event_num_lines = 1
                 overlay.draw_dialogue_box("Why can't I enter my own house?", "Main Character", view_bottom, view_left)
+        # MalMart Event
         if event_ID == "2":
             if current_dialogue_line == 1:
                 # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
