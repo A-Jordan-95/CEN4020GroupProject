@@ -8,6 +8,7 @@ import Overlay
 import Encounter
 import Animation
 import Inventory
+import Event
 
 
 
@@ -45,14 +46,23 @@ class RPG(arcade.Window):
 
         #map info:
         self.map = "overworld"
+        self.first_load_of_game = True
 
         self.view_bottom = 0
         self.view_left = 0
 
         #Overlay Usage
         self.overlay = None
-        self.overlay_dialogue_string = "Testing"
-        self.speaker = "Karen"
+        self.overlay_dialogue_string = ""
+        self.speaker = ""
+
+        #Events
+        self.event = None
+        self.dialogue_event_first_draw = True
+        self.active_dialogue_event = False
+        self.dialogue_event_hit_list = None
+        self.current_dialogue_line = 1
+        self.active_event_id = None
 
         #Inventory Usage
         self.inventory = None
@@ -114,6 +124,10 @@ class RPG(arcade.Window):
                 self.player.center_x = 512
                 self.player.center_y = 5000
             self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
+            #Only create the dialogue event list on the first load, reference list on successive map changes
+            if self.first_load_of_game:
+                self.dialogue_events_list = arcade.tilemap.process_layer(my_map, "Dialogue_Events", TILE_SCALING)
+                self.first_load_of_game = False
             arcade.set_background_color(arcade.csscolor.BURLYWOOD)
         else:
             self.rand_range = 300
@@ -133,6 +147,9 @@ class RPG(arcade.Window):
         #Set up Inventory Class
         self.inventory = Inventory.Inventory()
 
+        #Set up Event Class
+        self.event = Event.Event()
+
         #set up walls
         self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
                                               layer_name = platforms_layer_name,
@@ -151,6 +168,8 @@ class RPG(arcade.Window):
         # This command should happen before we start drawing. It will clear
         # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
+        # Draw dialogue events underneath the map
+        self.dialogue_events_list.draw()
         self.background_list.draw()
         self.wall_list.draw()
         if self.map == "overworld":
@@ -158,8 +177,27 @@ class RPG(arcade.Window):
         else:
             self.door_list.draw()
         self.player_list.draw()
-        ## Overlay
-        self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
+        # Handling Active Dialogue Events (may split into items/dialogue) in the future
+        if self.active_dialogue_event:
+            # Check for first draw so we aren't constantly drawing the same text/images over and over again
+            # Don't need to redraw until user has hit "enter" or space so no else-clause
+            if self.dialogue_event_first_draw:
+                # Dialogue Script Changes on the Dialogue Box
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.view_left, self.view_bottom)
+            # Flag to notify when done with dialogue event
+            if self.current_dialogue_line > self.event.event_num_lines:
+                #Reset to Normal Gameplay State
+                self.active_dialogue_event = False
+                self.current_dialogue_line = 1                                      #Any call to dialogue event will have at least one line
+                self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                # Dont show the dialogue box while walking in the overworld (reset to default values)
+                self.overlay.showDialogueBox = False
+                self.speaker = "Main Character"
+                self.overlay_dialogue_string = ""
+        elif self.encounter.active_encounter:
+            self.overlay.showDialogueBox = True
+            self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
+
         #User Hitpoints and Energy (Top left)
         self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
         #User Menu Bar
@@ -178,8 +216,6 @@ class RPG(arcade.Window):
             self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items)
 
     def on_update(self, delta_time):
-
-
         #movement logic and game logic goes here:
         if self.encounter.active_encounter:
             if self.encounter.handle_the_selection:
@@ -194,19 +230,19 @@ class RPG(arcade.Window):
                 self.show_selection = False
                 self.encounter.first_draw_of_encounter = True
                 self.encounter.end_encounter_on_update = False
-            
-        #Using the inventory
+        # Using the inventory
         elif self.active_inventory:
             self.overlay.showUI = False
+        # Walked into an event
+        elif self.active_dialogue_event:
+            self.overlay.showDialogueBox = True
         else:
             #handle random encounters if player is moving:
             if (self.player.change_x != 0) or (self.player.change_y != 0):
                 x = random.randint(0,self.rand_range)
                 if x == 1:
-                    self.encounter.active_encounter  = True
+                    self.encounter.active_encounter = True
 
-
-            self.overlay_dialogue_string = "New string to show"
             self.physics_engine.update()
 
             # player animation
@@ -215,6 +251,12 @@ class RPG(arcade.Window):
 
         if self.map == "overworld":
             self.rand_range = 600
+            # Check if collision with dialogue event
+            self.dialogue_event_hit_list = arcade.check_for_collision_with_list(self.player, self.dialogue_events_list)
+            if self.dialogue_event_hit_list:
+                # If we hit an event, get the ID so we know what event to reference
+                self.active_dialogue_event = True
+                self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
@@ -324,6 +366,11 @@ class RPG(arcade.Window):
         #Handle Logic when inside the inventory
         if self.active_inventory:
             self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items)
+        #Handle Logic when interacting with characters
+        if self.active_dialogue_event:
+            # Trap the user in dialogue event until they have seen all dialogue
+            if key == arcade.key.ENTER:
+                self.current_dialogue_line += 1
 
     def on_key_release(self, key, modifiers):
         #Called when the user releases a key

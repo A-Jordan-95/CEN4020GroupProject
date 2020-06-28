@@ -5,6 +5,7 @@ class Overlay():
     def __init__(self):
         self.showDialogueBox = True
         self.showUI = True
+        self.current_speaker = None
 
     def load_media(self):
         ###############################################################
@@ -24,9 +25,9 @@ class Overlay():
         self.dialogue_sprite_list.append(self.profile_border_red)
 
         ##############################
-        # PROFILE IMAGES FOR DIALOGUE BOX
-        self.profile_karen = arcade.Sprite("Images/UI/Profile_Karen.jpg", scale=1.47)  # A larger image would looker better (140 x 140 for Profile Images)
-        self.dialogue_sprite_list.append(self.profile_karen)
+        # PROFILE IMAGES FOR DIALOGUE BOX (Will be deleted on first run and replaced by current speaker)
+        self.profile = arcade.SpriteSolidColor(75, 75, arcade.color.DESIRE)
+        self.dialogue_sprite_list.append(self.profile)
 
         ###############################################################
         # PLAYER INFO BOX SPRITE LIST
@@ -72,11 +73,23 @@ class Overlay():
             # Text Panel Background
             self.text_panel.set_position(view_left + 640, view_bottom + 90)
             # Profile Image (arcade draws things from the center of the shape)
-            if speaker == "Karen":
+            if self.current_speaker != speaker or self.current_speaker is None:
+                # Change local data for speaker and remove current speaker from spritelist
+                self.current_speaker = speaker
+                self.profile.kill()
+                # Speakers in the game
+                if speaker == "Karen":
+                    self.profile = arcade.Sprite("Images/UI/Profile_Karen.jpg", scale=1.47)  # A larger image would looker better (140 x 140 for Profile Images)
+                    self.dialogue_sprite_list.append(self.profile)
+                else:
+                    #Currently the player
+                    self.profile = arcade.SpriteSolidColor(100, 100, arcade.color.GOLD)
+                    self.dialogue_sprite_list.append((self.profile))
+            else:
                 # Profile Image Border
                 self.profile_border_red.set_position(view_left + 220, view_bottom + 90)
-                # Profile Image Used
-                self.profile_karen.set_position(view_left + 220, view_bottom + 90)
+                # Draw the current speaker
+                self.profile.set_position(view_left + 220, view_bottom + 90)
             self.dialogue_sprite_list.draw()
             # Have to render text afterwards
             # Speaker Name
