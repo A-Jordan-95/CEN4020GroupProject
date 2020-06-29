@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" name="my_tiles" tilewidth="384" tileheight="256" tilecount="7" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1">
@@ -30,9 +30,15 @@
    <image width="128" height="128" source="wallTile.png"/>
   </tile>
  </tileset>
+ <tileset firstgid="18" source="Dialogue_Events.tsx"/>
+ <layer id="4" name="Dialogue_Events" width="45" height="35">
+  <data encoding="base64" compression="zlib">
+   eJztzkERAAAEADAZ6N9VBD/u3JZgETDL6wAAAAAAwLK6DjzWxqcAJg==
+  </data>
+ </layer>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzV1ksOwyAMBFCUXe5/4WyKFCF/ZsYQqCVvGtM8Ezf0aq1df5g9sutZ3WpfMz6zfD3uX1qxukfkXta620mlRyWifqJ+PXdPtt5bx7gyM+NGvYi9akb7mLnfs82KJ3ouq83oPKI9X873zTLP8KJZNTO/911mdOZOML/nS3mfKrHKjHqRWu88rZiVc6sRtdF/AXWelXf/aK6438HMDWtW5j/bG9SsnrGzzOxsjOdSD9XsrUFrM7N1ljLBzhNSl5kjC5pfmxkb4hhnTZmPL8zsXmf7farZWlsxq/fN5gJ1Z2brOvueZuuj9EzZXkfni5Ljs2A9K8zoXO82o/PJrlPN2X4xyX4Pas7cilX1ehYrovuqZrb3yLXDjNSx5lOjul+78gGfuROm
+   eJzV1ksOwyAMBFDELifI/W/aTZEi5M/MAIFY8qYxyTN1Q2sppX4wW2TXs7rVvmJ8ZvlaXP+0YnWP0b3u4BmXk0qPSkT9RP167pZsvbeOcWVmxo16EfuoGe1j5n7PNiue6HtZbUbnEe25OvebZZ7hRXPUzPzed5nRmTvB/Jwv5X2qxCoz6kVqvfN0xKycW4Wojf4LqPOsvPt784j7GczcsGZl/rO9Qc3qGTvLzM5Gfy61UM3eGrQ2M1tnKRPsPCF1mTmyoPm2mbEhjn7WlPl4w8zudbbfp5qttSNm9bnZXKDuzGxdZ9/TbH2Uninb6+h8UbL/LljPCjM617vN6Hyy61Rztl9MsvdBzZlbsapez2JF9FzVzPYeuXaYkTrEfDt1J8Xofu3KH8OHE9Q=
   </data>
  </layer>
  <layer id="1" name="walls" width="45" height="35">
