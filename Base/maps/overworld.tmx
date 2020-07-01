@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" name="my_tiles" tilewidth="384" tileheight="256" tilecount="7" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1">
@@ -31,14 +31,19 @@
   </tile>
  </tileset>
  <tileset firstgid="18" source="Dialogue_Events.tsx"/>
+ <layer id="6" name="Finished_Event" width="45" height="35">
+  <data encoding="base64" compression="zlib">
+   eJztzkEJAAAIBLDD/qHtcB8RtgRLADpzHQAAAAAAXlpBVAAD
+  </data>
+ </layer>
  <layer id="4" name="Dialogue_Events" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJztzkERAAAEADAZ6N9VBD/u3JZgETDL6wAAAAAAwLK6DjzWxqcAJg==
+   eJztzkENACAMBLBpGB/8K0UCL3ILaRW0Cu46HWCknQ4AAAAAwEMrHfjYAa9lAD4=
   </data>
  </layer>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzV1ksOwyAMBFDELifI/W/aTZEi5M/MAIFY8qYxyTN1Q2sppX4wW2TXs7rVvmJ8ZvlaXP+0YnWP0b3u4BmXk0qPSkT9RP167pZsvbeOcWVmxo16EfuoGe1j5n7PNiue6HtZbUbnEe25OvebZZ7hRXPUzPzed5nRmTvB/Jwv5X2qxCoz6kVqvfN0xKycW4Wojf4LqPOsvPt784j7GczcsGZl/rO9Qc3qGTvLzM5Gfy61UM3eGrQ2M1tnKRPsPCF1mTmyoPm2mbEhjn7WlPl4w8zudbbfp5qttSNm9bnZXKDuzGxdZ9/TbH2Uninb6+h8UbL/LljPCjM617vN6Hyy61Rztl9MsvdBzZlbsapez2JF9FzVzPYeuXaYkTrEfDt1J8Xofu3KH8OHE9Q=
+   eJzVlksOxCAMQxG7nqD3v+lsBqlC+dgGCo3kzTTAS/A0raWU+kG1yJ5neav5ivGbxdfi+suK1TVGe93BGZcjpUYlonqiej3uJjbfW8dwZcwMN8qLsHtc2R2wdczs92ifZ9x/dC+rmVE/ojVXZ79ZzDN4UY0yM//3Xcyo505gfvpLeZ8qsYoZ5UVyvXk6wqzMrULkRt8Cqp+Vd3/PPML9DMY3LLPi/6w3KLM6Y2cxs97o51ILldlbg+ZmzNYsZYL1E5KXMUcsqN5mZtgQjt5rij/eYGZ7nfX7VGZr7Qizem7mC5Q7Y7aes+9pNj+Sx5T1Opovivq7YHlWMKO+3s2M+pNdpzJn/WLE7oMyZ9wKq8rrsVgRnasys7VHXDuYkTyE+XbyTorRfu3SD5rPE9I=
   </data>
  </layer>
  <layer id="1" name="walls" width="45" height="35">
