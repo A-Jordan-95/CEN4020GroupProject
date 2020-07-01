@@ -113,6 +113,22 @@ class RPG(arcade.Window):
         self.encounter = Encounter.Encounter()
         self.encounter.setup(self.view_bottom, self.view_left)
 
+        # Only create the dialogue event list on the first load, reference list on successive map changes
+        if self.first_load_of_game:
+            # Set up Event Class
+            # (Don't recreate Event class on new map load)
+            self.event = Event.Event()
+            self.event.dialogue_events_overworld = arcade.tilemap.process_layer(
+                arcade.tilemap.read_tmx("maps/overworld.tmx"), "Dialogue_Events", TILE_SCALING)
+            self.event.dialogue_events_dollarstore = arcade.tilemap.process_layer(
+                arcade.tilemap.read_tmx("maps/DollarStore.tmx"), "Dialogue_Events", TILE_SCALING)
+            self.event.dialogue_events_malmart = arcade.tilemap.process_layer(
+                arcade.tilemap.read_tmx("maps/MalMart.tmx"), "Dialogue_Events", TILE_SCALING)
+            self.event.dialogue_events_school = arcade.tilemap.process_layer(
+                arcade.tilemap.read_tmx("maps/TheSchool.tmx"), "Dialogue_Events", TILE_SCALING)
+            self.first_load_of_game = False
+        self.finished_event = arcade.tilemap.process_layer(
+                arcade.tilemap.read_tmx(map_name), "Finished_Event", TILE_SCALING)
 
         if self.map == "overworld":
             self.building_list = arcade.SpriteList()
@@ -123,13 +139,21 @@ class RPG(arcade.Window):
             else:
                 self.player.center_x = 512
                 self.player.center_y = 5000
+            # Use the event list for the overworld
+            self.dialogue_events_list = self.event.dialogue_events_overworld
             self.building_list = arcade.tilemap.process_layer(my_map, "buildings", TILE_SCALING)
-            #Only create the dialogue event list on the first load, reference list on successive map changes
-            if self.first_load_of_game:
-                self.dialogue_events_list = arcade.tilemap.process_layer(my_map, "Dialogue_Events", TILE_SCALING)
-                self.first_load_of_game = False
             arcade.set_background_color(arcade.csscolor.BURLYWOOD)
         else:
+            # Use event list for Dollar Store
+            if self.map == "DollarStore":
+                self.dialogue_events_list = self.event.dialogue_events_dollarstore
+            # Use event list for MalMart
+            elif self.map == "MalMart":
+                self.dialogue_events_list = self.event.dialogue_events_malmart
+            # Use event list for School
+            elif self.map == "TheSchool":
+                self.dialogue_events_list = self.event.dialogue_events_school
+
             self.rand_range = 300
             self.door_list = arcade.SpriteList()
             self.player.center_x = 256
@@ -146,9 +170,6 @@ class RPG(arcade.Window):
 
         #Set up Inventory Class
         self.inventory = Inventory.Inventory()
-
-        #Set up Event Class
-        self.event = Event.Event()
 
         #set up walls
         self.wall_list = arcade.tilemap.process_layer(map_object = my_map,
@@ -169,6 +190,7 @@ class RPG(arcade.Window):
         # the screen to the background color, and erase what we drew last frame.
         arcade.start_render()
         # Draw dialogue events underneath the map
+        self.finished_event.draw()
         self.dialogue_events_list.draw()
         self.background_list.draw()
         self.wall_list.draw()
@@ -183,7 +205,7 @@ class RPG(arcade.Window):
             # Don't need to redraw until user has hit "enter" or space so no else-clause
             if self.dialogue_event_first_draw:
                 # Dialogue Script Changes on the Dialogue Box
-                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.view_left, self.view_bottom)
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Gameplay State
@@ -249,14 +271,15 @@ class RPG(arcade.Window):
             self.player_list.update()
             self.player_list.update_animation()
 
+        # Check if collision with dialogue event
+        self.dialogue_event_hit_list = arcade.check_for_collision_with_list(self.player, self.dialogue_events_list)
+        if self.dialogue_event_hit_list:
+            # If we hit an event, get the ID so we know what event to reference
+            self.active_dialogue_event = True
+            self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
+
         if self.map == "overworld":
             self.rand_range = 600
-            # Check if collision with dialogue event
-            self.dialogue_event_hit_list = arcade.check_for_collision_with_list(self.player, self.dialogue_events_list)
-            if self.dialogue_event_hit_list:
-                # If we hit an event, get the ID so we know what event to reference
-                self.active_dialogue_event = True
-                self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
