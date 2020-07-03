@@ -1,13 +1,96 @@
 import arcade
+masterList = {
+"Fists": [2.2,45,1,0,0,0,0,0, "/Inventory/fists.png"],
+"Revolver": [2.1,60,2,0,0,0,0,0, "/Inventory/revolver.png"]
+}
+
+class entity():
+    def __init__(self, name, value, sprite):
+        self.name = name
+        self.value = value
+        self.sprite = sprite
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def returnValue(self):
+        return self.value
+
+class weapon(entity):
+    def __init__(self, name, value, sprite):
+        super().__init__(name, value, sprite)
+
+class revolver(weapon):
+    def __init__(self, name, value, sprite, defense):
+        super().__init__(name, value, sprite)
+        self.defense = defense
+
+class fists(weapon):
+    def __init__(self, name, value, sprite, defense):
+        super().__init__(name, value, sprite)
+        self.defense = defense
+
+class wearable(entity):
+    def __init__(self, name, value, sprite):
+        super().__init__(name, value, sprite)
+
+
+class powerup(entity):
+    def __init__(self, name, value, sprite):
+        super().__init__(name, value, sprite)
+
+class bat_soup(powerup):
+    def __init__(self, name, value, sprite, immunity, agility):
+        super().__init__(name, value, sprite)
+        self.immunity = immunity
+        self.agility = agility
 
 class Inventory():
-
     def __init__(self):
         self.pos_tab = None
         self.inventory_item_tab_selected_posX = None
         self.pos_item = None
         self.inventory_item_selected_posX = None
         self.offset = 0
+        #will be used in conjunction with self.player_items in RPG.py
+        self.playerList = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+        ]
+        #Will hold all items in the game
+        self.theWorld = []
+
+    def returnPlayerList(self):
+        return self.playerList
+
+    def returntheWorld(self):
+        return self.theWorld
+
+    #use this when any entity class is ALREADY created
+    def appendItem(self,item,index):
+        self.playerList[index].append(item)
+    def print(self):
+        for x in self.playerList:
+            print(type(x))
+
+    #use when you want to create an entity from a string name
+    #go back and use appendItem to add to playerList
+    def createObj(self, stringName):
+        index = masterList[stringName]
+        #determine type and create accordingly
+        if index[0] == 2.1:
+            return revolver(stringName, index[1], index[8], index[2])
+        elif index[0] == 2.2:
+            return fists(stringName, index[1], index[8], index[2])
+        else:
+            return 0
+
 
     def setup(self, view_bottom, view_left, pos_tab=None, pos_item=None):
         #Set-Up Tab Chosen Drawing Logic
@@ -205,7 +288,7 @@ class Inventory():
         if len(player_items) > self.pos_tab:
             # Draw Item in Box # 1
             if len(player_items[self.pos_tab]) > 0 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][0 + self.offset], view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][0 + self.offset].name, view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 2
