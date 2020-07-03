@@ -205,32 +205,32 @@ class Inventory():
         if len(player_items) > self.pos_tab:
             # Draw Item in Box # 1
             if len(player_items[self.pos_tab]) > 0 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][0 + self.offset], view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][0 + self.offset].name, view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 2
             if len(player_items[self.pos_tab]) > 1 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][1 + self.offset], view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][1 + self.offset].name, view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 3
             if len(player_items[self.pos_tab]) > 2 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][2 + self.offset], view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][2 + self.offset].name, view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 4
             if len(player_items[self.pos_tab]) > 3 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][3 + self.offset], view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][3 + self.offset].name, view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 5
             if len(player_items[self.pos_tab]) > 4 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][4 + self.offset], view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][4 + self.offset].name, view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 6
             if len(player_items[self.pos_tab]) > 5 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][5 + self.offset], view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][5 + self.offset].name, view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 7
@@ -240,6 +240,6 @@ class Inventory():
                 arcade.draw_text("....", view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 8
             if len(player_items[self.pos_tab]) > 7 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][7 + self.offset], view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][7 + self.offset].name, view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")

@@ -68,16 +68,25 @@ class RPG(arcade.Window):
         self.inventory = None
         self.active_inventory = False
         self.first_draw_of_inventory = True
-        #Each item is a dictionary/list
+
+        # Each item is a list
         self.player_items = [
-                            ["None", "Cowboy Hat", "Bucket"],
-                            ["Fists", "Nunchucks", "Sword"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15","16", "17"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-                            ["0", "1", "2", "3", "4", "5"],
-                            ["None"],
-                            []  #I guess consumables could be empty
+                            # Hats
+                            [],
+                            # Weapons
+                            [],
+                            # Chest
+                            [],
+                            # Gloves
+                            [],
+                            # Pants
+                            [],
+                            # Shoes
+                            [],
+                            # Consumables
+                            [],
+                            # (If we need anything else)
+                            []
                              ]
 
         #encounters:
@@ -209,6 +218,7 @@ class RPG(arcade.Window):
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Gameplay State
+                self.event.need_to_add_item = True  # Reset Flag for adding items so multiple items aren't added while drawing
                 self.active_dialogue_event = False
                 self.current_dialogue_line = 1                                      #Any call to dialogue event will have at least one line
                 self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
