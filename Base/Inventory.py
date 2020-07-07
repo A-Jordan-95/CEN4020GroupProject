@@ -9,7 +9,7 @@ class Inventory():
         self.inventory_item_selected_posX = None
         self.offset = 0
 
-    def setup(self, view_bottom, view_left, pos_tab=None, pos_item=None):
+    def setup(self, view_bottom, view_left, player_equipped, pos_tab=None, pos_item=None):
         #Set-Up Tab Chosen Drawing Logic
         self.inventory_item_tab_selected_posX = [view_left + 653, view_left + 698, view_left + 743, view_left + 788,
         view_left + 833, view_left + 878, view_left + 923, view_left + 968]
@@ -61,35 +61,71 @@ class Inventory():
         self.inventory_gui_spritelist.append(self.inventory_player_energy)
 
         ###################################
-        # Player Shoes
-        self.inventory_player_shoes = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
-        self.inventory_player_shoes.set_position(view_left + 320, view_bottom + 325)
-        self.inventory_gui_spritelist.append(self.inventory_player_shoes)
+        # Player Helmet Background
+        self.inventory_player_helmet = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
+        self.inventory_player_helmet.set_position(view_left + 320, view_bottom + 595)
+        self.inventory_gui_spritelist.append(self.inventory_player_helmet)
+
+        # Helmet to Draw
+        if player_equipped[0] is not None:
+            self.helmet = arcade.Sprite(f"{player_equipped[0].sprite}", scale=0.5)
+            self.helmet.set_position(view_left + 320, view_bottom + 595)
+            self.inventory_gui_spritelist.append(self.helmet)
+
+        # Player Weapon Background
+        self.inventory_player_weapon = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
+        self.inventory_player_weapon.set_position(view_left + 230, view_bottom + 505)
+        self.inventory_gui_spritelist.append(self.inventory_player_weapon)
+
+        # Weapon to Draw
+        if player_equipped[1] is not None:
+            self.weapon = arcade.Sprite(f"{player_equipped[1].sprite}", scale=0.5)
+            self.weapon.set_position(view_left + 230, view_bottom + 505)
+            self.inventory_gui_spritelist.append(self.weapon)
+
+        # Player Shirt Background
+        self.inventory_player_shirt = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
+        self.inventory_player_shirt.set_position(view_left + 320, view_bottom + 505)
+        self.inventory_gui_spritelist.append(self.inventory_player_shirt)
+
+        # Shirt/Body to Draw
+        if player_equipped[2] is not None:
+            self.shirt = arcade.Sprite(f"{player_equipped[2].sprite}", scale=0.5)
+            self.shirt.set_position(view_left + 320, view_bottom + 505)
+            self.inventory_gui_spritelist.append(self.shirt)
+
+        # Player Gloves Background
+        self.inventory_player_gloves = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
+        self.inventory_player_gloves.set_position(view_left + 410, view_bottom + 505)
+        self.inventory_gui_spritelist.append(self.inventory_player_gloves)
+
+        # Gloves to Draw
+        if player_equipped[3] is not None:
+            self.gloves = arcade.Sprite(f"{player_equipped[3].sprite}", scale=0.5)
+            self.gloves.set_position(view_left + 410, view_bottom + 505)
+            self.inventory_gui_spritelist.append(self.gloves)
 
         # Player Pants
         self.inventory_player_pants = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
         self.inventory_player_pants.set_position(view_left + 320, view_bottom + 415)
         self.inventory_gui_spritelist.append(self.inventory_player_pants)
 
-        # Player Shirt
-        self.inventory_player_shirt = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
-        self.inventory_player_shirt.set_position(view_left + 320, view_bottom + 505)
-        self.inventory_gui_spritelist.append(self.inventory_player_shirt)
+        # Pants to Draw
+        if player_equipped[4] is not None:
+            self.pants = arcade.Sprite(f"{player_equipped[4].sprite}", scale=0.5)
+            self.pants.set_position(view_left + 320, view_bottom + 415)
+            self.inventory_gui_spritelist.append(self.pants)
 
-        # Player Helmet
-        self.inventory_player_helmet = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
-        self.inventory_player_helmet.set_position(view_left + 320, view_bottom + 595)
-        self.inventory_gui_spritelist.append(self.inventory_player_helmet)
+        # Player Shoes
+        self.inventory_player_shoes = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
+        self.inventory_player_shoes.set_position(view_left + 320, view_bottom + 325)
+        self.inventory_gui_spritelist.append(self.inventory_player_shoes)
 
-        # Player Weapon
-        self.inventory_player_weapon = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
-        self.inventory_player_weapon.set_position(view_left + 230, view_bottom + 505)
-        self.inventory_gui_spritelist.append(self.inventory_player_weapon)
-
-        # Player Gloves
-        self.inventory_player_gloves = arcade.SpriteSolidColor(80, 80, arcade.color.GOLD)
-        self.inventory_player_gloves.set_position(view_left + 410, view_bottom + 505)
-        self.inventory_gui_spritelist.append(self.inventory_player_gloves)
+        # Shoes to Draw
+        if player_equipped[5] is not None:
+            self.shoes = arcade.Sprite(f"{player_equipped[5].sprite}", scale=0.5)
+            self.shoes.set_position(view_left + 320, view_bottom + 325)
+            self.inventory_gui_spritelist.append(self.shoes)
 
         ###################################
         # Player Info Bottom Panel
@@ -159,7 +195,7 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
-    def change_arrow_pos(self, key, view_left, view_bottom, player_items):
+    def change_arrow_pos(self, key, view_left, view_bottom, player_items, player_equipped):
         #Moving tabs reset list selection (->)
         if key == arcade.key.RIGHT and self.pos_tab < 7:
             self.pos_tab += 1
@@ -194,11 +230,37 @@ class Inventory():
             else:
                 # Don't let the user do anything
                 pass
+        elif key == arcade.key.ENTER and len(player_items[self.pos_tab]) > 0:
+            #We are equipping an item
+            if self.pos_tab >= 0 and self.pos_tab <= 5:
+                # Move Item to Player Equipped
+                player_equipped[self.pos_tab] = player_items[self.pos_tab][self.pos_item + self.offset]
+            elif self.pos_tab == 6:
+                #We are using a consumable
+                print("Consume")
+                pass
+            else:
+                #Do nothing as of now (tab 7)
+                print("Don't know yet")
+                pass
+        elif key == arcade.key.BACKSPACE and len(player_items[self.pos_tab]) > 0:
+            # We are removing a equipped item
+            if self.pos_tab >= 0 and self.pos_tab <= 5 and player_equipped[self.pos_tab] is not None:
+                # Remove item from equipped
+                player_equipped[self.pos_tab] = None
+            elif self.pos_tab == 6:
+                # Something else with consumable?
+                print("?")
+                pass
+            else:
+                # Do nothing as of now (tab 7)
+                print("Don't know yet")
+                pass
         # Redraw everything (probably needs to be optimized)
-        self.setup(view_bottom, view_left, self.pos_tab, self.pos_item)
+        self.setup(view_bottom, view_left, player_equipped, self.pos_tab, self.pos_item)
 
-    def draw_inventory(self, view_left, view_bottom, player_items):
-        #Draw the UI before drawing the text
+    def draw_inventory(self, view_left, view_bottom, player_items, player_equipped):
+        # Draw the UI before drawing the text
         self.inventory_gui_spritelist.draw()
 
         # Check that the player has an item to fill this spot
@@ -243,3 +305,7 @@ class Inventory():
                 arcade.draw_text(player_items[self.pos_tab][7 + self.offset].name, view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
+
+            # Alexander Stuff
+            if len(player_items[self.pos_tab]) > 0:
+                arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].name, view_left + 1050, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")

@@ -10,10 +10,11 @@ class Entity:
         self.sprite = None
         # All the other properties too(Immunity/Max HP/Max MP ect. from list)
 
+
 # Object: Weapon
 class Revolver(Entity):
     def __init__(self):
         super().__init__()
         self.name = "Revolver"
         self.attack = 60
-        self.sprite = "/Inventory/revolver.png"
+        self.sprite = "Inventory/revolver.png"

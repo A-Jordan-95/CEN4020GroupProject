@@ -89,6 +89,9 @@ class RPG(arcade.Window):
                             []
                              ]
 
+        # Equipped Items by User: Hat Weapon Chest Glove Pants Shoes
+        self.player_equipped = [None, None, None, None, None, None]
+
         #encounters:
         self.encounter = None
         self.rand_range = None
@@ -243,9 +246,9 @@ class RPG(arcade.Window):
         #User Inventory
         if self.active_inventory:
             if self.first_draw_of_inventory:
-                self.inventory.setup(self.view_bottom, self.view_left)
+                self.inventory.setup(self.view_bottom, self.view_left, self.player_equipped)
                 self.first_draw_of_inventory = False
-            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items)
+            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items, self.player_equipped)
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -396,10 +399,10 @@ class RPG(arcade.Window):
             # We are opening up the inventory
             else:
                 self.active_inventory = True
-        #Handle Logic when inside the inventory
+        # Handle Logic when inside the inventory
         if self.active_inventory:
-            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items)
-        #Handle Logic when interacting with characters
+            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items, self.player_equipped)
+        # Handle Logic when interacting with characters
         if self.active_dialogue_event:
             # Trap the user in dialogue event until they have seen all dialogue
             if key == arcade.key.ENTER:
