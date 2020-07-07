@@ -18,3 +18,12 @@ class Revolver(Entity):
         self.name = "Revolver"
         self.attack = 60
         self.sprite = "Inventory/revolver.png"
+
+
+# Object: Weapon
+class Fists(Entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Fists"
+        self.attack = 60
+        self.sprite = "Inventory/fists.png"

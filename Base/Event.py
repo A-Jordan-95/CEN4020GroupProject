@@ -42,12 +42,21 @@ class Event:
                     # we only want 1
                     if self.need_to_add_item:
                         # Insert into Weapons Array
-                        player_items[0].append(Entity.Revolver())
                         player_items[1].append(Entity.Revolver())
                         player_items[2].append(Entity.Revolver())
-                        player_items[3].append(Entity.Revolver())
-                        player_items[4].append(Entity.Revolver())
-                        player_items[5].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        # player_items[2].append(Entity.Revolver())
+                        # player_items[2].append(Entity.Revolver())
                         # No longer need to add item to the array
                         self.need_to_add_item = False
                         print(player_items)

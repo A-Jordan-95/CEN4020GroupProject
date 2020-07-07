@@ -297,7 +297,7 @@ class Inventory():
                 arcade.draw_text("....", view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 7
             if len(player_items[self.pos_tab]) > 6 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][6 + self.offset], view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][6 + self.offset].name, view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 8
