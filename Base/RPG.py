@@ -61,24 +61,38 @@ class RPG(arcade.Window):
         self.dialogue_event_first_draw = True
         self.active_dialogue_event = False
         self.dialogue_event_hit_list = None
+        self.dialogue_events_list = None
         self.current_dialogue_line = 1
         self.active_event_id = None
+        self.finished_event = None
 
         #Inventory Usage
         self.inventory = None
         self.active_inventory = False
         self.first_draw_of_inventory = True
-        #Each item is a dictionary/list
+
+        # Each item is a list
         self.player_items = [
-                            ["None", "Cowboy Hat", "Bucket"],
-                            ["Fists", "Nunchucks", "Sword"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15","16", "17"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-                            ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-                            ["0", "1", "2", "3", "4", "5"],
-                            ["None"],
-                            []  #I guess consumables could be empty
+                            # Hats
+                            [],
+                            # Weapons
+                            [],
+                            # Chest
+                            [],
+                            # Gloves
+                            [],
+                            # Pants
+                            [],
+                            # Shoes
+                            [],
+                            # Consumables
+                            [],
+                            # (If we need anything else)
+                            []
                              ]
+
+        # Equipped Items by User: Hat Weapon Chest Glove Pants Shoes
+        self.player_equipped = [None, None, None, None, None, None]
 
         #encounters:
         self.encounter = None
@@ -209,6 +223,7 @@ class RPG(arcade.Window):
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Gameplay State
+                self.event.need_to_add_item = True  # Reset Flag for adding items so multiple items aren't added while drawing
                 self.active_dialogue_event = False
                 self.current_dialogue_line = 1                                      #Any call to dialogue event will have at least one line
                 self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
@@ -233,9 +248,9 @@ class RPG(arcade.Window):
         #User Inventory
         if self.active_inventory:
             if self.first_draw_of_inventory:
-                self.inventory.setup(self.view_bottom, self.view_left)
+                self.inventory.setup(self.view_bottom, self.view_left, self.player_equipped)
                 self.first_draw_of_inventory = False
-            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items)
+            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items, self.player_equipped)
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -386,10 +401,10 @@ class RPG(arcade.Window):
             # We are opening up the inventory
             else:
                 self.active_inventory = True
-        #Handle Logic when inside the inventory
+        # Handle Logic when inside the inventory
         if self.active_inventory:
-            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items)
-        #Handle Logic when interacting with characters
+            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items, self.player_equipped)
+        # Handle Logic when interacting with characters
         if self.active_dialogue_event:
             # Trap the user in dialogue event until they have seen all dialogue
             if key == arcade.key.ENTER:
