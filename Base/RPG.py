@@ -61,8 +61,10 @@ class RPG(arcade.Window):
         self.dialogue_event_first_draw = True
         self.active_dialogue_event = False
         self.dialogue_event_hit_list = None
+        self.dialogue_events_list = None
         self.current_dialogue_line = 1
         self.active_event_id = None
+        self.finished_event = None
 
         #Inventory Usage
         self.inventory = None
