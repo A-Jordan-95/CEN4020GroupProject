@@ -1,0 +1,3 @@
+10 10 8 6 5 5
+Attack Smile Run Defend
+Hero
