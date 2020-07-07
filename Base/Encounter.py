@@ -1,4 +1,5 @@
 import arcade
+import masterMoveDict
 
 class Encounter():
     def __init__(self):
@@ -30,7 +31,7 @@ class Encounter():
         if menu:
             self.menu = self.parse_menu(menu)
         else:
-            self.menu = ["Fight", "Run", "Hide", "Pee pants", "cast a spell", "climb a tree", "dig a hole", "poop pants"]
+            self.menu = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on', '', '']
         if pos:
             self.arrow_pos = pos
         else:

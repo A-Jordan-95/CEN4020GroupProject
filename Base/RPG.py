@@ -9,6 +9,7 @@ import Encounter
 import Animation
 import Inventory
 import Event
+import masterMoveDict
 
 
 
@@ -125,6 +126,10 @@ class RPG(arcade.Window):
 
         #setup encounters:
         self.encounter = Encounter.Encounter()
+        self.encounter_menu = list(masterMoveDict.mmd.keys())
+        self.encounter_menu.append('')
+        self.encounter_menu.append('')
+        print(self.encounter_menu)
         self.encounter.setup(self.view_bottom, self.view_left)
 
         # Only create the dialogue event list on the first load, reference list on successive map changes
