@@ -310,7 +310,8 @@ class Inventory():
             if len(player_items[self.pos_tab]) > 0:
                 arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].name, view_left + 1050, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
 
-            # LHS Stuff
+            # LHS Stuff (Need a Player Class to finish)
+            # RN passing in player_equipped in case we need it for calculating the below part in the future
 
             # TOP
             # Player Level
