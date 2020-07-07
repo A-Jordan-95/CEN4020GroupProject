@@ -55,8 +55,6 @@ class Event:
                         player_items[2].append(Entity.Revolver())
                         player_items[2].append(Entity.Revolver())
                         player_items[2].append(Entity.Fists())
-                        # player_items[2].append(Entity.Revolver())
-                        # player_items[2].append(Entity.Revolver())
                         # No longer need to add item to the array
                         self.need_to_add_item = False
                         print(player_items)
