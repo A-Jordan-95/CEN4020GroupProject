@@ -309,3 +309,27 @@ class Inventory():
             # Alexander Stuff
             if len(player_items[self.pos_tab]) > 0:
                 arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].name, view_left + 1050, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+
+            # LHS Stuff
+
+            # TOP
+            # Player Level
+            arcade.draw_text("Level: 100", view_left + 70, view_bottom + 655, arcade.color.BLACK, 20)
+            # Player HP
+            arcade.draw_text("HP: 100/100", view_left + 255, view_bottom + 655, arcade.color.BLACK, 20)
+            # Player Energy
+            arcade.draw_text("EP: 100/100", view_left + 450, view_bottom + 655, arcade.color.BLACK, 20)
+
+            #BOTTOM
+            # Player Strength
+            arcade.draw_text("Strength: 100", view_left + 100, view_bottom + 220, arcade.color.BLACK, 20)
+            # Player Intelligence
+            arcade.draw_text("Intelligence: 100", view_left + 85, view_bottom + 135, arcade.color.BLACK, 20)
+            # Player Agility
+            arcade.draw_text("Agility: 100", view_left + 120, view_bottom + 55, arcade.color.BLACK, 20)
+            # Player Defense
+            arcade.draw_text("Defense: 100", view_left + 400, view_bottom + 220, arcade.color.BLACK, 20)
+            # Player Immunity
+            arcade.draw_text("Immunity: 100", view_left + 395, view_bottom + 135, arcade.color.BLACK, 20)
+            # Player Luck
+            arcade.draw_text("Luck: 100", view_left + 410, view_bottom + 55, arcade.color.BLACK, 20)
