@@ -32,7 +32,7 @@ def chortle(attacker, target):
     return msg, dmg
 
 def cough(attacker, target):
-    dmg = 0
+    dmg = int((attacker.at-(target.df/2))/2*(1+random.random()))
     msg = attacker.name + " coughs at " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
     return msg, dmg
 

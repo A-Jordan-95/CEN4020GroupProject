@@ -258,7 +258,7 @@ class RPG(arcade.Window):
         if self.encounter.active_encounter:
             if self.encounter.handle_the_selection:
                 selection_return = self.return_string
-                self.overlay_dialogue_string = f"you chose to {selection_return}, good luck"
+                self.overlay_dialogue_string = f"{selection_return}"
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
             if not self.show_selection: 
