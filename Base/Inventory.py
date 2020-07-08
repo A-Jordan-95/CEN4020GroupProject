@@ -1,96 +1,110 @@
 import arcade
-masterList = {
-"Fists": [2.2,45,1,0,0,0,0,0, "/Inventory/fists.png"],
-"Revolver": [2.1,60,2,0,0,0,0,0, "/Inventory/revolver.png"]
-}
 
 class entity():
-    def __init__(self, name, value, sprite):
-        self.name = name
-        self.value = value
-        self.sprite = sprite
+    def __init__(self):
+        pass
 
+    #you'll need this function for printing names out in inventory
     def __str__(self):
         return f"{self.name}"
 
-    def returnValue(self):
-        return self.value
+class revolver(entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Revolver"
+        self.value = 60
+        self.mp = 0
+        self.attack = 1
+        self.defense = 1
+        self.strength = 0
+        self.intelligence = 0
+        self.agility = 0
+        self.immunity = 0
+        self.luck = 0
+        self.type = 2
+        self.sprite = "Inventory/revolver.png"
+        self.description = """
+                        The New Model Army
+                        was effective
+                        in the Civil War,
+                        and now effective
+                        against COVID"""
 
-class weapon(entity):
-    def __init__(self, name, value, sprite):
-        super().__init__(name, value, sprite)
+class fists(entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Fists"
+        self.value = 45
+        self.mp = 0
+        self.attack = 1
+        self.defense = 1
+        self.strength = 0
+        self.intelligence = 0
+        self.agility = 0
+        self.immunity = 0
+        self.luck = 0
+        self.type = 1
+        self.sprite = "Inventory/fists.png"
+        self.description = """
+                        When life gives
+                        you lemons,
+                        give it a
+                        sucker punch
+                        back
+                        """
+class noodlehat(entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Noodle Hat"
+        self.value = 10
+        self.mp = 0
+        self.attack = 0
+        self.defense = 3
+        self.strength = 0
+        self.intelligence = 1
+        self.agility = 0
+        self.immunity = 1
+        self.luck = 0
+        self.type = 3
+        self.sprite = "Inventory/Noodle_hat.png"
+        self.description = """
+                        Nothing says
+                        stay 6 feet away
+                        from me than
+                        this pool noodle
+                        hat
+                        """
 
-class revolver(weapon):
-    def __init__(self, name, value, sprite, defense):
-        super().__init__(name, value, sprite)
-        self.defense = defense
+class H0CQ(entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "hydroxychloriquine"
+        self.value = 20
+        self.mp = 0
+        self.attack = 0
+        self.defense = 1
+        self.strength = 1
+        self.intelligence = 1
+        self.agility = 1
+        self.immunity = 6
+        self.luck = 1
+        self.type = 4
+        self.description = """
+                            If Trump uses
+                            it, it must make
+                            COVID not so great
+                            again
+                            """
 
-class fists(weapon):
-    def __init__(self, name, value, sprite, defense):
-        super().__init__(name, value, sprite)
-        self.defense = defense
-
-class wearable(entity):
-    def __init__(self, name, value, sprite):
-        super().__init__(name, value, sprite)
-
-
-class powerup(entity):
-    def __init__(self, name, value, sprite):
-        super().__init__(name, value, sprite)
-
-class bat_soup(powerup):
-    def __init__(self, name, value, sprite, immunity, agility):
-        super().__init__(name, value, sprite)
-        self.immunity = immunity
-        self.agility = agility
 
 class Inventory():
+
     def __init__(self):
         self.pos_tab = None
         self.inventory_item_tab_selected_posX = None
         self.pos_item = None
         self.inventory_item_selected_posX = None
         self.offset = 0
-        #will be used in conjunction with self.player_items in RPG.py
-        self.playerList = [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-        ]
-        #Will hold all items in the game
-        self.theWorld = []
-
-    def returnPlayerList(self):
-        return self.playerList
-
-    def returntheWorld(self):
-        return self.theWorld
-
-    #use this when any entity class is ALREADY created
-    def appendItem(self,item,index):
-        self.playerList[index].append(item)
-    def print(self):
-        for x in self.playerList:
-            print(type(x))
-
-    #use when you want to create an entity from a string name
-    #go back and use appendItem to add to playerList
-    def createObj(self, stringName):
-        index = masterList[stringName]
-        #determine type and create accordingly
-        if index[0] == 2.1:
-            return revolver(stringName, index[1], index[8], index[2])
-        elif index[0] == 2.2:
-            return fists(stringName, index[1], index[8], index[2])
-        else:
-            return 0
-
 
     def setup(self, view_bottom, view_left, pos_tab=None, pos_item=None):
         #Set-Up Tab Chosen Drawing Logic
@@ -115,7 +129,13 @@ class Inventory():
         ###############################################################
         # INVENTORY SPRITE LIST
         self.inventory_gui_spritelist = arcade.SpriteList()
-
+        #Generate a sprite for all in-game items
+        self.inventory_gui_entity = arcade.SpriteList()
+        R1 = arcade.Sprite("Inventory/revolver.png")
+        R1.set_position(640,640)
+        self.inventory_gui_entity.append(R1)
+        F1 = arcade.Sprite("Inventory/fists.png")
+        self.inventory_gui_entity.append(F1)
         # Background
         self.inventory_background = arcade.SpriteSolidColor(1260, 700, arcade.color.RED)
         self.inventory_background.set_position(view_left + 640, view_bottom + 360)
@@ -242,6 +262,9 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
+        # In-game item sprites
+        # To be used with inventory display
+
     def change_arrow_pos(self, key, view_left, view_bottom, player_items):
         #Moving tabs reset list selection (->)
         if key == arcade.key.RIGHT and self.pos_tab < 7:
@@ -283,46 +306,83 @@ class Inventory():
     def draw_inventory(self, view_left, view_bottom, player_items):
         #Draw the UI before drawing the text
         self.inventory_gui_spritelist.draw()
-
+        self.inventory_gui_entity.draw()
         # Check that the player has an item to fill this spot
         if len(player_items) > self.pos_tab:
-            # Draw Item in Box # 1
+            # Draw Item in Box #1
             if len(player_items[self.pos_tab]) > 0 + self.offset:
                 arcade.draw_text(player_items[self.pos_tab][0 + self.offset].name, view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+                #disp_item = arcade.Sprite(player_items[self.pos_tab][0 + self.offset].sprite)
+                #disp_item.draw()
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 2
             if len(player_items[self.pos_tab]) > 1 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][1 + self.offset], view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][1 + self.offset].name, view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 500, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 3
             if len(player_items[self.pos_tab]) > 2 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][2 + self.offset], view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][2 + self.offset].name, view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 422, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 4
             if len(player_items[self.pos_tab]) > 3 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][3 + self.offset], view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][3 + self.offset].name, view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 350, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 5
             if len(player_items[self.pos_tab]) > 4 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][4 + self.offset], view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][4 + self.offset].name, view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 270, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 6
             if len(player_items[self.pos_tab]) > 5 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][5 + self.offset], view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][5 + self.offset].name, view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 200, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 7
             if len(player_items[self.pos_tab]) > 6 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][6 + self.offset], view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][6 + self.offset].name, view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 120, arcade.color.WHITE, 20, anchor_x="left")
             # Draw Item in Box # 8
             if len(player_items[self.pos_tab]) > 7 + self.offset:
-                arcade.draw_text(player_items[self.pos_tab][7 + self.offset], view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
+                arcade.draw_text(player_items[self.pos_tab][7 + self.offset].name, view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
             else:
                 arcade.draw_text("....", view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
+
+        #draw item description and stats when a box is highlighted
+        #without explicit str() conversion, an error will be thrown
+        if len(player_items[self.pos_tab]) > 0:
+            #Print item discription
+            arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].description, view_left + 1065, view_bottom + 460, arcade.color.WHITE, 20, anchor_x="center")
+            #Print defense
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].defense)
+            arcade.draw_text(val, view_left + 1077, view_bottom + 325, arcade.color.WHITE, 20, anchor_x="center")
+            #print attack
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].attack)
+            arcade.draw_text(val, view_left + 1200, view_bottom + 325, arcade.color.WHITE, 20, anchor_x="center")
+            #print intelligence
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].intelligence)
+            arcade.draw_text(val, view_left + 1077, view_bottom + 235, arcade.color.WHITE, 20, anchor_x="center")
+            #print agility
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].agility)
+            arcade.draw_text(val, view_left + 1200, view_bottom + 235, arcade.color.WHITE, 20, anchor_x="center")
+            #print immunity
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].immunity)
+            arcade.draw_text(val, view_left + 1077, view_bottom + 145, arcade.color.WHITE, 20, anchor_x="center")
+            #print luck
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].luck)
+            arcade.draw_text(val, view_left + 1200, view_bottom + 145, arcade.color.WHITE, 20, anchor_x="center")
+            #print value (damage or aid)
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].value)
+            arcade.draw_text(val, view_left + 1077, view_bottom + 55, arcade.color.WHITE, 20, anchor_x="center")
+            #print MP
+            val = str(player_items[self.pos_tab][self.pos_item + self.offset].mp)
+            arcade.draw_text(val, view_left + 1200, view_bottom + 55, arcade.color.WHITE, 20, anchor_x="center")
+            #draw sprite of the highlighted item
+            #determine ID of object to determine sprite texture
+            # 1 == fists
+            if player_items[self.pos_tab][self.pos_item + self.offset].type == 1:
+                self.inventory_gui_entity[0].draw()
