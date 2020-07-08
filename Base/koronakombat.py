@@ -16,6 +16,29 @@ class Agent():
         self.moveList = ml
         self.name = name
 
+
+# Enemies are Agents with added functionality to make decisions.
+# Later will add more specific things like what items they have, how much
+# exp they drop, and how much currency they drop
+class Enemy():
+    def __init__(self, e):
+        self.hp = e.hp
+        self.maxHP = e.hp
+        self.mp = e.mp
+        self.maxMP = e.mp
+        self.at = e.at
+        self.df = e.df
+        self.ag = e.ag
+        self.lk = e.lk
+        self.moveList = e.moveList
+        self.name = e.name
+
+        self.getDecision = e.getDecision
+# Im pretty sure that the enemy class will be removed
+# there is no need for it, due to needing to overwrite
+# all functions and data for each enemy type
+
+
 # Right now, Hero is just an alias for Agent, but potentionally later will have
 # more things like an inventory.
 class Hero(Agent):
@@ -30,7 +53,7 @@ class Kombat():
 
     # pass in a string for the name of the attack, and an Agent to attack
     # returns damage but handles changing hp.
-    def getDamage(self, move, attacker, target):
+    def doDamage(self, move, attacker, target):
         from masterMoveDict import mmd
 
         msg, damage = mmd[move](attacker, target)
@@ -42,7 +65,7 @@ class Kombat():
     def getEnemy(self, loc):
         from enemyList import enemyMap
         import random
-        return random.choice(enemyMap[loc])
+        return (random.choice(enemyMap[loc])).__class__()
 
 
     # Function that runs combat
@@ -51,17 +74,19 @@ class Kombat():
             print(f1.moveList)
             print(f1.hp, "/", f1.maxHP, "HP")
             choice = selection
-            player_msg = self.getDamage(f1.moveList[int(choice)],f1,f2)
+            player_msg = self.doDamage(f1.moveList[int(choice)],f1,f2)
 
             if(f2.hp<=0):
                 print("You have defeated the monster! :)")
                 msg = "You have defeated the monster! :)"
             else:
-                enemy_msg  = self.getDamage(f2.getDecision(f1), f2, f1)
-                msg = player_msg + "\n" + enemy_msg
+                enemy_msg  = self.doDamage(f2.getDecision(f1), f2, f1)
+                status = "\n"+str(f1.hp) + "/" + str(f1.maxHP) + "HP"
+                msg = player_msg + "\n" + enemy_msg + status
                 if(f1.hp<=0):
                     print("You are dead as shit")
                     msg = "You are dead as shit"
+                    exit()
             return msg
 
 # need to write what happens when a battle ends

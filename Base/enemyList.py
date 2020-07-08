@@ -2,18 +2,6 @@
 # the getEnemy function from the Kombat class
 
 
-# Enemies are Agents with added functionality to make decisions.
-# Later will add more specific things like what items they have, how much
-# exp they drop, and how much currency they drop
-class Enemy():
-    def getDecision(self,h):
-        if(self.hp == self.maxHP):
-            return "Smile"
-        else:
-            return "Attack"
-# Im pretty sure that the enemy class will be removed
-# there is no need for it, due to needing to overwrite
-# all functions and data for each enemy type
 
 class SmallChild():
     def __init__(self):

@@ -25,15 +25,13 @@ class Encounter():
         self.hero = None
         self.enemy = None
         self.kombat = None
+        self.hero_move_list = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on']
+        self.hero = kk.Hero(20, 10, 8, 6, 5, 5, self.hero_move_list, "Main character")
+
 
     def setup_kombat(self):
-        self.hero_move_list = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on']
-        self.hero = kk.Hero(10, 10, 8, 6, 5, 5, self.hero_move_list, "Main character")
         self.kombat = kk.Kombat("Overworld")
-        if random.randint(0,1) == 1:
-            self.enemy = el.BigChild()
-        else:
-            self.enemy = el.SmallChild() 
+        self.enemy = self.kombat.enem
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
