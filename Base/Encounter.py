@@ -25,9 +25,18 @@ class Encounter():
         self.hero = None
         self.enemy = None
         self.kombat = None
-        self.hero_move_list = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on']
-        self.hero = kk.Hero(20, 10, 8, 6, 5, 5, self.hero_move_list, "Main character")
 
+        # creates hero from file, acting as a save feature
+        f = open("playerData.txt", 'r')
+        stats = f.readline().split()
+        moveList = f.readline().split()
+        name = f.readline().strip('\n')
+        self.hero = kk.Hero(int(stats[0]),int(stats[1]),int(stats[2]),int(stats[3]),int(stats[4]),int(stats[5]), moveList, name)
+        f.close()
+
+        self.hero_move_list = self.hero.moveList
+        self.hero_move_list.append("test")
+        self.hero_move_list.append("test") # test will show that the moveList was read correctly
 
     def setup_kombat(self):
         self.kombat = kk.Kombat("Overworld")
@@ -45,7 +54,7 @@ class Encounter():
         if menu:
             self.menu = self.parse_menu(menu)
         else:
-            self.menu = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on', '', '']
+            self.menu = ['Run', 'Hide', 'Attack', 'Smile', 'Chortle', 'Cough', 'p', 'p'] # p's show this list was read
         if pos:
             self.arrow_pos = pos
         else:
@@ -73,7 +82,7 @@ class Encounter():
         self.arrow_sprite.center_y = self.arrow_sprite_positions[self.arrow_pos][1]
         #add arrow to sprite list:
         self.menu_sprite_list.append(self.arrow_sprite)
-        
+
 
     def change_arrow_pos(self, key, view_left, view_bottom):
         if key == arcade.key.UP:

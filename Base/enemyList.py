@@ -1,8 +1,6 @@
 # This file will contain a all enemies in the game, and will used by
 # the getEnemy function from the Kombat class
 
-
-
 class SmallChild():
     def __init__(self):
         self.hp = 6
