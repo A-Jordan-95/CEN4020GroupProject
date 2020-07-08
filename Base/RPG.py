@@ -296,7 +296,7 @@ class RPG(arcade.Window):
             self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
 
         if self.map == "overworld":
-            self.rand_range = 600
+            self.rand_range = 300
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
@@ -315,7 +315,7 @@ class RPG(arcade.Window):
                     print("Changed map to dollar store\n")
                 self.setup()
         else:
-            self.rand_range = 300
+            self.rand_range = 200
             door_hit_list = arcade.check_for_collision_with_list(self.player, self.door_list)
             if door_hit_list:
                 if self.map == "DollarStore":
