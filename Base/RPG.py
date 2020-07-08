@@ -280,6 +280,7 @@ class RPG(arcade.Window):
                 x = random.randint(0,self.rand_range)
                 if x == 1:
                     self.encounter.active_encounter = True
+                    self.encounter.setup_kombat()
 
             self.physics_engine.update()
 
@@ -367,7 +368,7 @@ class RPG(arcade.Window):
             if key == arcade.key.ENTER:
                 self.encounter.handle_the_selection = True
                 self.return_string = self.encounter.handle_selection()
-                if self.return_string == "Run" or self.return_string == "Hide":
+                if self.return_string == "Run" or self.return_string == "Hide" or self.return_string == "You are dead as shit" or self.return_string == "You have defeated the monster! :)":
                     self.encounter.end_encounter_on_update = True
             else:
                 self.encounter.handle_the_selection = False

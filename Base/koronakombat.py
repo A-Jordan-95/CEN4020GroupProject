@@ -51,13 +51,14 @@ class Kombat():
             print(f1.moveList)
             print(f1.hp, "/", f1.maxHP, "HP")
             choice = selection
-            msg, dmg = self.getDamage(f1.moveList[int(choice)],f1,f2)
+            player_msg, dmg = self.getDamage(f1.moveList[int(choice)],f1,f2)
 
             if(f2.hp<=0):
                 print("You have defeated the monster! :)")
                 msg = "You have defeated the monster! :)"
             else:
-                msg, dmg = self.getDamage(f2.getDecision(f1), f2, f1)
+                enemy_msg, dmg = self.getDamage(f2.getDecision(f1), f2, f1)
+                msg = player_msg + "\n" + enemy_msg
                 if(f1.hp<=0):
                     print("You are dead as shit")
                     msg = "You are dead as shit"
