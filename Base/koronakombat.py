@@ -37,7 +37,7 @@ class Kombat():
         print(str(msg))
         target.hp = target.hp - damage
 
-        return msg, damage
+        return msg
 
     def getEnemy(self, loc):
         from enemyList import enemyMap
@@ -51,13 +51,13 @@ class Kombat():
             print(f1.moveList)
             print(f1.hp, "/", f1.maxHP, "HP")
             choice = selection
-            player_msg, dmg = self.getDamage(f1.moveList[int(choice)],f1,f2)
+            player_msg = self.getDamage(f1.moveList[int(choice)],f1,f2)
 
             if(f2.hp<=0):
                 print("You have defeated the monster! :)")
                 msg = "You have defeated the monster! :)"
             else:
-                enemy_msg, dmg = self.getDamage(f2.getDecision(f1), f2, f1)
+                enemy_msg  = self.getDamage(f2.getDecision(f1), f2, f1)
                 msg = player_msg + "\n" + enemy_msg
                 if(f1.hp<=0):
                     print("You are dead as shit")

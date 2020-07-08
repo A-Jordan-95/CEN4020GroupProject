@@ -1,6 +1,8 @@
 import arcade
+import random
 from masterMoveDict import mmd
 import koronakombat as kk
+import enemyList as el
 
 class Encounter():
     def __init__(self):
@@ -21,12 +23,17 @@ class Encounter():
         self.end_encounter_on_update = False
         self.hero_move_list = None
         self.hero = None
+        self.enemy = None
         self.kombat = None
 
     def setup_kombat(self):
         self.hero_move_list = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on']
         self.hero = kk.Hero(10, 10, 8, 6, 5, 5, self.hero_move_list, "Main character")
         self.kombat = kk.Kombat("Overworld")
+        if random.randint(0,1) == 1:
+            self.enemy = el.BigChild()
+        else:
+            self.enemy = el.SmallChild() 
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
@@ -143,11 +150,8 @@ class Encounter():
         pos = self.arrow_pos + self.menu_offset
         if self.menu[pos] != "Run" and self.menu[pos] != "Hide":
             print("checking for defeat...")
-            ret_val = self.kombat.check_for_defeat(self.hero, self.kombat.enem, pos)
+            ret_val = self.kombat.check_for_defeat(self.hero, self.enemy, pos)
         else:
             ret_val = self.menu[pos]
 
-        #if ret_val == "You have defeated the monster! :)" or ret_val == "You are dead as shit":
-            #self.end_encounter_on_update = True
-            #self.__init__()
         return ret_val
