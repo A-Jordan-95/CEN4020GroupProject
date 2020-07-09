@@ -25,9 +25,8 @@ class Hero(Agent):
 # future. In this state, perhaps a destructor can be written to handle the end of a combat
 # encounter?
 class Kombat():
-    def __init__(self, loc, hero):
-        enem = self.getEnemy(loc)
-        self.run(hero, enem)
+    def __init__(self, loc):
+        self.enem = self.getEnemy(loc)
 
     # pass in a string for the name of the attack, and an Agent to attack
     # returns damage but handles changing hp.
@@ -38,7 +37,7 @@ class Kombat():
         print(str(msg))
         target.hp = target.hp - damage
 
-        return damage
+        return msg, damage
 
     def getEnemy(self, loc):
         from enemyList import enemyMap
@@ -47,19 +46,22 @@ class Kombat():
 
 
     # Function that runs combat
-    def run(self,f1, f2):
-        while(f1.hp>0 and f2.hp >0):
+    def check_for_defeat(self,f1, f2, selection):
+        if(f1.hp>0 and f2.hp >0):
             print(f1.moveList)
             print(f1.hp, "/", f1.maxHP, "HP")
-            choice = input("What would you like to do?")
-            self.getDamage(f1.moveList[int(choice)],f1,f2)
+            choice = selection
+            msg, dmg = self.getDamage(f1.moveList[int(choice)],f1,f2)
 
             if(f2.hp<=0):
                 print("You have defeated the monster! :)")
+                msg = "You have defeated the monster! :)"
             else:
-                self.getDamage(f2.getDecision(f1), f2, f1)
+                msg, dmg = self.getDamage(f2.getDecision(f1), f2, f1)
                 if(f1.hp<=0):
                     print("You are dead as shit")
+                    msg = "You are dead as shit"
+            return msg
 
 # need to write what happens when a battle ends
 #    def __del__(self):

@@ -1,4 +1,6 @@
 import arcade
+from masterMoveDict import mmd
+import koronakombat as kk
 
 class Encounter():
     def __init__(self):
@@ -17,6 +19,9 @@ class Encounter():
         self.handle_the_selection = False
         self.first_draw_of_encounter = True
         self.end_encounter_on_update = False
+        self.hero_move_list = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on']
+        self.hero = kk.Hero(10, 10, 8, 6, 5, 5, self.hero_move_list, "Main character")
+        self.kombat = kk.Kombat("Overworld")
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
@@ -30,7 +35,7 @@ class Encounter():
         if menu:
             self.menu = self.parse_menu(menu)
         else:
-            self.menu = ["Fight", "Run", "Hide", "Pee pants", "cast a spell", "climb a tree", "dig a hole", "poop pants"]
+            self.menu = ['Run', 'Hide', 'Smile', 'Attack', 'Chortle', 'Cough on', '', '']
         if pos:
             self.arrow_pos = pos
         else:
@@ -58,6 +63,7 @@ class Encounter():
         self.arrow_sprite.center_y = self.arrow_sprite_positions[self.arrow_pos][1]
         #add arrow to sprite list:
         self.menu_sprite_list.append(self.arrow_sprite)
+        
 
     def change_arrow_pos(self, key, view_left, view_bottom):
         if key == arcade.key.UP:
@@ -130,4 +136,11 @@ class Encounter():
 
     def handle_selection(self):
         pos = self.arrow_pos + self.menu_offset
-        return f"{self.menu[pos]}"
+        if self.menu[pos] != "Run" and self.menu[pos] != "Hide":
+            ret_val = self.kombat.check_for_defeat(self.hero, self.kombat.enem, pos)
+        else:
+            ret_val = self.menu[pos]
+
+        if ret_val == "You have defeated the monster! :)" or ret_val == "You are dead as shit":
+            self.end_encounter_on_update = True
+        return ret_val

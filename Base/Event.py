@@ -1,5 +1,4 @@
-import arcade
-
+import Entity
 class Event:
 
     def __init__(self):
@@ -7,6 +6,7 @@ class Event:
         self.dialogue_events_dollarstore = None
         self.dialogue_events_malmart = None
         self.dialogue_events_school = None
+        self.need_to_add_item = True
         self.event_num_lines = 0
 
     # Handle Dialogue Events in the world
@@ -17,7 +17,7 @@ class Event:
                 if current_dialogue_line == 1:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
-                    overlay.draw_dialogue_box("Why can't I enter my own house?", "Main Character", view_bottom, view_left)
+                    overlay.draw_dialogue_box("Why can't I enter my own house?\nPress [Enter] to exit.", "Main Character", view_bottom, view_left)
             # MalMart Event
             elif event_ID == "2":
                 if current_dialogue_line == 1:
@@ -37,6 +37,26 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(You found a REVOLVER)", "Main Character", view_bottom, view_left)
+                    # For items we need this check or else we'll continuously create objects while drawing when
+                    # we only want 1
+                    if self.need_to_add_item:
+                        # Insert into Weapons Array
+                        player_items[1].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Fists())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Revolver())
+                        player_items[2].append(Entity.Fists())
+                        # No longer need to add item to the array
+                        self.need_to_add_item = False
+                        print(player_items)
         elif map_name == "DollarStore":
             # Entered Dollar Store Event
             if event_ID == "1":
@@ -51,6 +71,14 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(You found a REVOLVER)", "Main Character", view_bottom, view_left)
+                    # For items we need this check or else we'll continuously create objects while drawing when
+                    # we only want 1
+                    if self.need_to_add_item:
+                        # Insert into Weapons Array
+                        player_items[1].append(Entity.Revolver())
+                        # No longer need to add item to the array
+                        self.need_to_add_item = False
+                        print(player_items)
         elif map_name == "MalMart":
             # Entered MalMart Event
             if event_ID == "1":

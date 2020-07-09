@@ -31,6 +31,11 @@ def chortle(attacker, target):
     msg = attacker.name + " goes \"HOHOHO\"\n"+ attacker.name +" did "+ str(dmg)+ " damage to " + target.name
     return msg, dmg
 
-mmd = {"Smile": smile, "Attack": attack, "Chortle": chortle}
+def cough(attacker, target):
+    dmg = int((attacker.at-(target.df/2))/2*(1+random.random()))
+    msg = attacker.name + " coughs at " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    return msg, dmg
+
+mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough on": cough}
 
 
