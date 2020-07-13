@@ -111,9 +111,9 @@ class Overlay():
             self.player_info_sprite_list.draw()
             # Have to render text afterwards
             # HP Info
-            arcade.draw_text(str(hit_points) + " / 100 HP", view_left + 95, view_bottom + 700, arcade.color.RED, 20, anchor_x="left", anchor_y="top")
+            arcade.draw_text(str(hit_points), view_left + 95, view_bottom + 700, arcade.color.RED, 20, anchor_x="left", anchor_y="top")
             # EP Info
-            arcade.draw_text(str(energy_points) + " / 100 EP", view_left + 95, view_bottom + 670, arcade.color.GOLD, 20, anchor_x="left", anchor_y="top")
+            arcade.draw_text(str(energy_points), view_left + 95, view_bottom + 670, arcade.color.GOLD, 20, anchor_x="left", anchor_y="top")
 
     def draw_menu_bar(self, view_bottom, view_left):
         if self.showUI:
