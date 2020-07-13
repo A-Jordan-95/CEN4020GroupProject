@@ -237,7 +237,9 @@ class RPG(arcade.Window):
             self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
 
         #User Hitpoints and Energy (Top left)
-        self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
+        self.overlay.draw_player_info(f"{self.encounter.hero.hp} / {self.encounter.hero.maxHP} HP",
+                                      f"{self.encounter.hero.mp} / {self.encounter.hero.maxHP} MP",
+                                      self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
