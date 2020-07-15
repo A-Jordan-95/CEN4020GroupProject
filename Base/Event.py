@@ -54,8 +54,8 @@ class Event:
                     overlay.draw_dialogue_box("(Boss Fight?)", "Main Character", view_bottom, view_left)
                     # We need to add an event after our boss fight.
                     if self.need_to_add_item:
-                        # Event Chaining - Add new event to Overworld Map (use grass to hide it later)
-                        self.dollar_store_boss_aftermath = arcade.Sprite("maps/dialogue_event_5.png", scale=1.25)
+                        # Event Chaining - Add new event to Overworld Map (use grass to hide it later, or just use grass)
+                        self.dollar_store_boss_aftermath = arcade.Sprite("maps/dialogue_event_6.png", scale=1.25)
                         # Add 160x2 (>), use center_x and center_y as reference (or just test on Tiled)
                         self.dollar_store_boss_aftermath.set_position(6960, 5040)
                         # Give Event an ID tag so we know which ID to reference

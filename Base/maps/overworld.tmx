@@ -33,7 +33,7 @@
  <tileset firstgid="18" source="Dialogue_Events.tsx"/>
  <layer id="6" name="Finished_Event" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJztzkENAAAIBCBn/9B2uI/TQQKqADK9HQhcPAMAAADANwNopAAF
+   eJzt0AENAAAIwzCCf9HIIIdWwbIqyNfbAU8lfk9sBgAAAIBrBpRMAAc=
   </data>
  </layer>
  <layer id="4" name="Dialogue_Events" width="45" height="35">
@@ -43,7 +43,7 @@
  </layer>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzV1ksOhCAQBFDizhNw/5vOZkgI6U9VAaKd9GZs5IE94lVKuT6YLbLrWd1uXzF+s3wt7n9asXuN0b1qMMftpLJGNqpjauuJ1uu5W7L13jjGlZkZN+pF7J6rBNeUdazc79VmxRM9lx29Yc2tPBvPb91vlXmFF81ZM/N/P2VGe+4N5r6/lPepErvMqBep9c7TGbNybhWiNvoWUPtZefeP5hl3H0zfsGal/7O9Qc3qGbvKzPbGeC61UM3eGLQ2M1tnKRNsPyF1mTmyoPm0mbEhjrHXlP54wszudbbfbzVbY2fM6rxZX6DuzGxdZ9/TbH2Uninb6+h8UXJ8Fqxnhxnt69NmtD/Zcao52y8m2fug5sytWFWvZ7Eimlc1s2uPXCfMSB1irk7d6ehds/t1Kn97/RP+
+   eJzV1ksOhCAQBFDizhNw/5vOZkgI6U9VAaKd9GZs5IE94lVKuT6YLbLrWd1uXzF+s3wt7n9asXuN0b1qMMftpLJGNmpnt9YTrddzt2TrvXGMKzMzbtSL2D1XCa4p61i536vNiid6Ljt6w5pbeTae37rfKvMKL5qzZub/fsqM9twbzH1/Ke9TJXaZUS9S652nM2bl3CpEbfQtoPaz8u4fzTPuPpi+Yc1K/2d7g5rVM3aVme2N8VxqoZq9MWhtZrbOUibYfkLqMnNkQfNpM2NDHGOvKf3xhJnd62y/32q2xs6Y1XmzvkDdmdm6zr6n2fooPVO219H5ouT4LFjPDjPa16fNaH+y41Rztl9MsvdBzZlbsapez2JFNK9qZtceuU6YkTrEXJ2609G7ZvfrVP4AUFUT/A==
   </data>
  </layer>
  <layer id="1" name="walls" width="45" height="35">
