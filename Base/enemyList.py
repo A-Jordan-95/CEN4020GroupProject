@@ -39,4 +39,4 @@ class BigChild():
         else:
             return "Attack"
 
-enemyMap = {"Overworld":[SmallChild(), BigChild()]}
+enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "Bosses":[BigChild()]}
