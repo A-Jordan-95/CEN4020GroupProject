@@ -100,6 +100,7 @@ class RPG(arcade.Window):
         self.rand_range = None
         self.show_selection = False
         self.return_string = None
+        self.end_encounter_on_enter_press = False
 
         #animation:
         self.player = None
@@ -368,10 +369,19 @@ class RPG(arcade.Window):
         #Called whenever a key is pressed
         if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
-                self.encounter.handle_the_selection = True
-                self.return_string = self.encounter.handle_selection()
-                if self.return_string == "Run" or self.return_string == "Hide" or self.return_string == "You are dead as shit" or self.return_string == "You have defeated the monster! :)":
+                if self.end_encounter_on_enter_press:
+                    self.end_encounter_on_enter_press = False
+                    self.encounter.active_encounter = False
+                    self.show_selection = False
+                    self.encounter.first_draw_of_encounter = True
+                else:
+                    self.encounter.handle_the_selection = True
+                    self.return_string = self.encounter.handle_selection()
+                if self.return_string == "Run" or self.return_string == "Hide":
                     self.encounter.end_encounter_on_update = True
+                elif self.return_string == "You are dead as shit" or self.return_string == "You have defeated the monster! :)":
+                    self.end_encounter_on_enter_press = True
+                    self.return_string += "\npress [enter] to close encounter."
             else:
                 self.encounter.handle_the_selection = False
                 self.encounter.change_arrow_pos(key, self.view_left, self.view_bottom)
