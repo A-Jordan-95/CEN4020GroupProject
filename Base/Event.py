@@ -78,7 +78,7 @@ class Event:
                 if current_dialogue_line == 1:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
-                    overlay.draw_dialogue_box("(I wonder what I can find here)", "Main Character", view_bottom, view_left)
+                    overlay.draw_dialogue_box("(There has to be some toilet paper in here somewhere right?)", "Main Character", view_bottom, view_left)
             # Found Item events
             # Revolver
             elif event_ID == "50":
@@ -94,6 +94,20 @@ class Event:
                         # No longer need to add item to the array
                         self.need_to_add_item = False
                         print(player_items)
+            # Toilet paper  //requires creation of ToiletPaper entity
+            #elif event_ID == "51":
+                #if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    #self.event_num_lines = 1
+                   # overlay.draw_dialogue_box("(You found Toilet Paper)", "Main Character", view_bottom, view_left)
+                    # For items we need this check or else we'll continuously create objects while drawing when
+                    # we only want 1
+                    #if self.need_to_add_item:
+                        # Insert into Weapons Array
+                        #player_items[1].append(Entity.ToiletPaper())
+                        # No longer need to add item to the array
+                        #self.need_to_add_item = False
+                        #print(player_items)
         elif map_name == "MalMart":
             # Entered MalMart Event
             if event_ID == "1":
