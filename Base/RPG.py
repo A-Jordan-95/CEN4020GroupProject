@@ -238,7 +238,9 @@ class RPG(arcade.Window):
             self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
 
         #User Hitpoints and Energy (Top left)
-        self.overlay.draw_player_info(100, 100, self.view_bottom, self.view_left)
+        self.overlay.draw_player_info(f"{self.encounter.hero.hp} / {self.encounter.hero.maxHP} HP",
+                                      f"{self.encounter.hero.mp} / {self.encounter.hero.maxHP} MP",
+                                      self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
@@ -297,7 +299,7 @@ class RPG(arcade.Window):
             self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
 
         if self.map == "overworld":
-            self.rand_range = 600
+            self.rand_range = 300
             #check if building has been touched:
             building_hit_list = arcade.check_for_collision_with_list(self.player, self.building_list)
             if building_hit_list:
@@ -316,7 +318,7 @@ class RPG(arcade.Window):
                     print("Changed map to dollar store\n")
                 self.setup()
         else:
-            self.rand_range = 300
+            self.rand_range = 200
             door_hit_list = arcade.check_for_collision_with_list(self.player, self.door_list)
             if door_hit_list:
                 if self.map == "DollarStore":

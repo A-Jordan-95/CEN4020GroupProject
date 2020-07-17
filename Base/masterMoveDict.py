@@ -4,13 +4,17 @@
 # this call will return the damage that is dealt by the attack, leading to a suggested
 # syntax: damage = mmd["NameOfAttack"](attackingAgent, defendingAgent)
 #
-# For reference, here is the init for the Agent class (as of 6/23/2020)
+# For reference, here is the init for the Hero class (as of 7/8/2020)
 #
-#    def __init__(self, hp, at, df, ml, name):
+# def __init__(self, hp, mp, at, df, ag, lk, ml, name):
 #        self.hp = hp
 #        self.maxHP = hp
+#        self.mp =mp
+#        self.maxMP = mp
 #        self.at = at
 #        self.df = df
+#        self.ag = ag
+#        self.lk = lk
 #        self.moveList = ml
 #        self.name = name
 
@@ -33,9 +37,9 @@ def chortle(attacker, target):
 
 def cough(attacker, target):
     dmg = int((attacker.at-(target.df/2))/2*(1+random.random()))
-    msg = attacker.name + " coughs at " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    msg = attacker.name + " coughs on " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
     return msg, dmg
 
-mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough on": cough}
+mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough}
 
 
