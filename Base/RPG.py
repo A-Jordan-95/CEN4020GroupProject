@@ -283,7 +283,7 @@ class RPG(arcade.Window):
                 x = random.randint(0,self.rand_range)
                 if x == 1:
                     self.encounter.active_encounter = True
-                    self.encounter.setup_kombat()
+                    self.encounter.setup_kombat(self.map)
 
             self.physics_engine.update()
 

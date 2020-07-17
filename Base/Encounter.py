@@ -38,8 +38,8 @@ class Encounter():
         self.hero_move_list.append("test")
         self.hero_move_list.append("test") # test will show that the moveList was read correctly
 
-    def setup_kombat(self):
-        self.kombat = kk.Kombat("Overworld")
+    def setup_kombat(self, map_string):
+        self.kombat = kk.Kombat(map_string)
         self.enemy = self.kombat.enem
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
