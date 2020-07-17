@@ -123,6 +123,31 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(There has to be some toilet paper in here somewhere right?)", "Main Character", view_bottom, view_left)
+
+            # Leaving Dollar Store Event
+            if event_ID == "2":
+                if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    self.event_num_lines = 3
+                    overlay.draw_dialogue_box("(As you are about to exit, an angry man walks up to you)", "Main Character", view_bottom, view_left)
+                elif current_dialogue_line == 2:
+                    overlay.draw_dialogue_box("Gimme that last roll, I know you found it!", "Man", view_bottom, view_left)
+                elif current_dialogue_line == 3:
+                    overlay.draw_dialogue_box("(The man swipes the toilet from your hand and runs out the door)", "Man", view_bottom, view_left)
+                #Chaining to event 5 outside dollar store
+                if self.need_to_add_item:
+                    # Insert into Weapons Array
+                    player_items[1].append(Entity.Revolver())
+                    # No longer need to add item to the array
+                    self.need_to_add_item = False
+                    self.testSprite = arcade.Sprite("maps/dialogue_event_5.png", scale=1.25)
+                    # Subtract 160 (V), use center_x and center_y as reference (or just test on Tiled)
+                    self.testSprite.set_position(6960, 5040)
+                    # Give Event an ID tag so we know which ID to reference
+                    self.testSprite.properties.__setitem__("ID", "5")
+                    # Add event to appropriate list (overworld event)
+                    self.dialogue_events_overworld.append(self.testSprite)
+                    print(player_items)
             # Found Item events
             # Revolver
             elif event_ID == "50":
@@ -132,11 +157,19 @@ class Event:
                     overlay.draw_dialogue_box("(You found a REVOLVER)", "Main Character", view_bottom, view_left)
                     # For items we need this check or else we'll continuously create objects while drawing when
                     # we only want 1
+                    #Chaining to event 2 inside dollar store
                     if self.need_to_add_item:
                         # Insert into Weapons Array
                         player_items[1].append(Entity.Revolver())
                         # No longer need to add item to the array
                         self.need_to_add_item = False
+                        self.testSprite = arcade.Sprite("maps/dialogue_event_3.png", scale=1.25)
+                        # Subtract 160 (V), use center_x and center_y as reference (or just test on Tiled)
+                        self.testSprite.set_position(240, 2960)
+                        # Give Event an ID tag so we know which ID to reference
+                        self.testSprite.properties.__setitem__("ID", "2")
+                        # Add event to appropriate list (overworld event)
+                        self.dialogue_events_dollarstore.append(self.testSprite)
                         print(player_items)
             # Toilet paper  //requires creation of ToiletPaper entity
             #elif event_ID == "51":
