@@ -125,10 +125,6 @@ class RPG(arcade.Window):
         platforms_layer_name = 'walls'
         my_map = arcade.tilemap.read_tmx(map_name)
 
-        #setup encounters:
-        self.encounter = Encounter.Encounter()
-        self.encounter.setup(self.view_bottom, self.view_left)
-
         # Only create the dialogue event list on the first load, reference list on successive map changes
         if self.first_load_of_game:
             # Set up Event Class
@@ -143,6 +139,12 @@ class RPG(arcade.Window):
             self.event.dialogue_events_school = arcade.tilemap.process_layer(
                 arcade.tilemap.read_tmx("maps/TheSchool.tmx"), "Dialogue_Events", TILE_SCALING)
             self.first_load_of_game = False
+
+            # Only set-up encounters constructor/set-up on initial game load:
+            self.encounter = Encounter.Encounter()
+            self.encounter.setup(self.view_bottom, self.view_left)
+
+        # Always display finished events
         self.finished_event = arcade.tilemap.process_layer(
                 arcade.tilemap.read_tmx(map_name), "Finished_Event", TILE_SCALING)
 
