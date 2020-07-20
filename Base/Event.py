@@ -51,19 +51,19 @@ class Event:
                 elif current_dialogue_line == 2:
                     overlay.draw_dialogue_box("(You approach the man angrily)", "Main Character", view_bottom, view_left)
                 elif current_dialogue_line == 3:
-                    overlay.draw_dialogue_box("(Boss Fight?)", "Main Character", view_bottom, view_left)
-                    # We need to add an event after our boss fight.
-                    if self.need_to_add_item:
-                        # Event Chaining - Add new event to Overworld Map (use grass to hide it later, or just use grass)
-                        self.dollar_store_boss_aftermath = arcade.Sprite("maps/dialogue_event_6.png", scale=1.25)
-                        # Add 160x2 (>), use center_x and center_y as reference (or just test on Tiled)
-                        self.dollar_store_boss_aftermath.set_position(6960, 5040)
-                        # Give Event an ID tag so we know which ID to reference
-                        self.dollar_store_boss_aftermath.properties.__setitem__("ID", "6")
-                        # Add event to appropriate list (overworld event)
-                        self.dialogue_events_overworld.append(self.dollar_store_boss_aftermath)
-                        # No longer need to add item to the array
-                        self.need_to_add_item = False
+                    overlay.draw_dialogue_box("(Looks like a boss event is going to begin)", "Main Character", view_bottom, view_left)
+                    # # We need to add an event after our boss fight.
+                    # if self.need_to_add_item:
+                    #     # Event Chaining - Add new event to Overworld Map (use grass to hide it later, or just use grass)
+                    #     self.dollar_store_boss_aftermath = arcade.Sprite("maps/dialogue_event_6.png", scale=1.25)
+                    #     # Add 160x2 (>), use center_x and center_y as reference (or just test on Tiled)
+                    #     self.dollar_store_boss_aftermath.set_position(6960, 5040)
+                    #     # Give Event an ID tag so we know which ID to reference
+                    #     self.dollar_store_boss_aftermath.properties.__setitem__("ID", "6")
+                    #     # Add event to appropriate list (overworld event)
+                    #     self.dialogue_events_overworld.append(self.dollar_store_boss_aftermath)
+                    #     # No longer need to add item to the array
+                    #     self.need_to_add_item = False
             # Angry Man Aftermath
             elif event_ID == "6":
                 if current_dialogue_line == 1:
@@ -199,3 +199,13 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(I wonder what I can find here)", "Main Character", view_bottom, view_left)
+
+    # Create an encounter after dialogue event is over (pressed [Enter] on last dialogue string)
+    def handle_add_encounter_after_event(self, event_id, map_name, encounter):
+        if map_name == "overworld":
+            # Create Hobo Boss Event at the end of Event #5
+            if event_id == "5":
+                encounter.active_encounter = True
+                encounter.setup_kombat("hobo")
+        elif map_name == "DollarStore":
+            pass
