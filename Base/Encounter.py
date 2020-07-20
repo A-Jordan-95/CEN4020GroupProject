@@ -38,9 +38,13 @@ class Encounter():
         self.hero_move_list.append("test")
         self.hero_move_list.append("test") # test will show that the moveList was read correctly
 
-    def setup_kombat(self, map_string):
+    def setup_kombat(self, map_string, view_left, view_bottom):
         self.kombat = kk.Kombat(map_string)
         self.enemy = self.kombat.enem
+        #load proper enemy sprite image based on specific enemy for encounter
+        self.enemy_sprite = arcade.Sprite(self.enemy.img, 1.0)
+        self.setup(view_left, view_bottom)
+        
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
@@ -62,9 +66,9 @@ class Encounter():
         #setup window_sprite_list:
         self.windows_sprite_list = arcade.SpriteList()
         #setup enemy sprite:
-        self.enemy_sprite = arcade.Sprite("Images/EnemySprites/CORONAPILLAR.png", 1.0)
-        self.enemy_sprite.center_x = view_left + 640
-        self.enemy_sprite.center_y = view_bottom + 330
+        if self.enemy_sprite:
+            self.enemy_sprite.center_x = view_left + 640
+            self.enemy_sprite.center_y = view_bottom + 330
         #setup encounter ui windows:
         self.enemy_window_sprite = arcade.Sprite("Images/EncounterSprites/enemy_window.png", 1.0)
         self.enemy_window_sprite.center_x = view_left + 640
@@ -75,7 +79,8 @@ class Encounter():
         #add windows to sprite list:
         self.windows_sprite_list.append(self.enemy_window_sprite)
         self.windows_sprite_list.append(self.command_window_sprite)
-        self.windows_sprite_list.append(self.enemy_sprite)
+        if self.enemy_sprite:
+            self.windows_sprite_list.append(self.enemy_sprite)
         #setup encounter ui menu:
         self.arrow_sprite = arcade.Sprite("Images/EncounterSprites/arrow.png", 0.5)
         self.arrow_sprite.center_x = self.arrow_sprite_positions[self.arrow_pos][0]
