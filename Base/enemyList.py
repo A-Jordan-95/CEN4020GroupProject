@@ -13,6 +13,7 @@ class SmallChild():
         self.lk = 3
         self.moveList = ['Attack', 'Smile']
         self.name = 'Small Child'
+        self.img = "Images/EnemySprites/CORONAPILLAR.png"
 
     def getDecision(self,h):
         if(self.hp == self.maxHP):
@@ -32,6 +33,7 @@ class BigChild():
         self.lk = 1
         self.moveList = ['Attack', 'Chortle']
         self.name = 'Big Child'
+        self.img = "Images/EnemySprites/fatkid.png"
 
     def getDecision(self,h):
         if(self.hp == self.maxHP):
@@ -39,4 +41,64 @@ class BigChild():
         else:
             return "Attack"
 
-enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "hobo":[BigChild()], "kovid_mantis":[BigChild()], "karen_demon_from_hell":[BigChild()]}
+class hobo():
+    def __init__(self):
+        self.hp = 12
+        self.maxHP = 12
+        self.mp = 0
+        self.maxMP = 0
+        self.at = 8
+        self.df = 5
+        self.ag = 2
+        self.lk = 1
+        self.moveList = ['Attack', 'Chortle']
+        self.name = 'Homeless Man'
+        self.img = "Images/EnemySprites/homeless man.png"
+
+    def getDecision(self,h):
+        if(self.hp == self.maxHP):
+            return "Chortle"
+        else:
+            return "Attack"
+
+class kovidMantis():
+    def __init__(self):
+        self.hp = 12
+        self.maxHP = 12
+        self.mp = 0
+        self.maxMP = 0
+        self.at = 8
+        self.df = 5
+        self.ag = 2
+        self.lk = 1
+        self.moveList = ['Attack', 'Chortle']
+        self.name = 'Kovid Mantis'
+        self.img = "Images/EnemySprites/homeless man.png"
+
+    def getDecision(self,h):
+        if(self.hp == self.maxHP):
+            return "Chortle"
+        else:
+            return "Attack"
+
+class karenDemon():
+    def __init__(self):
+        self.hp = 12
+        self.maxHP = 12
+        self.mp = 0
+        self.maxMP = 0
+        self.at = 8
+        self.df = 5
+        self.ag = 2
+        self.lk = 1
+        self.moveList = ['Attack', 'Chortle']
+        self.name = 'Karen Demon from Hell'
+        self.img = "Images/EnemySprites/karen_combat.png"
+
+    def getDecision(self,h):
+        if(self.hp == self.maxHP):
+            return "Chortle"
+        else:
+            return "Attack"
+
+enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "hobo":[hobo()], "kovid_mantis":[kovidMantis()], "karen_demon_from_hell":[karenDemon()]}
