@@ -260,7 +260,7 @@ class RPG(arcade.Window):
             if self.first_draw_of_inventory:
                 self.inventory.setup(self.view_bottom, self.view_left, self.player_equipped)
                 self.first_draw_of_inventory = False
-            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items, self.player_equipped)
+            self.inventory.draw_inventory(self.view_left, self.view_bottom, self.player_items, self.player_equipped, self.encounter)
 
     def on_update(self, delta_time):
         #movement logic and game logic goes here:
@@ -423,7 +423,7 @@ class RPG(arcade.Window):
                 self.active_inventory = True
         # Handle Logic when inside the inventory
         if self.active_inventory:
-            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items, self.player_equipped)
+            self.inventory.change_arrow_pos(key, self.view_left, self.view_bottom, self.player_items, self.player_equipped, self.encounter)
         # Handle Logic when interacting with characters
         if self.active_dialogue_event:
             # Trap the user in dialogue event until they have seen all dialogue

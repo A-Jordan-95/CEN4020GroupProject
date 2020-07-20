@@ -133,10 +133,10 @@ class Inventory():
         self.inventory_player_info_bottom_panel.set_position(view_left + 320, view_bottom + 360 - 208)
         self.inventory_gui_spritelist.append(self.inventory_player_info_bottom_panel)
 
-        # Player Info Strength
-        self.inventory_player_info_strength = arcade.SpriteSolidColor(275, 60, arcade.color.SOAP)
-        self.inventory_player_info_strength.set_position(view_left + 320 - 148, view_bottom + 235)
-        self.inventory_gui_spritelist.append(self.inventory_player_info_strength)
+        # Player Info Attack
+        self.inventory_player_info_attack = arcade.SpriteSolidColor(275, 60, arcade.color.SOAP)
+        self.inventory_player_info_attack.set_position(view_left + 320 - 148, view_bottom + 235)
+        self.inventory_gui_spritelist.append(self.inventory_player_info_attack)
 
         # Player Info Intelligence
         self.inventory_player_info_intelligence = arcade.SpriteSolidColor(275, 60, arcade.color.SOAP)
@@ -195,7 +195,7 @@ class Inventory():
         self.inventory_item_grid.set_position(view_left + 1130, view_bottom + 347)
         self.inventory_gui_spritelist.append(self.inventory_item_grid)
 
-    def change_arrow_pos(self, key, view_left, view_bottom, player_items, player_equipped):
+    def change_arrow_pos(self, key, view_left, view_bottom, player_items, player_equipped, encounter):
         #Moving tabs reset list selection (->)
         if key == arcade.key.RIGHT and self.pos_tab < 7:
             self.pos_tab += 1
@@ -232,9 +232,11 @@ class Inventory():
                 pass
         elif key == arcade.key.ENTER and len(player_items[self.pos_tab]) > 0:
             #We are equipping an item
-            if self.pos_tab >= 0 and self.pos_tab <= 5:
+            if self.pos_tab >= 0 and self.pos_tab <= 5 and player_equipped[self.pos_tab] is None:
                 # Move Item to Player Equipped
                 player_equipped[self.pos_tab] = player_items[self.pos_tab][self.pos_item + self.offset]
+                encounter.hero.at += player_equipped[self.pos_tab].attack
+
             elif self.pos_tab == 6:
                 #We are using a consumable
                 print("Consume")
@@ -247,7 +249,9 @@ class Inventory():
             # We are removing a equipped item
             if self.pos_tab >= 0 and self.pos_tab <= 5 and player_equipped[self.pos_tab] is not None:
                 # Remove item from equipped
+                encounter.hero.at -= player_equipped[self.pos_tab].attack
                 player_equipped[self.pos_tab] = None
+
             elif self.pos_tab == 6:
                 # Something else with consumable?
                 print("?")
@@ -259,7 +263,7 @@ class Inventory():
         # Redraw everything (probably needs to be optimized)
         self.setup(view_bottom, view_left, player_equipped, self.pos_tab, self.pos_item)
 
-    def draw_inventory(self, view_left, view_bottom, player_items, player_equipped):
+    def draw_inventory(self, view_left, view_bottom, player_items, player_equipped, encounter):
         # Draw the UI before drawing the text
         self.inventory_gui_spritelist.draw()
 
@@ -317,20 +321,20 @@ class Inventory():
             # Player Level
             arcade.draw_text("Level: 100", view_left + 70, view_bottom + 655, arcade.color.BLACK, 20)
             # Player HP
-            arcade.draw_text("HP: 100/100", view_left + 255, view_bottom + 655, arcade.color.BLACK, 20)
+            arcade.draw_text(f"HP: {encounter.hero.hp} / {encounter.hero.maxHP}", view_left + 255, view_bottom + 655, arcade.color.BLACK, 20)
             # Player Energy
-            arcade.draw_text("EP: 100/100", view_left + 450, view_bottom + 655, arcade.color.BLACK, 20)
+            arcade.draw_text(f"MP: {encounter.hero.mp} / {encounter.hero.maxMP}", view_left + 450, view_bottom + 655, arcade.color.BLACK, 20)
 
             #BOTTOM
-            # Player Strength
-            arcade.draw_text("Strength: 100", view_left + 100, view_bottom + 220, arcade.color.BLACK, 20)
+            # Player Attack
+            arcade.draw_text(f"Attack: {encounter.hero.at}", view_left + 120, view_bottom + 220, arcade.color.BLACK, 20)
             # Player Intelligence
             arcade.draw_text("Intelligence: 100", view_left + 85, view_bottom + 135, arcade.color.BLACK, 20)
             # Player Agility
-            arcade.draw_text("Agility: 100", view_left + 120, view_bottom + 55, arcade.color.BLACK, 20)
+            arcade.draw_text(f"Agility: {encounter.hero.ag}", view_left + 120, view_bottom + 55, arcade.color.BLACK, 20)
             # Player Defense
-            arcade.draw_text("Defense: 100", view_left + 400, view_bottom + 220, arcade.color.BLACK, 20)
+            arcade.draw_text(f"Defense: {encounter.hero.df}", view_left + 400, view_bottom + 220, arcade.color.BLACK, 20)
             # Player Immunity
-            arcade.draw_text("Immunity: 100", view_left + 395, view_bottom + 135, arcade.color.BLACK, 20)
+            arcade.draw_text(f"Immunity: 100", view_left + 395, view_bottom + 135, arcade.color.BLACK, 20)
             # Player Luck
-            arcade.draw_text("Luck: 100", view_left + 410, view_bottom + 55, arcade.color.BLACK, 20)
+            arcade.draw_text(f"Luck: {encounter.hero.lk}", view_left + 410, view_bottom + 55, arcade.color.BLACK, 20)
