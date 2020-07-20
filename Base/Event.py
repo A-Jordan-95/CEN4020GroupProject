@@ -201,11 +201,11 @@ class Event:
                     overlay.draw_dialogue_box("(I wonder what I can find here)", "Main Character", view_bottom, view_left)
 
     # Create an encounter after dialogue event is over (pressed [Enter] on last dialogue string)
-    def handle_add_encounter_after_event(self, event_id, map_name, encounter):
+    def handle_add_encounter_after_event(self, event_id, map_name, encounter, view_bottom, view_left):
         if map_name == "overworld":
             # Create Hobo Boss Event at the end of Event #5
             if event_id == "5":
                 encounter.active_encounter = True
-                encounter.setup_kombat("hobo")
+                encounter.setup_kombat("hobo", view_left, view_bottom)
         elif map_name == "DollarStore":
             pass

@@ -231,7 +231,7 @@ class RPG(arcade.Window):
                 self.active_dialogue_event = False
                 self.current_dialogue_line = 1
                 # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
-                self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter)
+                self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter, self.view_bottom, self.view_left)
                 #Remove event from list and reset the active ID
                 self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
                 self.active_event_id = None
