@@ -226,11 +226,15 @@ class RPG(arcade.Window):
                 self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
-                #Reset to Normal Gameplay State
+                #Reset to Normal Game State
                 self.event.need_to_add_item = True  # Reset Flag for adding items so multiple items aren't added while drawing
                 self.active_dialogue_event = False
-                self.current_dialogue_line = 1                                      #Any call to dialogue event will have at least one line
+                self.current_dialogue_line = 1
+                # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
+                self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter)
+                #Remove event from list and reset the active ID
                 self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                self.active_event_id = None
                 # Dont show the dialogue box while walking in the overworld (reset to default values)
                 self.overlay.showDialogueBox = False
                 self.speaker = "Main Character"
