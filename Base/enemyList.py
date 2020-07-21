@@ -61,7 +61,7 @@ class hobo():
         else:
             return "Attack"
 
-class kovidMantis():
+class CovidMantis():
     def __init__(self):
         self.hp = 12
         self.maxHP = 12
@@ -72,8 +72,8 @@ class kovidMantis():
         self.ag = 2
         self.lk = 1
         self.moveList = ['Attack', 'Chortle']
-        self.name = 'Kovid Mantis'
-        self.img = "Images/EnemySprites/homeless man.png"
+        self.name = 'Covid Mantis'
+        self.img = "Images/EnemySprites/COVID_MANTIS_battle.png"
 
     def getDecision(self,h):
         if(self.hp == self.maxHP):
@@ -101,4 +101,4 @@ class karenDemon():
         else:
             return "Attack"
 
-enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "hobo":[hobo()], "kovid_mantis":[kovidMantis()], "karen_demon_from_hell":[karenDemon()]}
+enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "hobo":[hobo()], "covid_mantis":[CovidMantis()], "karen_demon_from_hell":[karenDemon()]}
