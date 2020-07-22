@@ -411,8 +411,8 @@ class RPG(arcade.Window):
         elif key == arcade.key.KEY_4:
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
-        # Using the inventory, prevent the player from accessing inventory in battle
-        if key == arcade.key.I and not self.encounter.active_encounter:
+        # Using the inventory, prevent the player from accessing inventory in battle or in a dialogue event
+        if key == arcade.key.I and not self.encounter.active_encounter and not self.active_dialogue_event:
             # If we are already inside our inventory
             if self.active_inventory:
                 self.active_inventory = False
