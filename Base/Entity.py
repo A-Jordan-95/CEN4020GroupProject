@@ -10,9 +10,20 @@ class Entity():
         self.maxhp = 0
         self.mp = 0
         self.maxmp = 0
-        self.maxhp = 0
         self.sprite = None
 
+#Helmets
+class NoodleHat(Entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Noodle Hat"
+        self.defense = 3
+        self.agility = 1
+        self.luck = 1
+        self.sprite = "Inventory/Noodle_hat.png"
+        self.description = "Nothing says stay 6 feet\naway from me than this\npool noodle hat."
+
+#Weapons
 class Revolver(Entity):
     def __init__(self):
         super().__init__()
@@ -31,16 +42,7 @@ class Fists(Entity):
         self.sprite = "Inventory/fists.png"
         self.description = "When life gives you lemons,\ngive it a sucker punch back."
 
-class NoodleHat(Entity):
-    def __init__(self):
-        super().__init__()
-        self.name = "Noodle Hat"
-        self.defense = 3
-        self.agility = 1
-        self.luck = 1
-        self.sprite = "Inventory/Noodle_hat.png"
-        self.description = "Nothing says stay 6 feet\naway from me than this\npool noodle hat."
-
+#Consumables
 class H0CQ(Entity):
     def __init__(self):
         super().__init__()

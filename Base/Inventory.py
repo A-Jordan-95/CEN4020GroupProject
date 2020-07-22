@@ -1,5 +1,4 @@
 import arcade
-import Entity
 class Inventory():
 
     def __init__(self):
