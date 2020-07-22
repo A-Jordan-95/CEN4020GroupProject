@@ -1,5 +1,5 @@
 import arcade
-
+import Entity
 class Inventory():
 
     def __init__(self):
@@ -311,8 +311,35 @@ class Inventory():
                 arcade.draw_text("....", view_left + 650, view_bottom + 45, arcade.color.WHITE, 20, anchor_x="left")
 
             # Alexander Stuff
+            #draw item description and stats when a box is highlighted
+            #without explicit str() conversion, an error will be thrown
             if len(player_items[self.pos_tab]) > 0:
-                arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].name, view_left + 1050, view_bottom + 577, arcade.color.WHITE, 20, anchor_x="left")
+                #Print item discription
+                arcade.draw_text(player_items[self.pos_tab][self.pos_item + self.offset].description, view_left + 1065, view_bottom + 460, arcade.color.WHITE, 20, anchor_x="center")
+                #Print defense
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].defense)
+                arcade.draw_text(val, view_left + 1077, view_bottom + 325, arcade.color.WHITE, 20, anchor_x="center")
+                #print attack
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].attack)
+                arcade.draw_text(val, view_left + 1200, view_bottom + 325, arcade.color.WHITE, 20, anchor_x="center")
+                #print intelligence
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].intelligence)
+                arcade.draw_text(val, view_left + 1077, view_bottom + 235, arcade.color.WHITE, 20, anchor_x="center")
+                #print agility
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].agility)
+                arcade.draw_text(val, view_left + 1200, view_bottom + 235, arcade.color.WHITE, 20, anchor_x="center")
+                #print immunity
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].immunity)
+                arcade.draw_text(val, view_left + 1077, view_bottom + 145, arcade.color.WHITE, 20, anchor_x="center")
+                #print luck
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].luck)
+                arcade.draw_text(val, view_left + 1200, view_bottom + 145, arcade.color.WHITE, 20, anchor_x="center")
+                #print value (damage or aid)
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].value)
+                arcade.draw_text(val, view_left + 1077, view_bottom + 55, arcade.color.WHITE, 20, anchor_x="center")
+                #print MP
+                val = str(player_items[self.pos_tab][self.pos_item + self.offset].mp)
+                arcade.draw_text(val, view_left + 1200, view_bottom + 55, arcade.color.WHITE, 20, anchor_x="center")
 
             # LHS Stuff (Need a Player Class to finish)
             # RN passing in player_equipped in case we need it for calculating the below part in the future
