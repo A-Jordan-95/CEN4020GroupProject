@@ -21,7 +21,7 @@ class Overlay():
         self.text_panel = arcade.SpriteSolidColor(1000, 160, arcade.color.WHITE_SMOKE)
         self.dialogue_sprite_list.append(self.text_panel)
         # Profile Image Border
-        self.profile_border_red = arcade.SpriteSolidColor(150, 150, arcade.color.RED)
+        self.profile_border_red = arcade.SpriteSolidColor(150, 150, arcade.color.GOLD)
         self.dialogue_sprite_list.append(self.profile_border_red)
 
         ##############################
@@ -52,16 +52,10 @@ class Overlay():
         # MENU BAR SPRITE LIST
         self.menu_bar_sprite_list = arcade.SpriteList()
         # Menu Bar Background
-        self.menu_bar_background = arcade.SpriteSolidColor(200, 27, arcade.color.BLACK)
+        self.menu_bar_background = arcade.SpriteSolidColor(85, 27, arcade.color.BLACK)
         self.menu_bar_sprite_list.append(self.menu_bar_background)
-        # Options
-        self.menu_bar_option_button = arcade.SpriteSolidColor(64, 23, arcade.color.RAZZLE_DAZZLE_ROSE)
-        self.menu_bar_sprite_list.append(self.menu_bar_option_button)
-        # Map
-        self.menu_bar_map_button = arcade.SpriteSolidColor(64, 23, arcade.color.TEA_GREEN)
-        self.menu_bar_sprite_list.append(self.menu_bar_map_button)
         # Inventory
-        self.menu_bar_inventory_button = arcade.SpriteSolidColor(64, 23, arcade.color.BEAU_BLUE)
+        self.menu_bar_inventory_button = arcade.SpriteSolidColor(82, 23, arcade.color.BEAU_BLUE)
         self.menu_bar_sprite_list.append(self.menu_bar_inventory_button)
 
 ################################################################################################################################
@@ -79,10 +73,16 @@ class Overlay():
                 self.profile.kill()
                 # Speakers in the game
                 if speaker == "Karen":
-                    self.profile = arcade.Sprite("Images/UI/Profile_Karen.jpg", scale=1.47)  # A larger image would looker better (140 x 140 for Profile Images)
+                    self.profile = arcade.Sprite("Images/UI/Profile_Karen.jpg", scale=1.47)
                     self.dialogue_sprite_list.append(self.profile)
+                elif speaker == "Man":
+                    self.profile = arcade.Sprite("Images/EnemySprites/homeless man.png", scale=1.0)
+                    self.dialogue_sprite_list.append(self.profile)
+                elif speaker == "Main Character":
+                    self.profile = arcade.Sprite("Images/UI/Profile_Rachel.png", scale=2.5)  # A larger image would looker better
+                    self.dialogue_sprite_list.append((self.profile))
                 else:
-                    #Currently the player
+                    # Anything not mentioned
                     self.profile = arcade.SpriteSolidColor(100, 100, arcade.color.GOLD)
                     self.dialogue_sprite_list.append((self.profile))
             else:
@@ -97,7 +97,7 @@ class Overlay():
             # Text to Render
             arcade.draw_text(text, view_left + 300, view_bottom + 120, arcade.color.BLACK, 20, anchor_x="left", anchor_y="top")
 
-    def draw_player_info(self, hit_points, energy_points, view_bottom, view_left):
+    def draw_player_info(self, encounter, view_bottom, view_left):
         if self.showUI:
             # Player Info Background
             self.player_info_border_background.set_position(view_left + 125, view_bottom + 675)
@@ -111,27 +111,20 @@ class Overlay():
             self.player_info_sprite_list.draw()
             # Have to render text afterwards
             # HP Info
-            arcade.draw_text(str(hit_points), view_left + 95, view_bottom + 700, arcade.color.RED, 20, anchor_x="left", anchor_y="top")
+            arcade.draw_text(f"HP: {encounter.hero.hp} / {encounter.hero.maxHP}", view_left + 95, view_bottom + 700, arcade.color.RED, 20, anchor_x="left", anchor_y="top")
             # EP Info
-            arcade.draw_text(str(energy_points), view_left + 95, view_bottom + 670, arcade.color.GOLD, 20, anchor_x="left", anchor_y="top")
+            arcade.draw_text(f"MP: {encounter.hero.mp} / {encounter.hero.maxMP}", view_left + 95, view_bottom + 670, arcade.color.GOLD, 20, anchor_x="left", anchor_y="top")
 
     def draw_menu_bar(self, view_bottom, view_left):
         if self.showUI:
             # Menu Bar Background
-            self.menu_bar_background.set_position(view_left + 1179, view_bottom + 707)
-            # Options
-            self.menu_bar_option_button.set_position(view_left + 1245, view_bottom + 707)
-            # Map
-            self.menu_bar_map_button.set_position(view_left + 1179, view_bottom + 707)
+            self.menu_bar_background.set_position(view_left + 1238, view_bottom + 707)
             # Inventory
-            self.menu_bar_inventory_button.set_position(view_left + 1113, view_bottom + 707)
+            self.menu_bar_inventory_button.set_position(view_left + 1238, view_bottom + 707)
             # Draw above items
             self.menu_bar_sprite_list.draw()
             # Have to render text afterwards
-            # Draw the text shown on the above items
-            arcade.draw_text("Options", view_left + 1220, view_bottom + 697, arcade.color.BLACK)
-            arcade.draw_text("Map", view_left + 1165, view_bottom + 697, arcade.color.BLACK)
-            arcade.draw_text("Inventory", view_left + 1084, view_bottom + 697, arcade.color.BLACK)
+            arcade.draw_text("Inventory [I]", view_left + 1200, view_bottom + 697, arcade.color.BLACK)
 
     ################################################################################################################################
     # Unused, for future reference
