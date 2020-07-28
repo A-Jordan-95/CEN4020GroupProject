@@ -61,6 +61,47 @@ class hobo():
         else:
             return "Attack"
 
+class MalMartDemon():
+    def __init__(self):
+        self.hp = 30
+        self.maxHP = 30
+        self.mp = 0
+        self.maxMP = 0
+        self.at = 15
+        self.df = 8
+        self.ag = 6
+        self.lk = 4
+        self.moveList = ['Attack', 'Chortle']
+        self.name = "MalMart Demon"
+        self.img = "Images/EnemySprites/hell_worker.png"
+
+    def getDecision(self,h):
+        if(self.hp == self.maxHP):
+            return "Chortle"
+        else:
+            return "Attack"
+
+class DamnedSoul():
+    def __init__(self):
+        self.hp = 10
+        self.maxHP = 10
+        self.mp = 0
+        self.maxMP = 0
+        self.at = 5
+        self.df = 3
+        self.ag = 6
+        self.lk = 1
+        self.moveList = ['Attack', 'Chortle']
+        self.name = "Damned Soul"
+        self.img = "Images/EnemySprites/skull_enemy.png"
+
+    def getDecision(self,h):
+        if(self.hp == self.maxHP):
+            return "Chortle"
+        else:
+            return "Attack"
+
+
 class CovidMantis():
     def __init__(self):
         self.hp = 12
@@ -101,4 +142,4 @@ class karenDemon():
         else:
             return "Attack"
 
-enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[SmallChild(), BigChild()], "TheSchool":[SmallChild(), BigChild()], "hobo":[hobo()], "covid_mantis":[CovidMantis()], "karen_demon_from_hell":[karenDemon()]}
+enemyMap = {"overworld":[SmallChild(), BigChild()], "DollarStore":[SmallChild(), BigChild()], "MalMart":[DamnedSoul(), MalMartDemon()], "TheSchool":[SmallChild(), BigChild()], "hobo":[hobo()], "covid_mantis":[CovidMantis()], "karen_demon_from_hell":[karenDemon()]}
