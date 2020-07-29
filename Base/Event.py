@@ -87,6 +87,7 @@ class Event:
                     # we only want 1
                     if self.need_to_add_item:
                         # Insert into Weapons Array
+                        player_items[0].append(Entity.NoodleHat())
                         player_items[1].append(Entity.Revolver())
                         player_items[2].append(Entity.Revolver())
                         player_items[2].append(Entity.Revolver())
@@ -100,6 +101,7 @@ class Event:
                         player_items[2].append(Entity.Revolver())
                         player_items[2].append(Entity.Revolver())
                         player_items[2].append(Entity.Fists())
+                        player_items[6].append(Entity.H0CQ())
                         # No longer need to add item to the array
                         self.need_to_add_item = False
                         #Event Chaining - Add new event to Map (testing event 5 for overworld spawn, hidden in grass near front of dollar store)

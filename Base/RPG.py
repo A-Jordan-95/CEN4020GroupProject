@@ -244,9 +244,7 @@ class RPG(arcade.Window):
             self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
 
         #User Hitpoints and Energy (Top left)
-        self.overlay.draw_player_info(f"{self.encounter.hero.hp} / {self.encounter.hero.maxHP} HP",
-                                      f"{self.encounter.hero.mp} / {self.encounter.hero.maxHP} MP",
-                                      self.view_bottom, self.view_left)
+        self.overlay.draw_player_info(self.encounter, self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
@@ -414,8 +412,8 @@ class RPG(arcade.Window):
         elif key == arcade.key.KEY_4:
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
-        # Using the inventory, prevent the player from accessing inventory in battle
-        if key == arcade.key.I and not self.encounter.active_encounter:
+        # Using the inventory, prevent the player from accessing inventory in battle or in a dialogue event
+        if key == arcade.key.I and not self.encounter.active_encounter and not self.active_dialogue_event:
             # If we are already inside our inventory
             if self.active_inventory:
                 self.active_inventory = False

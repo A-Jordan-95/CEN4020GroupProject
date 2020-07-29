@@ -35,7 +35,7 @@ class Encounter():
         f.close()
 
         self.hero_move_list = self.hero.moveList
-        self.hero_move_list.append("test")
+        self.hero_move_list.append("SunGaze")
         self.hero_move_list.append("test") # test will show that the moveList was read correctly
 
     def setup_kombat(self, map_string, view_left, view_bottom):
