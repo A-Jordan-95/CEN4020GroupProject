@@ -13,7 +13,7 @@ class KoronaPillar():
         self.lk = 3
         self.moveList = ['Attack', 'Smile']
         self.name = 'Korona-pillar'
-        self.img = "Images/EnemySprites/KoronaPillar.png"
+        self.img = "Images/EnemySprites/CORANAPILLAR.png"
 
     def getDecision(self,h):
         if(self.hp == self.maxHP):

@@ -52,8 +52,8 @@ class Kombat():
                 status = "\n"+str(f1.hp) + "/" + str(f1.maxHP) + "HP"
                 msg = player_msg + "\n" + enemy_msg + status
                 if(f1.hp<=0):
-                    print("You are dead as shit")
-                    msg = "You are dead as shit"
+                    print(f"{self.enem.name} killed you! You are dead as shit!")
+                    msg = f"{self.enem.name} killed you! You are dead as shit!"
                     exit()
             return msg
 

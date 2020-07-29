@@ -269,10 +269,7 @@ class RPG(arcade.Window):
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
             if not self.show_selection: 
-                #if self.encounter.first_draw_of_encounter:
                 self.overlay_dialogue_string = (f"A rampant {self.encounter.enemy.name} challenges you to a duel!")
-                #else:
-                #    self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
             if self.encounter.end_encounter_on_update:
                 self.encounter.active_encounter = False
                 self.show_selection = False
@@ -378,6 +375,7 @@ class RPG(arcade.Window):
             if key == arcade.key.ENTER:
                 if self.end_encounter_on_enter_press:
                     self.end_encounter_on_enter_press = False
+                    self.return_string = ''
                     self.encounter.active_encounter = False
                     self.show_selection = False
                     self.encounter.first_draw_of_encounter = True
