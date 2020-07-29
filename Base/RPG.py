@@ -374,6 +374,9 @@ class RPG(arcade.Window):
         if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
                 if self.end_encounter_on_enter_press:
+                    # Create an event if we need to
+                    self.event.handle_add_event_after_encounter(self.return_string, self.map)
+                    # Reset encounters
                     self.end_encounter_on_enter_press = False
                     self.return_string = ''
                     self.encounter.active_encounter = False
