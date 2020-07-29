@@ -45,8 +45,8 @@ class Kombat():
             player_msg = self.doDamage(f1.moveList[int(choice)],f1,f2)
 
             if(f2.hp<=0):
-                print("You have defeated the monster! :)")
-                msg = "You have defeated the monster! :)"
+                print(f"You have defeated the {self.enem.name}! :)")
+                msg = f"You have defeated the {self.enem.name}! :)"
             else:
                 enemy_msg  = self.doDamage(f2.getDecision(f1), f2, f1)
                 status = "\n"+str(f1.hp) + "/" + str(f1.maxHP) + "HP"

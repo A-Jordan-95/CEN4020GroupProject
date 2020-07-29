@@ -58,7 +58,7 @@ class Encounter():
         if menu:
             self.menu = self.parse_menu(menu)
         else:
-            self.menu = ['Run', 'Hide', 'Attack', 'Smile', 'Chortle', 'Cough', 'p', 'p'] # p's show this list was read
+            self.menu = ['Run', 'Hide', 'Attack', 'Smile', 'Chortle', 'Cough', 'SunGaze', 'p'] # p's show this list was read
         if pos:
             self.arrow_pos = pos
         else:

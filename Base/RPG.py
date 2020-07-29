@@ -271,7 +271,10 @@ class RPG(arcade.Window):
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
             if not self.show_selection: 
-                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+                #if self.encounter.first_draw_of_encounter:
+                self.overlay_dialogue_string = (f"A rampant {self.encounter.enemy.name} challenges you to a duel!")
+                #else:
+                #    self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
             if self.encounter.end_encounter_on_update:
                 self.encounter.active_encounter = False
                 self.show_selection = False
@@ -385,7 +388,7 @@ class RPG(arcade.Window):
                     self.return_string = self.encounter.handle_selection()
                 if self.return_string == "Run" or self.return_string == "Hide":
                     self.encounter.end_encounter_on_update = True
-                elif self.return_string == "You are dead as shit" or self.return_string == "You have defeated the monster! :)":
+                elif self.return_string == "You are dead as shit" or "You have defeated" in self.return_string:
                     self.end_encounter_on_enter_press = True
                     self.return_string += "\npress [enter] to close encounter."
             else:
