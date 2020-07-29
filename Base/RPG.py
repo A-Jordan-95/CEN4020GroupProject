@@ -237,7 +237,7 @@ class RPG(arcade.Window):
                 self.active_event_id = None
                 # Dont show the dialogue box while walking in the overworld (reset to default values)
                 self.overlay.showDialogueBox = False
-                self.speaker = "Main Character"
+                self.speaker = "Narrator"
                 self.overlay_dialogue_string = ""
         elif self.encounter.active_encounter:
             self.overlay.showDialogueBox = True
