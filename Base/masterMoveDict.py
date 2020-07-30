@@ -40,6 +40,16 @@ def cough(attacker, target):
     msg = attacker.name + " coughs on " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
     return msg, dmg
 
-mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough}
+def sungaze(attacker, target):
+    dmg = 0
+    heal = int((attacker.lk)*(1+random.random())/2)
+    msg = attacker.name + " gazes at the sun lovingly..." + "\n" + attacker.name +" gained "+ str(heal)+ " HP points "
+    attacker.hp = attacker.hp+heal
+    if(attacker.hp>attacker.maxHP):
+        attacker.hp = attacker.maxHP
+    attacker.mp = attacker.mp - 1
+    return msg, dmg
+
+mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough, "SunGaze": sungaze}
 
 

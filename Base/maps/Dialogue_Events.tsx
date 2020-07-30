@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.4" name="Dialogue_Events" tilewidth="128" tileheight="128" tilecount="18" columns="0">
+<tileset version="1.4" tiledversion="1.4.0" name="Dialogue_Events" tilewidth="128" tileheight="128" tilecount="20" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -102,5 +102,17 @@
    <property name="ID" type="int" value="102"/>
   </properties>
   <image width="128" height="128" source="../Inventory/Mp40.png"/>
+  </tile>
+<tile id="18">
+  <properties>
+  <property name="ID" type="int" value="51"/>
+  </properties>
+  <image width="128" height="128" source="ToiletPaper_Tile.png"/>
  </tile>
+ <tile id="19">
+  <properties>
+   <property name="ID" type="int" value="52"/>
+  </properties>
+  <image width="128" height="128" source="HydroC_Tile.png"/>
+  </tile>
 </tileset>

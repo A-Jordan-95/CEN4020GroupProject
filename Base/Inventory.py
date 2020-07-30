@@ -259,7 +259,6 @@ class Inventory():
                 del player_items[self.pos_tab][self.pos_item + self.offset]
             else:
                 #Do nothing as of now (tab 7)
-                print("Don't know yet")
                 pass
         elif key == arcade.key.BACKSPACE and len(player_items[self.pos_tab]) > 0:
             # We are removing a equipped item
@@ -274,11 +273,9 @@ class Inventory():
                 player_equipped[self.pos_tab] = None
             elif self.pos_tab == 6:
                 # Something else with consumable?
-                print("?")
                 pass
             else:
                 # Do nothing as of now (tab 7)
-                print("Don't know yet")
                 pass
         # Redraw everything (probably needs to be optimized)
         self.setup(view_bottom, view_left, player_equipped, self.pos_tab, self.pos_item)

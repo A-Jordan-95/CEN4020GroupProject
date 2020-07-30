@@ -1,7 +1,9 @@
 class Entity():
     def __init__(self):
-        self.name = None
-        self.description = None
+        # Originally had None here for strings, but got some random crashes on first draw.
+        # Haven't had any after this change, not sure why that would be happening
+        self.name = ""
+        self.description = ""
         self.attack = 0
         self.defense = 0
         self.agility = 0
@@ -10,7 +12,7 @@ class Entity():
         self.maxhp = 0
         self.mp = 0
         self.maxmp = 0
-        self.sprite = None
+        self.sprite = ""
 
 #Helmets
 class NoodleHat(Entity):
@@ -23,6 +25,7 @@ class NoodleHat(Entity):
         self.luck = 1
         self.sprite = "Inventory/Noodle_hat.png"
         self.description = "Nothing says stay 6 feet\naway from me than this\npool noodle hat."
+        
 class Mask(Entity):
     def __init__(self):
         super().__init__()
@@ -31,7 +34,6 @@ class Mask(Entity):
         self.hp = 10
         self.sprite = "Inventory/face_mask.png"
         self.description = "I'm doing my part \n what about you?"
-
 
 #Weapons
 class Revolver(Entity):
@@ -60,8 +62,7 @@ class Shotgun(Entity):
         self.defense = 1
         self.sprite = "Inventory/shotgun.png"
         self.description = "2 booms are better than one"
-
-
+        
 class MP40(Entity):
     def __init__(self):
         super().__init__()
@@ -71,9 +72,6 @@ class MP40(Entity):
         self.sprite = "Inventory/Mp40.png"
         self.description = "Like a broom, but not the cleaning type"
 
-
-
-
 #Consumables
 class H0CQ(Entity):
     def __init__(self):
@@ -81,7 +79,7 @@ class H0CQ(Entity):
         self.name = "Hydroxychloriquine"
         self.hp = 5
         self.mp = 5
-        self.description = "If Trump uses it, it must\n make COVID not so great\nagain."
+        self.description = "If Trump uses it, it must\nmake COVID not so great\nagain."
 
 class Drink(Entity):
     def __init__(self):
@@ -90,6 +88,7 @@ class Drink(Entity):
         self.hp = 7
         self.sprite = "Inventory/energy_drink.png"
         self.description = "Also better known by \n 'The Cardiac Arrester 3000'"
+        
 class MedKit(Entity):
     def __init__(self):
         super().__init__()
@@ -98,8 +97,7 @@ class MedKit(Entity):
         self.sprite = "Inventory/ubereats.png"
         self.description = "Enjoying your $37 dollar\n sandwich?"
 
-
-#toilet paper
+#Quest
 class ToiletPaper(Entity):
     def __init__(self):
         super().__init__()
