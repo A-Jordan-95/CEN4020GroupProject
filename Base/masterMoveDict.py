@@ -50,6 +50,19 @@ def sungaze(attacker, target):
     attacker.mp = attacker.mp - 1
     return msg, dmg
 
-mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough, "SunGaze": sungaze}
+# Boss attacks
+# Hobo
+def pee(attacker, target):
+    dmg = int((attacker.at-(target.df/2))/2*(1+random.random()))+1
+    msg = attacker.name + " pees on " + target.name + "\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name
+    return msg, dmg
+
+def hug(attacker, target):
+    dmg = -1*int((attacker.at-(target.df/2))/2*(1+random.random()))
+    msg = attacker.name + " hugs " + target.name + " and tells him how much he loves him man like really a lot so much wow\n" + attacker.name +" did "+ str(dmg)+ " damage to " + target.name + "\n" +target.name + " feels an odd warmth from the love recieved from such a strange man."
+    return msg, dmg
+
+
+mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough, "SunGaze": sungaze, "Pee": pee, "Hug": hug}
 
 
