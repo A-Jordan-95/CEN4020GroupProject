@@ -98,7 +98,10 @@ class Overlay():
             # Speaker Name
             arcade.draw_text(speaker, view_left + 300, view_bottom + 160, arcade.color.RED, 30, anchor_x="left", anchor_y="top")
             # Text to Render
-            arcade.draw_text(text, view_left + 300, view_bottom + 120, arcade.color.BLACK, 20, anchor_x="left", anchor_y="top")
+            if "hugs" in text:
+                arcade.draw_text(text, view_left + 300, view_bottom + 120, arcade.color.BLACK, 17, anchor_x="left", anchor_y="top")
+            else:
+                arcade.draw_text(text, view_left + 300, view_bottom + 120, arcade.color.BLACK, 20, anchor_x="left", anchor_y="top")
 
     def draw_player_info(self, encounter, view_bottom, view_left):
         if self.showUI:
