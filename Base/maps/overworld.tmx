@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" name="my_tiles" tilewidth="384" tileheight="256" tilecount="7" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1">
@@ -31,39 +31,6 @@
   </tile>
  </tileset>
  <tileset firstgid="18" source="Dialogue_Events.tsx"/>
- <tileset firstgid="36" name="my_tiles" tilewidth="128" tileheight="128" tilecount="8" columns="0">
-  <grid orientation="orthogonal" width="1" height="1"/>
-  <tile id="0">
-   <image width="128" height="128" source="wallTile.png"/>
-  </tile>
-  <tile id="1">
-   <image width="128" height="128" source="Door.png"/>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="ID" type="int" value="100"/>
-   </properties>
-   <image width="128" height="128" source="tile3.png"/>
-  </tile>
-  <tile id="3">
-   <image width="128" height="128" source="tile4.png"/>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="ID" value="101"/>
-   </properties>
-   <image width="128" height="128" source="tile5.png"/>
-  </tile>
-  <tile id="5">
-   <image width="128" height="128" source="aisle_top1.png"/>
-  </tile>
-  <tile id="6">
-   <image width="128" height="128" source="aisle_top2.png"/>
-  </tile>
-  <tile id="7">
-   <image width="128" height="128" source="toilet paper.png"/>
-  </tile>
- </tileset>
  <layer id="6" name="Finished_Event" width="45" height="35">
   <data encoding="base64" compression="zlib">
    eJzt0AENAAAIwzCCf9HIIIdWwbIqyNfbAU8lfk9sBgAAAIBrBpRMAAc=
@@ -71,12 +38,12 @@
  </layer>
  <layer id="4" name="Dialogue_Events" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt1ksKwCAMRdGsoR8o0k/a7n+PnXQaFIk+0r4zESTonQiKEOUN6ADDiA74icPYX7pWUAu7sa89IxwoOqCCFsyk1hENRGtOgmve3vUsnLfea1SX41mr41kWz17ypegAIqLASv8hRPQ9NzqgAqp5Bt2bM6EDHDy6sAKv
+   eJztzjkNACAABDA08CT4V4oCwgK5gVZBS4Gzmg5stHTgczMdAAAAAICHRjqw0dOBCxZg3wBn
   </data>
  </layer>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzV1k0OgyAQBWDizhO48P737EYSQubnvQeInWQWrSgfw1R6lFKOP8wa2fVs3GpfMb6zfDXOJ61YvcboWVcwx+mkskY2rsZurSdar+euyY737mNcmZlxo17E7rlKcE1Zx8x6zzYrnmhfVvSGNbeyN57fet4s8wwvmqNm5ve+y4z23BfMbX8p71MlVplR79l8vp+M+iyyM2bl3CrE2Oi/gNrPyru/N4+427D2yVsPa1b6P6sNWmf1jJ1lZnujP5dqqGbvHnRsZrbOUibYfkLGZebIgubbZsaGOPpeU/rjDTNb66zeXzVb946Y1XmzvkDdmdm6zr6n2fFReqas1tH5omS/F6xnhRnt691mtD/Z+1RzVi8m2eeg5sytWFWvZ7Eimlc1s2uPXDvMyDjEfDnjdkfrGq3XrvwBcw0URQ==
+   eJzV1ksOhCAQBFDizhNw/5vOZkgI6U9VAaKd9GZs5IE94lVKuT6YLbLrWd1uXzF+s3wt7n9asXuN0b1qMMftpLJGNmpnt9YTrddzt2TrvXGMKzMzbtSL2D1XCa4p61i536vNiid6Ljt6w5pbeTae37rfKvMKL5qzZub/fsqM9twbzH1/Ke9TJXaZUS9S652nM2bl3CpEbfQtoPaz8u4fzTPuPpi+Yc1K/2d7g5rVM3aVme2N8VxqoZq9MWhtZrbOUibYfkLqMnNkQfNpM2NDHGOvKf3xhJnd62y/32q2xs6Y1XmzvkDdmdm6zr6n2fooPVO219H5ouT4LFjPDjPa16fNaH+y41Rztl9MsvdBzZlbsapez2JFNK9qZtceuU6YkTrEXJ2609G7ZvfrVP4AUFUT/A==
   </data>
  </layer>
  <layer id="1" name="walls" width="45" height="35">

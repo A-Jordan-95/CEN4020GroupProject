@@ -138,8 +138,6 @@ class RPG(arcade.Window):
                 arcade.tilemap.read_tmx("maps/MalMart.tmx"), "Dialogue_Events", TILE_SCALING)
             self.event.dialogue_events_school = arcade.tilemap.process_layer(
                 arcade.tilemap.read_tmx("maps/TheSchool.tmx"), "Dialogue_Events", TILE_SCALING)
-
-
             self.first_load_of_game = False
 
             # Only set-up encounters constructor/set-up on initial game load:
@@ -225,7 +223,7 @@ class RPG(arcade.Window):
             # Don't need to redraw until user has hit "enter" or space so no else-clause
             if self.dialogue_event_first_draw:
                 # Dialogue Script Changes on the Dialogue Box
-                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom, self.encounter.hero)
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Game State
@@ -235,25 +233,18 @@ class RPG(arcade.Window):
                 # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
                 self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter, self.view_bottom, self.view_left)
                 #Remove event from list and reset the active ID
-                if self.active_event_id == "100":
-                    pass
-                elif self.active_event_id == "420":
-                    pass
-                else:
-                    self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
-                    self.active_event_id = None
-                    # Dont show the dialogue box while walking in the overworld (reset to default values)
-                    self.overlay.showDialogueBox = False
-                    self.speaker = "Narrator"
-                    self.overlay_dialogue_string = ""
+                self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                self.active_event_id = None
+                # Dont show the dialogue box while walking in the overworld (reset to default values)
+                self.overlay.showDialogueBox = False
+                self.speaker = "Narrator"
+                self.overlay_dialogue_string = ""
         elif self.encounter.active_encounter:
             self.overlay.showDialogueBox = True
             self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
 
         #User Hitpoints and Energy (Top left)
-        self.overlay.draw_player_info(f"{self.encounter.hero.hp} / {self.encounter.hero.maxHP} HP",
-                                      f"{self.encounter.hero.mp} / {self.encounter.hero.maxHP} MP",
-                                      self.view_bottom, self.view_left)
+        self.overlay.draw_player_info(self.encounter, self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
@@ -310,8 +301,6 @@ class RPG(arcade.Window):
             # If we hit an event, get the ID so we know what event to reference
             self.active_dialogue_event = True
             self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
-
-
 
         if self.map == "overworld":
             self.rand_range = 300
@@ -424,8 +413,8 @@ class RPG(arcade.Window):
         elif key == arcade.key.KEY_4:
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
-        # Using the inventory, prevent the player from accessing inventory in battle
-        if key == arcade.key.I and not self.encounter.active_encounter:
+        # Using the inventory, prevent the player from accessing inventory in battle or in a dialogue event
+        if key == arcade.key.I and not self.encounter.active_encounter and not self.active_dialogue_event:
             # If we are already inside our inventory
             if self.active_inventory:
                 self.active_inventory = False

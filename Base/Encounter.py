@@ -45,7 +45,7 @@ class Encounter():
         #load proper enemy sprite image based on specific enemy for encounter
         self.enemy_sprite = arcade.Sprite(self.enemy.img, 1.0)
         self.setup(view_left, view_bottom)
-
+        
 
     def setup(self, view_bottom, view_left, pos = None, menu = None):
         #setup menu functionality:
@@ -58,7 +58,6 @@ class Encounter():
               [view_left + 680, view_bottom + 580]] #coordinates of menu pos 0-3
         if menu:
             self.menu = self.parse_menu(menu)
-            print(self.menu)
         else:
             self.menu = ['Run', 'Hide', 'Attack', 'Smile', 'Chortle', 'Cough', 'SunGaze', 'p'] # p's show this list was read
         if pos:

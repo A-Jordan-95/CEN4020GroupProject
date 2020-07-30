@@ -1,4 +1,3 @@
-
 import arcade
 class Inventory():
 
