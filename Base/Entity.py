@@ -52,3 +52,12 @@ class H0CQ(Entity):
         self.hp = 5
         self.mp = 5
         self.description = "If Trump uses it, it must\nmake COVID not so great\nagain."
+
+#Quest
+class ToiletPaper(Entity):
+    def __init__(self):
+        super().__init__()
+        self.name = "Toilet Roll"
+        self.hp = 0
+        self.mp = 0
+        self.description = ""

@@ -110,14 +110,9 @@ class RPG(arcade.Window):
         #sprite list:
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
-        #self.player_list.append(self.player_sprite)
-
-
 
         #player setup:
-        #self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
         self.player = Animation.PlayerCharacter()
 
         #setup map:
@@ -177,7 +172,7 @@ class RPG(arcade.Window):
             self.player.center_x = 256
             self.player.center_y = 2960
             self.door_list = arcade.tilemap.process_layer(my_map, "doors", TILE_SCALING)
-            arcade.set_background_color(arcade.csscolor.WHITE_SMOKE)
+            arcade.set_background_color(arcade.csscolor.WHITE)
 
         self.player_list.append(self.player)
 
@@ -237,7 +232,7 @@ class RPG(arcade.Window):
                 self.active_event_id = None
                 # Dont show the dialogue box while walking in the overworld (reset to default values)
                 self.overlay.showDialogueBox = False
-                self.speaker = "Main Character"
+                self.speaker = "Narrator"
                 self.overlay_dialogue_string = ""
         elif self.encounter.active_encounter:
             self.overlay.showDialogueBox = True
@@ -374,6 +369,9 @@ class RPG(arcade.Window):
         if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
                 if self.end_encounter_on_enter_press:
+                    # Create an event if we need to
+                    self.event.handle_add_event_after_encounter(self.return_string, self.map)
+                    # Reset encounters
                     self.end_encounter_on_enter_press = False
                     self.return_string = ''
                     self.encounter.active_encounter = False
@@ -433,24 +431,12 @@ class RPG(arcade.Window):
         #Called when the user releases a key
         #x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
-
             self.player.change_y = 0
-            # Dont want encounters when using the menu
-            #if not self.encounter.active_encounter and not self.active_inventory:
-                #if x == 1:
-                    #self.encounter.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player.change_x = 0
-            # Dont want encounters when using the menu
-            #if not self.encounter.active_encounter and not self.active_inventory:
-                #if x == 1:
-                    #self.encounter.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")
-    # Center Window no longer works?
-    # https://arcade.academy/arcade.html#arcade.Window
-    # game.center_window()
     game.setup()
     arcade.run()
 
