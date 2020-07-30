@@ -43,7 +43,8 @@ class Kombat():
             print(f1.hp, "/", f1.maxHP, "HP")
             choice = selection
             player_msg = self.doDamage(f1.moveList[int(choice)],f1,f2)
-
+            f1.last = f1.moveList[int(choice)]
+            print (f1.last)
             if(f2.hp<=0):
                 print(f"You have defeated the {self.enem.name}! :)")
                 msg = f"You have defeated the {self.enem.name}! :)"

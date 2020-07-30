@@ -33,6 +33,7 @@ class Encounter():
         name = f.readline().strip('\n')
         self.hero = kk.Hero(int(stats[0]),int(stats[1]),int(stats[2]),int(stats[3]),int(stats[4]),int(stats[5]), moveList, name)
         f.close()
+        self.hero.last = "None"
 
         self.hero_move_list = self.hero.moveList
         self.hero_move_list.append("SunGaze")
