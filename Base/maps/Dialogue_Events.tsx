@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.1" name="Dialogue_Events" tilewidth="128" tileheight="128" tilecount="8" columns="0">
+<tileset version="1.4" tiledversion="1.4.0" name="Dialogue_Events" tilewidth="128" tileheight="128" tilecount="10" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <properties>
@@ -45,5 +45,17 @@
    <property name="ID" type="int" value="6"/>
   </properties>
   <image width="128" height="128" source="MantisEvent.png"/>
+ </tile>
+ <tile id="9">
+  <properties>
+   <property name="ID" type="int" value="51"/>
+  </properties>
+  <image width="128" height="128" source="ToiletPaper_Tile.png"/>
+ </tile>
+ <tile id="10">
+  <properties>
+   <property name="ID" type="int" value="52"/>
+  </properties>
+  <image width="128" height="128" source="HydroC_Tile.png"/>
  </tile>
 </tileset>
