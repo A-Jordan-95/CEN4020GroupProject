@@ -63,6 +63,6 @@ def hug(attacker, target):
     return msg, dmg
 
 
-mmd = {"Run": None, "Hide": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough, "SunGaze": sungaze, "Pee": pee, "Hug": hug}
+mmd = {"Run": None, "Smile": smile, "Attack": attack, "Chortle": chortle, "Cough": cough, "SunGaze": sungaze, "Pee": pee, "Hug": hug}
 
 

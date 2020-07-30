@@ -37,7 +37,8 @@ class Encounter():
 
         self.hero_move_list = self.hero.moveList
         self.hero_move_list.append("SunGaze")
-        self.hero_move_list.append("test") # test will show that the moveList was read correctly
+        self.hero_move_list.append("Pee") # test will show that the moveList was read correctly
+        self.hero_move_list.append("Hug")
 
     def setup_kombat(self, map_string, view_left, view_bottom):
         self.kombat = kk.Kombat(map_string)
@@ -59,7 +60,7 @@ class Encounter():
         if menu:
             self.menu = self.parse_menu(menu)
         else:
-            self.menu = ['Run', 'Hide', 'Attack', 'Smile', 'Chortle', 'Cough', 'SunGaze', 'p'] # p's show this list was read
+            self.menu = ['Run', 'Attack', 'Smile', 'Chortle', 'Cough', 'SunGaze', 'Pee', 'Hug'] # p's show this list was read
         if pos:
             self.arrow_pos = pos
         else:
