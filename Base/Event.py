@@ -200,8 +200,31 @@ class Event:
                 if current_dialogue_line == 1:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
-                    overlay.draw_dialogue_box("(I wonder what I can find here)", "Main Character", view_bottom, view_left)
-
+                    overlay.draw_dialogue_box("(nyyyaAAGhrrrAaaa!)", "Covid Mantis", view_bottom, view_left)
+            if event_ID == "2":
+                if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    self.event_num_lines = 1
+                    overlay.draw_dialogue_box("(nNNRrrrghhHAHAHA)", "Covid Mantis", view_bottom, view_left)
+            if event_ID == "6":
+                if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    self.event_num_lines = 1
+                    overlay.draw_dialogue_box("(huuuuNNNGGRRRAGAAHAHAH)", "Covid Mantis", view_bottom, view_left)
+                    if self.need_to_add_item:
+                        self.need_to_add_item = False
+                        self.testSprite = arcade.Sprite("maps/floor.png", scale=1.25)
+                        self.testSprite.set_position(240, 2960)
+                        self.testSprite.properties.__setitem__("ID", "7")
+                        self.dialogue_events_school.append(self.testSprite)
+            if event_ID == "7":
+                if current_dialogue_line == 1:
+                    self.event_num_lines = 3
+                    overlay.draw_dialogue_box("Boy that escalated quickly, things really got out of hand.", "Main Character", view_bottom, view_left)
+                if current_dialogue_line == 2:
+                    overlay.draw_dialogue_box("All this toilet paper is gooey...", "Main Character", view_bottom, view_left)
+                if current_dialogue_line == 3:
+                    overlay.draw_dialogue_box("I guess I have no other choice but to go where only Karens dare,\ninto the maw of Malmart I go...", "Main Character", view_bottom, view_left)
     # Create an encounter after dialogue event is over (pressed [Enter] on last dialogue string)
     def handle_add_encounter_after_event(self, event_id, map_name, encounter, view_bottom, view_left):
         if map_name == "overworld":
@@ -211,3 +234,7 @@ class Event:
                 encounter.setup_kombat("hobo", view_left, view_bottom)
         elif map_name == "DollarStore":
             pass
+        elif map_name == "TheSchool":
+            if event_id == "6":
+                encounter.active_encounter = True
+                encounter.setup_kombat("covid_mantis", view_left, view_bottom)

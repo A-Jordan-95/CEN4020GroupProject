@@ -81,6 +81,9 @@ class Overlay():
                 elif speaker == "Main Character":
                     self.profile = arcade.Sprite("Images/UI/Profile_Rachel.png", scale=2.5)  # A larger image would looker better
                     self.dialogue_sprite_list.append((self.profile))
+                elif speaker == "Covid Mantis":
+                    self.profile = arcade.Sprite("Images/EnemySprites/COVID_MANTIS_battle.png", scale=1.0)  # A larger image would looker better
+                    self.dialogue_sprite_list.append((self.profile))
                 else:
                     # Anything not mentioned
                     self.profile = arcade.SpriteSolidColor(100, 100, arcade.color.GOLD)
