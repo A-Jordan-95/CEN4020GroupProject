@@ -227,6 +227,12 @@ class RPG(arcade.Window):
                 self.current_dialogue_line = 1
                 # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
                 self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter, self.view_bottom, self.view_left)
+                if self.active_event_id == "100":
+                    pass
+                elif self.active_event_id == "420":
+                    pass
+                elif self.active_event_id == "101":
+                    pass
                 #Remove event from list and reset the active ID
                 self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
                 self.active_event_id = None
@@ -263,7 +269,7 @@ class RPG(arcade.Window):
                 self.overlay_dialogue_string = f"{selection_return}"
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
-            if not self.show_selection: 
+            if not self.show_selection:
                 self.overlay_dialogue_string = (f"A rampant {self.encounter.enemy.name} challenges you to a duel!")
             if self.encounter.end_encounter_on_update:
                 self.encounter.active_encounter = False
