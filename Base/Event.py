@@ -162,7 +162,7 @@ class Event:
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(There has to be some toilet paper in here somewhere right?)", "Main Character", view_bottom, view_left)
             # Leaving Dollar Store Event
-            if event_ID == "2":
+            elif event_ID == "2":
                 if current_dialogue_line == 1:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 3
