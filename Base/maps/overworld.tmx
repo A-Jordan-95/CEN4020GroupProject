@@ -71,12 +71,12 @@
  </layer>
  <layer id="4" name="Dialogue_Events" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt1skKgCAUhWGfoQEiGqys93/ENkKriyZ3wDrfRpCb/pso5wDSGusAQmsd8BMrsT+oVoCEhdj3mhEMvHVAAZ8xM0pHCKiteXRP86V89xzXLXOeel9rtTOeNTGeReHsBT7e1fkNAACwFuKa+x8CAN9zWAcU0G4+49q/eCakR9h0indJuQHNnwNi
+   eJzt1zkOgDAMRNGcgUWiQIh9u/8BaSgpbCn2kGReQ+PgXyYh5OdCBzianfZUTnu0anRA4Tp0AFEiBnSAwK2cP0wqbCzCud204tsE2CnRowN+yOvORXojOiBDp3BuNa1IW0lvUiIiIi/St10s2/ttFWdi3I+k/2gi7EJ7AP3lAu4=
   </data>
  </layer>
  <layer id="2" name="Background" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzV1k0OgyAQBWDizhO48P737EYSQubnvQeInWQWrSgfw1R6lFKOP8wa2fVs3GpfMb6zfDXOJ61YvcboWVcwx+mkskY2rsZurSdar+euyY737mNcmZlxo17E7rlKcE1Zx8x6zzYrnmhfVvSGNbeyN57fet4s8wwvmqNm5ve+y4z23BfMbX8p71MlVplR79l8vp+M+iyyM2bl3CrE2Oi/gNrPyru/N4+427D2yVsPa1b6P6sNWmf1jJ1lZnujP5dqqGbvHnRsZrbOUibYfkLGZebIgubbZsaGOPpeU/rjDTNb66zeXzVb946Y1XmzvkDdmdm6zr6n2fFReqas1tH5omS/F6xnhRnt691mtD/Z+1RzVi8m2eeg5sytWFWvZ7Eimlc1s2uPXDvMyDjEfDnjdkfrGq3XrvwBcw0URQ==
+   eJzV1k2uwyAMBGCUXU6QZe9/y26KhIh/ZgYIqSVvXpzw4fiFHqWU4w+zRnY9q1vtK8bfLF+N85dWrN5j9KwrWON0UtkjG1djt/YT7ddz12TrvfsYV2Zm3KgXsXuuElxT9jGz37PNiid6Lytmw1pbeTee33reLPMML5qjZub/fZcZnbk3mNv5Ur6nSqwyo96z3P3RnEV1jFk5twpRG/0WUOdZ+fb35hF3Gx/QzM6z5UXmKesN2mf1jJ1lZmejP5dqqGbvHrQ2M1tnKRPsPCF1mTmyoPm0mbEhjn7WlPl4wsz2Ouv3W83WvSNmdd1sLlB3Zraus99ptj5Kz5T1OjpflOzfBetZYUbnercZnU/2PtWc9YtJ9jmoOXMrVtXrWayI1lXN7N4j1w4zUoeYL6dud7Su0X7tyi96tBQT
   </data>
  </layer>
  <layer id="1" name="walls" width="45" height="35">

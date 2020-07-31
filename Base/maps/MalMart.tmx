@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="12" columns="0">
+ <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="13" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="wallTile.png"/>
@@ -53,8 +53,11 @@
   <tile id="11">
    <image width="128" height="128" source="../Inventory/ronatee.png"/>
   </tile>
+  <tile id="12">
+   <image width="128" height="128" source="DollarStore_Tile.png"/>
+  </tile>
  </tileset>
- <tileset firstgid="13" source="Dialogue_Events.tsx"/>
+ <tileset firstgid="14" source="Dialogue_Events.tsx"/>
  <layer id="5" name="Finished_Event" width="40" height="20">
   <data encoding="base64" compression="zlib">
    eJztzjENAAAIA7Bd+JfMNwskpFXQBADgt7kOALUh4AAH
@@ -62,22 +65,22 @@
  </layer>
  <layer id="4" name="Dialogue_Events" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBj8gHegHYAEOIFYHIhZcchLIGFaAFzmSmDBxABZEtTiArjCYrAAaRqZS6s4Higw3PyDC1ArPQyGdI8vr9Mq3Y8C+gJS09lgz8f0Spf48gY16ujBkP+HMmBFwsQAThq6BRdATyPY2lcDkQ6wuQsGOIBYho5uoQQAALOqA2k=
+   eJxjYBj8gG+gHYAEOIFYCYhZcchLImFaAFzmottLrP1yJKjFBXCFxWABMjQyl1ZxPFBguPkHF6BWehgM6R5fWUOrdD8K6AtITWeDPR/TK13iyxvUqKMHQ/4fyoAVCRMDOGnoFlwAPY1ga98NRDrA5i4YEKenQygEAPQ+A20=
+  </data>
+ </layer>
+ <layer id="3" name="Background" width="40" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7AZwL9dTCyBo1XQ5L+5DgAAABULpqwADg==
   </data>
  </layer>
  <layer id="1" name="walls" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjZIAAxkGMBysYiu7DFa4DIY5LHRsOcREai6Pbi8t9xOonJE6pu4kNPxYy3U2pP0mNX0rCjx2KSfEPrd1HqTi18sdgcd9gCT9qhxMs7VHLfSMt/PCJs5DhPkLmsqCJ08o/1IpfarmPgYE499FCHLl8JtYcbOoGExgq7hvMGADnlwP2
+   eJzllN0KgDAIhR1Ivf8bd9GCkGzqlM5I8Obg3OfZT6MzGnCixop8mq9f6FrdpuhUrMt9NT7r+pE+y231j4Pc3nqrf16fLHx7T8881Xyzetb7QOFD8Y8UPbrfdfey+P7m35vOAb5RXxZ61TxZ55vFJ/tofBX6/X+29nmqQ4pV+JDzAL6xAqI=
   </data>
  </layer>
  <layer id="2" name="doors" width="40" height="20">
   <data encoding="base64" compression="zlib">
    eJztwTERAAAMA6G/+hddFdmAqgsAAGDvASV4AAM=
-  </data>
- </layer>
- <layer id="3" name="Background" width="40" height="20">
-  <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
   </data>
  </layer>
 </map>

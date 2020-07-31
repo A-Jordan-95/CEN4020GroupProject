@@ -51,8 +51,7 @@ class Event:
                 if current_dialogue_line == 1:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
-                    overlay.draw_dialogue_box("The only thing they fear...is you", "Main Character", view_bottom,
-                                              view_left)
+                    overlay.draw_dialogue_box("The only thing they fear...is you", "Main Character", view_bottom, view_left)
                     if self.need_to_add_item:
                         player_items[1].append(Entity.Shotgun())
                         self.need_to_add_item = False
@@ -163,6 +162,17 @@ class Event:
                         player_items[1].append(Entity.Revolver())
                         # No longer need to add item to the array
                         self.need_to_add_item = False
+            elif event_ID == "52":
+                if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    self.event_num_lines = 1
+                    overlay.draw_dialogue_box("(You found some hydroxychloroquine)", "Main Character", view_bottom,
+                                              view_left)
+                    if self.need_to_add_item:
+                        # Insert into Consumables List
+                        player_items[6].append(Entity.H0CQ())
+                        # No longer need to add item to the array
+                        self.need_to_add_item = False
         elif map_name == "DollarStore":
             # Entered Dollar Store Event
             if event_ID == "1":
@@ -233,6 +243,13 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(Many have entered, none have left)", "Main Character", view_bottom, view_left)
+            elif event_ID == "421":
+                if current_dialogue_line == 1:
+                    self.event_num_lines = 1
+                    overlay.draw_dialogue_box("You find a packaged, unopened mask...", "Main Character", view_bottom, view_left)
+                    if self.need_to_add_item:
+                        player_items[0].append(Entity.Mask())
+                        self.need_to_add_item = False
             #When player hits fire, then issue damage
             elif event_ID == "100":
                 if current_dialogue_line == 1:
@@ -252,11 +269,10 @@ class Event:
                     if self.need_to_add_item:
                         player.hp -= 3
                         self.need_to_add_item = False
-            elif event_ID == "1000":
+            elif event_ID == "51":
                 if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
-                    #using the same concept for weapon adding, so that health deducted
-                    #only one time per encounter
                     overlay.draw_dialogue_box("You finally found it, the legendary toilet roll. But others seek to disposses \nyou of your treasure", "Main Character", view_bottom, view_left)
                     if self.need_to_add_item:
                         player_items[7].append(Entity.ToiletPaper())

@@ -233,9 +233,10 @@ class RPG(arcade.Window):
                     pass
                 elif self.active_event_id == "101":
                     pass
-                #Remove event from list and reset the active ID
-                self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
-                self.active_event_id = None
+                else:
+                    #Remove event from list and reset the active ID
+                    self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                    self.active_event_id = None
                 # Dont show the dialogue box while walking in the overworld (reset to default values)
                 self.overlay.showDialogueBox = False
                 self.speaker = "Narrator"
