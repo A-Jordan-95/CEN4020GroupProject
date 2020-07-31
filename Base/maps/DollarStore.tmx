@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="10" columns="0">
+ <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="9" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="wallTile.png"/>
@@ -29,24 +29,21 @@
   <tile id="8">
    <image width="74" height="116" source="robot.png"/>
   </tile>
-  <tile id="9">
-   <image width="128" height="128" source="DollarStore_Tile.png"/>
-  </tile>
  </tileset>
- <tileset firstgid="11" source="Dialogue_Events.tsx"/>
+ <tileset firstgid="10" source="Dialogue_Events.tsx"/>
  <layer id="5" name="Finished_Event" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
+   eJztzjENAAAIA7A5wL9bROwgJK2CJn/MdQAAAKgsvewAEA==
   </data>
  </layer>
  <layer id="4" name="Dialogue_Events" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBj8gHugHTDIgPBAO2AUDCtAbnoaqemQWv4eqeE32MFIj5fh6n9hNJocvaNgFICA0EA7YJgAAEOTANw=
+   eJztzqEBAAAEAEFZsv+0ig0Ewl35+hH/5bROLwAAgK0GQGcAGw==
   </data>
  </layer>
  <layer id="2" name="Background" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztziEBAAAIAzAs9A9MBRwXW4JV5ZvvAITr7wAAwNEC0ZAAFA==
+   eJztzjENAAAIA7C9+DeMhX2EpFXQBPhurgMAAKUFWvgACg==
   </data>
  </layer>
  <layer id="1" name="walls" width="40" height="20">
