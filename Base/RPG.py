@@ -110,14 +110,9 @@ class RPG(arcade.Window):
         #sprite list:
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
-        self.coin_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
-        #self.player_list.append(self.player_sprite)
-
-
 
         #player setup:
-        #self.player_sprite = arcade.Sprite("Images/PlayerSprites/RachelRight.png", CHARACTER_SCALING)
         self.player = Animation.PlayerCharacter()
 
         #setup map:
@@ -138,8 +133,6 @@ class RPG(arcade.Window):
                 arcade.tilemap.read_tmx("maps/MalMart.tmx"), "Dialogue_Events", TILE_SCALING)
             self.event.dialogue_events_school = arcade.tilemap.process_layer(
                 arcade.tilemap.read_tmx("maps/TheSchool.tmx"), "Dialogue_Events", TILE_SCALING)
-
-
             self.first_load_of_game = False
 
             # Only set-up encounters constructor/set-up on initial game load:
@@ -179,7 +172,7 @@ class RPG(arcade.Window):
             self.player.center_x = 256
             self.player.center_y = 2960
             self.door_list = arcade.tilemap.process_layer(my_map, "doors", TILE_SCALING)
-            arcade.set_background_color(arcade.csscolor.WHITE_SMOKE)
+            arcade.set_background_color(arcade.csscolor.WHITE)
 
         self.player_list.append(self.player)
 
@@ -225,7 +218,7 @@ class RPG(arcade.Window):
             # Don't need to redraw until user has hit "enter" or space so no else-clause
             if self.dialogue_event_first_draw:
                 # Dialogue Script Changes on the Dialogue Box
-                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom, self.encounter.hero)
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Game State
@@ -234,28 +227,25 @@ class RPG(arcade.Window):
                 self.current_dialogue_line = 1
                 # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
                 self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter, self.view_bottom, self.view_left)
-                #Remove event from list and reset the active ID
                 if self.active_event_id == "100":
                     pass
                 elif self.active_event_id == "420":
                     pass
                 elif self.active_event_id == "101":
                     pass
-                else:
-                    self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
-                    self.active_event_id = None
-                    # Dont show the dialogue box while walking in the overworld (reset to default values)
-                    self.overlay.showDialogueBox = False
-                    self.speaker = "Main Character"
-                    self.overlay_dialogue_string = ""
+                #Remove event from list and reset the active ID
+                self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                self.active_event_id = None
+                # Dont show the dialogue box while walking in the overworld (reset to default values)
+                self.overlay.showDialogueBox = False
+                self.speaker = "Narrator"
+                self.overlay_dialogue_string = ""
         elif self.encounter.active_encounter:
             self.overlay.showDialogueBox = True
             self.overlay.draw_dialogue_box(self.overlay_dialogue_string, self.speaker, self.view_bottom, self.view_left)
 
         #User Hitpoints and Energy (Top left)
-        self.overlay.draw_player_info(f"{self.encounter.hero.hp} / {self.encounter.hero.maxHP} HP",
-                                      f"{self.encounter.hero.mp} / {self.encounter.hero.maxHP} MP",
-                                      self.view_bottom, self.view_left)
+        self.overlay.draw_player_info(self.encounter, self.view_bottom, self.view_left)
         #User Menu Bar
         self.overlay.draw_menu_bar(self.view_bottom, self.view_left)
         #User Encounter
@@ -280,7 +270,7 @@ class RPG(arcade.Window):
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
             if not self.show_selection:
-                self.overlay_dialogue_string = "Move the selector with the arrow keys and use enter to select."
+                self.overlay_dialogue_string = (f"A rampant {self.encounter.enemy.name} challenges you to a duel!")
             if self.encounter.end_encounter_on_update:
                 self.encounter.active_encounter = False
                 self.show_selection = False
@@ -312,8 +302,6 @@ class RPG(arcade.Window):
             # If we hit an event, get the ID so we know what event to reference
             self.active_dialogue_event = True
             self.active_event_id = self.dialogue_event_hit_list[0].properties.get("ID")
-
-
 
         if self.map == "overworld":
             self.rand_range = 300
@@ -387,7 +375,11 @@ class RPG(arcade.Window):
         if self.encounter.active_encounter:
             if key == arcade.key.ENTER:
                 if self.end_encounter_on_enter_press:
+                    # Create an event if we need to
+                    self.event.handle_add_event_after_encounter(self.return_string, self.map)
+                    # Reset encounters
                     self.end_encounter_on_enter_press = False
+                    self.return_string = ''
                     self.encounter.active_encounter = False
                     self.show_selection = False
                     self.encounter.first_draw_of_encounter = True
@@ -396,7 +388,7 @@ class RPG(arcade.Window):
                     self.return_string = self.encounter.handle_selection()
                 if self.return_string == "Run" or self.return_string == "Hide":
                     self.encounter.end_encounter_on_update = True
-                elif self.return_string == "You are dead as shit" or self.return_string == "You have defeated the monster! :)":
+                elif self.return_string == "You are dead as shit" or "You have defeated" in self.return_string:
                     self.end_encounter_on_enter_press = True
                     self.return_string += "\npress [enter] to close encounter."
             else:
@@ -422,8 +414,8 @@ class RPG(arcade.Window):
         elif key == arcade.key.KEY_4:
             self.overlay.showUI = True
             self.overlay_dialogue_string = "Brought back the UI"
-        # Using the inventory, prevent the player from accessing inventory in battle
-        if key == arcade.key.I and not self.encounter.active_encounter:
+        # Using the inventory, prevent the player from accessing inventory in battle or in a dialogue event
+        if key == arcade.key.I and not self.encounter.active_encounter and not self.active_dialogue_event:
             # If we are already inside our inventory
             if self.active_inventory:
                 self.active_inventory = False
@@ -445,24 +437,12 @@ class RPG(arcade.Window):
         #Called when the user releases a key
         #x = random.randint(self.rand_range)
         if key == arcade.key.UP or key == arcade.key.DOWN:
-
             self.player.change_y = 0
-            # Dont want encounters when using the menu
-            #if not self.encounter.active_encounter and not self.active_inventory:
-                #if x == 1:
-                    #self.encounter.active_encounter  = True
         elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
             self.player.change_x = 0
-            # Dont want encounters when using the menu
-            #if not self.encounter.active_encounter and not self.active_inventory:
-                #if x == 1:
-                    #self.encounter.active_encounter  = True
 
 def main():
     game = RPG(SCREEN_WIDTH, SCREEN_HEIGHT, "Korona Kingdom")
-    # Center Window no longer works?
-    # https://arcade.academy/arcade.html#arcade.Window
-    # game.center_window()
     game.setup()
     arcade.run()
 
