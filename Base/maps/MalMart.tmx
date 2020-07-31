@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
  <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="12" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
@@ -62,7 +62,7 @@
  </layer>
  <layer id="4" name="Dialogue_Events" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBj8gHegHYAEOIFYHIhZcciLIGFaAFzmimDBxABZEtTiArjCYrAAaRqZS6s4Higw3PyDC1ArPQyGdI8vr9Mq3Y8C+gJS09lgz8f0Spf48gY16ujBkP+HMmBFwsQAThq6BRdATyPY2lcDkQ6wuQsGOIBYho5uoQQAAB68AwU=
+   eJxjYBj8gHegHYAEOIFYHIhZcchLIGFaAFzmSmDBxABZEtTiArjCYrAAaRqZS6s4Higw3PyDC1ArPQyGdI8vr9Mq3Y8C+gJS09lgz8f0Spf48gY16ujBkP+HMmBFwsQAThq6BRdATyPY2lcDkQ6wuQsGOIBYho5uoQQAALOqA2k=
   </data>
  </layer>
  <layer id="1" name="walls" width="40" height="20">
