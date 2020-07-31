@@ -218,7 +218,7 @@ class RPG(arcade.Window):
             # Don't need to redraw until user has hit "enter" or space so no else-clause
             if self.dialogue_event_first_draw:
                 # Dialogue Script Changes on the Dialogue Box
-                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom, self.encounter.hero)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Game State
@@ -227,9 +227,16 @@ class RPG(arcade.Window):
                 self.current_dialogue_line = 1
                 # Adding Encounter Event (Have to do this here, or else we get glitches with key presses)
                 self.event.handle_add_encounter_after_event(self.active_event_id, self.map, self.encounter, self.view_bottom, self.view_left)
-                #Remove event from list and reset the active ID
-                self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
-                self.active_event_id = None
+                if self.active_event_id == "100":
+                    pass
+                elif self.active_event_id == "420":
+                    pass
+                elif self.active_event_id == "101":
+                    pass
+                else:
+                    #Remove event from list and reset the active ID
+                    self.dialogue_events_list.remove(self.dialogue_event_hit_list[0])   #Remove event from drawing (else = stuck on it)
+                    self.active_event_id = None
                 # Dont show the dialogue box while walking in the overworld (reset to default values)
                 self.overlay.showDialogueBox = False
                 self.speaker = "Narrator"
@@ -263,7 +270,7 @@ class RPG(arcade.Window):
                 self.overlay_dialogue_string = f"{selection_return}"
                 self.encounter.handle_the_selection = False
                 self.show_selection = True
-            if not self.show_selection: 
+            if not self.show_selection:
                 self.overlay_dialogue_string = (f"A rampant {self.encounter.enemy.name} challenges you to a duel!")
             if self.encounter.end_encounter_on_update:
                 self.encounter.active_encounter = False
