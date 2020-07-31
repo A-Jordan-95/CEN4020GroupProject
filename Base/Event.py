@@ -324,7 +324,7 @@ class Event:
                 if current_dialogue_line == 2:
                     overlay.draw_dialogue_box("All this toilet paper is gooey...", "Main Character", view_bottom, view_left)
                 if current_dialogue_line == 3:
-                    overlay.draw_dialogue_box("I guess I have no other choice but to go where only Karens dare,\ninto the maw of Malmart
+                    overlay.draw_dialogue_box("I guess I have no other choice but to go where only Karens dare,\ninto the maw of Malmart I go...", "Main Character", view_bottom, view_left)
 
     # Create an encounter after dialogue event is over (pressed [Enter] on last dialogue string)
     def handle_add_encounter_after_event(self, event_id, map_name, encounter, view_bottom, view_left):
