@@ -218,7 +218,7 @@ class RPG(arcade.Window):
             # Don't need to redraw until user has hit "enter" or space so no else-clause
             if self.dialogue_event_first_draw:
                 # Dialogue Script Changes on the Dialogue Box
-                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom)
+                self.event.handle_dialogue_event(self.active_event_id, self.overlay, self.current_dialogue_line, self.map, self.player_items, self.view_left, self.view_bottom, self.encounter.hero)
             # Flag to notify when done with dialogue event
             if self.current_dialogue_line > self.event.event_num_lines:
                 #Reset to Normal Game State
