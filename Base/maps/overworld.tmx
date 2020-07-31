@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="45" height="35" tilewidth="128" tileheight="128" infinite="0" nextlayerid="8" nextobjectid="1">
  <tileset firstgid="1" name="my_tiles" tilewidth="384" tileheight="256" tilecount="7" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="1">
@@ -31,7 +31,7 @@
   </tile>
  </tileset>
  <tileset firstgid="18" source="Dialogue_Events.tsx"/>
- <tileset firstgid="39" name="my_tiles" tilewidth="128" tileheight="128" tilecount="8" columns="0">
+ <tileset firstgid="43" name="my_tiles" tilewidth="128" tileheight="128" tilecount="8" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="wallTile.png"/>
@@ -71,7 +71,7 @@
  </layer>
  <layer id="4" name="Dialogue_Events" width="45" height="35">
   <data encoding="base64" compression="zlib">
-   eJzt1skKgCAUhWGfoQEiGqys93/ENkKriyZ3wDrfRpCb/hsh5wDSGusAQmsd8BMrsT+oVoCEhdj3mhEMvHVAAZ8xM0pHCKiteXRP86V89xzXLXOeeq+12hnPmhjPonD2Ai9vHQAAUKEQ19z/EAD4nsM6oIB28xnX/sU3IT3CplO8S8oNU5ADQg==
+   eJzt1skKgCAUhWGfoQEiGqys93/ENkKriyZ3wDrfRpCb/pso5wDSGusAQmsd8BMrsT+oVoCEhdj3mhEMvHVAAZ8xM0pHCKiteXRP86V89xzXLXOeel9rtTOeNTGeReHsBT7e1fkNAACwFuKa+x8CAN9zWAcU0G4+49q/eCakR9h0indJuQHNnwNi
   </data>
  </layer>
  <layer id="2" name="Background" width="45" height="35">

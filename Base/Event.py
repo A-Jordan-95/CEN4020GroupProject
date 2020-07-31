@@ -47,6 +47,15 @@ class Event:
                     # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
                     self.event_num_lines = 1
                     overlay.draw_dialogue_box("(This is Malmart, maybe I should check in here)", "Main Character", view_bottom, view_left)
+            elif event_ID == "200":
+                if current_dialogue_line == 1:
+                    # When creating an event make sure to list the number of lines in the first dialogue check (match lowest line)
+                    self.event_num_lines = 1
+                    overlay.draw_dialogue_box("The only thing they fear...is you", "Main Character", view_bottom,
+                                              view_left)
+                    if self.need_to_add_item:
+                        player_items[1].append(Entity.Shotgun())
+                        self.need_to_add_item = False
             elif event_ID == "420":
                 if current_dialogue_line == 1:
                     self.event_num_lines = 3
