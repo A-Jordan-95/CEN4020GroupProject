@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
- <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="10" columns="0">
+<map version="1.4" tiledversion="1.4.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="6" nextobjectid="1">
+ <tileset firstgid="1" name="my_tiles" tilewidth="128" tileheight="128" tilecount="2" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="0">
    <image width="128" height="128" source="wallTile.png"/>
@@ -8,55 +8,31 @@
   <tile id="1">
    <image width="128" height="128" source="Door.png"/>
   </tile>
-  <tile id="14">
-   <image width="128" height="128" source="lockersBot.png"/>
-  </tile>
-  <tile id="15">
-   <image width="128" height="128" source="lockersRight.png"/>
-  </tile>
-  <tile id="16">
-   <image width="128" height="128" source="lockersTop.png"/>
-  </tile>
-  <tile id="17">
-   <image width="128" height="128" source="desk.png"/>
-  </tile>
-  <tile id="18">
-   <image width="128" height="128" source="floor.png"/>
-  </tile>
-  <tile id="19">
-   <image width="128" height="128" source="brick.png"/>
-  </tile>
-  <tile id="20">
-   <image width="128" height="128" source="DoorBrick.png"/>
-  </tile>
-  <tile id="21">
-   <image width="128" height="128" source="deadMantisEvent.png"/>
-  </tile>
  </tileset>
- <tileset firstgid="23" source="Dialogue_Events.tsx"/>
+ <tileset firstgid="3" source="Dialogue_Events.tsx"/>
  <layer id="5" name="Finished_Event" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzjENACAQwMAGEfiXyoAApg/LnYCmda1mTfep/XsAAAAeDiknABs=
+   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
   </data>
  </layer>
  <layer id="4" name="Dialogue_Events" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzjERAAAIA7G6gA3/LpFRyn0URLqv3IEQ4w4AAOK1OwDgvQXS7gBP
+   eJztzkEJAAAIBLAD+3e2xIE+tgRL/pvrAAAAULEwFAAE
   </data>
  </layer>
  <layer id="1" name="walls" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJwTYYAAkUGMYUAAjU8sIEcPMfrwuU+ISBrZHmL1wGh0fQxY5EfDj/jwwyY/Gn6j4YePRrZnNPxGw48Ufbjch63+o1Y9So5aGBAGYkEsmAGHOKmYFHOwuW+wgVH3UQaGivv4BykeiLY6qRgAX5kYGA==
+   eJxjZIAAxkGMBysYiu7DFa4DIY5LHcMgER9136j7Rt036r5R9426byS5b7CIY1M3mMBQcd9gxgA7VQEo
   </data>
  </layer>
  <layer id="2" name="doors" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAMw6CYmH+rU9EPqLoAAAD2HhK7ABY=
+   eJztwTERAAAMA6G/+hddFdmAqgsAAGDvASV4AAM=
   </data>
  </layer>
  <layer id="3" name="Background" width="40" height="20">
   <data encoding="base64" compression="zlib">
-   eJztkVEKACAIQz1D0f2v2k8fEWibQUQ6kBGaPZbI+6qj1jNanjvIPYsPdWbW4xrfj/kV0Jk3NL6I+bG7Lb7MD3ONL/PDXON7Ob9VzegxYvbMszs+q8eI2XPyn7cq+WLwpfzqojUjzw==
+   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
   </data>
  </layer>
 </map>
